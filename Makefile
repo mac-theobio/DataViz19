@@ -2,6 +2,8 @@
 ## makestuff/project.Makefile
 
 ## https://mac-theobio.github.io/DataViz
+## https://github.com/mac-theobio/DataViz/tree/gh-pages
+## https://github.com/mac-theobio/DataViz/
 
 current: target
 -include target.mk
