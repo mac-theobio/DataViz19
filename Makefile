@@ -6,6 +6,16 @@ current: target
 
 ######################################################################
 
+## Flow
+
+## Use `make pull` to pull from both branches
+
+pullup pull: pull_pages
+pull_pages:
+	cd pages && make pull
+
+######################################################################
+
 # Content
 
 ## Sources += README.md notes.md
@@ -28,6 +38,12 @@ Sources += $(webSources)
 
 ######################################################################
 
+### Resources
+
+pardirs += QMEE qpages
+
+######################################################################
+
 ### Makestuff
 
 Sources += Makefile
@@ -41,3 +57,4 @@ makestuff/Makefile:
 -include makestuff/os.mk
 -include makestuff/git.mk
 -include makestuff/visual.mk
+-include makestuff/projdir.mk
