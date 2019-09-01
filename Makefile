@@ -40,18 +40,9 @@ Ignore += main.css
 main.css: styles/light.css Makefile
 	$(copy)
 
-pages/%.html: %.mkd main.css main.header.html main.footer.html
-	$(mds_r)
-
 ## Content
-webSources += $(wildcard *.mkd *.rmd *.Rmd)
 
-webProducts = $(webSources:%.mkd=%.html)
-
-webProducts.var:
-	@echo $(webProducts)
-
-pages/index.html: index.mkd
+## pages/index.html: index.mkd
 
 ######################################################################
 

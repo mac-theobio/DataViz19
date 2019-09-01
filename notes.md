@@ -9,11 +9,27 @@ Dumping, will clean later
 * https://bbolker.github.io/stat744/outline.html
 * https://mac-theobio.github.io/QMEE/index.html
 
+# Appearance
+
+I've spent way too much time on this, for reasons that are psychologically obscure
+
+## css
+
+There are a bunch of css files under styles, and there's a make rule that's meant to control which one is actually pushed to the pages. We can play with it some time (or you can play without me, but I'm no longer allowed to play without you).
+
+## header and footer
+
+These are also files which seem reasonably easy to look at. Right now (Sun aft.) they are still 744 files because I had some lightweight ones
+
 # Instructions
+
+## Set up
+
+.. #not_tested
 
 ## Start working
 
-```make pullall``` #not_implemented
+```make pullall``` #not_tested
 
 ## Add a page
 
