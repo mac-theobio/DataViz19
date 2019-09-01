@@ -1,4 +1,4 @@
-## This is XXX, a screens project directory
+## This is public, a screens project directory under DataViz
 ## makestuff/project.Makefile
 
 current: target
@@ -12,7 +12,8 @@ current: target
 
 pullup pull: pull_pages
 pull_pages:
-	cd pages && make pull
+	-cd pages && git commit -am "pullsync"
+	-cd pages && git pull
 
 ######################################################################
 
