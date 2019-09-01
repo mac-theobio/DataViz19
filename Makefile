@@ -17,7 +17,7 @@ pull_pages:
 
 ######################################################################
 
-# Content
+# Overview
 
 ## Sources += README.md notes.md
 Sources += $(wildcard *.md)
@@ -31,7 +31,16 @@ vim_session:
 
 ## Trying to develop a pipeline 2019 Sep 01 (Sun)
 
+## Appearance
+Sources += main.css header.html footer.html
+
+pages/%.html: %.mkd main.css header.html footer.html
+	$(mds_r)
+
+## Content
 webSources += $(wildcard *.mkd *.rmd *.Rmd)
+
+pages/index.html: index.mkd
 
 ######################################################################
 
@@ -41,7 +50,12 @@ Sources += $(webSources)
 
 ### Resources
 
-pardirs += QMEE qpages
+## Use pardirs for direct editing if you decide to do that, but not for 
+## sd; we can sd from above to keep things flatter
+
+pardirs += QMEE 744
+
+## Makefile: $(pardirs) may or may not be wanted, also make sure it stays low if you do (after all the pardirs)
 
 ######################################################################
 
@@ -59,3 +73,4 @@ makestuff/Makefile:
 -include makestuff/git.mk
 -include makestuff/visual.mk
 -include makestuff/projdir.mk
+-include makestuff/rmdweb.mk
