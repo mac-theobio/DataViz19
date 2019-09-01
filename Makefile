@@ -1,6 +1,8 @@
 ## This is public, a screens project directory under DataViz
 ## makestuff/project.Makefile
 
+## https://mac-theobio.github.io/DataViz
+
 current: target
 -include target.mk
 
@@ -32,9 +34,11 @@ vim_session:
 ## Trying to develop a pipeline 2019 Sep 01 (Sun)
 
 ## Appearance
-Sources += main.css header.html footer.html
+Sources += main.css main.header.html main.footer.html
 
-pages/%.html: %.mkd main.css header.html footer.html
+## git rm main.css
+
+pages/%.html: %.mkd main.css main.header.html main.footer.html
 	$(mds_r)
 
 ## Content
