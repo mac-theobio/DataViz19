@@ -19,7 +19,7 @@ There are a bunch of css files under styles, and there's a make rule that's mean
 
 ## header and footer
 
-These are also files which seem reasonably easy to look at. Right now (Sun aft.) they are still 744 files because I had some lightweight ones
+These are also files which seem reasonably easy to look at. Right now (Sun aft.) they are still 744 files because I had some lightweight ones.
 
 # Instructions
 
@@ -30,6 +30,8 @@ These are also files which seem reasonably easy to look at. Right now (Sun aft.)
 ## Start working
 
 ```make pullall``` #not_tested
+
+# todo: something, $#@!
 
 ## Add a page
 
