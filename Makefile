@@ -8,7 +8,23 @@ current: target
 
 # Content
 
-Sources += README.md notes.md
+## Sources += README.md notes.md
+Sources += $(wildcard *.md)
+
+Makefile: pages
+
+vim_session:
+	bash -cl "vm README.md notes.md"
+
+######################################################################
+
+## Trying to develop a pipeline 2019 Sep 01 (Sun)
+
+webSources += $(wildcard *.mkd *.rmd *.Rmd)
+
+######################################################################
+
+Sources += $(webSources)
 
 ######################################################################
 

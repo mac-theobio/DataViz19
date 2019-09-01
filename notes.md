@@ -31,4 +31,5 @@ I'm thinking:
 * .mkd for simple markdown (e.g., index.mkd)
 * .rwm for "raw" markdown (converted by rstudio (??)) that we don't like yet (the yaml problem that I always talk about but never document); these are intermediate files that we should try to ignore
 * .rmk for patched, converted markdown; this then becomes a synonym for .mkd
-
+* pages/*.html (automatically when .rmk can be made?)
+* pages/*.ioslides.html (when requested and/or marked by Makefile?)
