@@ -80,8 +80,8 @@ Makefile: makestuff/Makefile
 makestuff/Makefile:
 	ls ../makestuff/Makefile && /bin/ln -s ../makestuff 
 
+-include makestuff/rmdweb.mk
 -include makestuff/os.mk
 -include makestuff/git.mk
 -include makestuff/visual.mk
 -include makestuff/projdir.mk
--include makestuff/rmdweb.mk
