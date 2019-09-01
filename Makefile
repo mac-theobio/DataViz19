@@ -30,7 +30,7 @@ Sources += $(wildcard *.md)
 Makefile: pages
 
 vim_session:
-	bash -cl "vm README.md notes.md"
+	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
 
 ######################################################################
 
