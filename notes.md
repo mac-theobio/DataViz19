@@ -11,29 +11,39 @@ Dumping, will clean later
 
 # Appearance
 
-I've spent way too much time on this, for reasons that are psychologically obscure
+I've spent way too much time on this, for reasons that are psychologically obscure. Feel free to chime in.
 
 ## css
 
 There are a bunch of css files under styles, and there's a make rule that's meant to control which one is actually pushed to the pages. We can play with it some time (or you can play without me, but I'm no longer allowed to play without you).
+* Oops, I did it again. I don't hate the current version, but I'm afraid you will.
 
 ## header and footer
 
-These are also files which seem reasonably easy to look at. Right now (Sun aft.) they are still 744 files because I had some lightweight ones.
+These are also files which seem reasonably easy to look at. 
 
 # Instructions
 
 ## Set up
 
-.. #not_tested
+```
+git clone https://github.com/mac-theobio/DataViz.git
+make makestuff || make pages
+```
 
 ## Start working
 
-```make pullall``` #not_tested
+```
+make pullall
+```
 
-# todo: something, $#@!
+## Add a markdown page
 
-## Add a page
+```
+git add <name>.<ext>
+```
+
+<ext> should be .mkd (straight markdown), .rmd, or .Rmd. This should automatically add
 
 ## Change a page
 
