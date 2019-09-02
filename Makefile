@@ -17,6 +17,7 @@ current: target
 Sources += $(wildcard *.md)
 
 Makefile: makestuff/Makefile pages
+pages: makestuff/Makefile
 
 vim_session:
 	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
@@ -59,7 +60,7 @@ Sources += Makefile
 
 Ignore += makestuff
 msrepo = https://github.com/dushoff
-Makefile: makestuff/Makefile
+## Makefile: makestuff/Makefile ## a repeat 
 makestuff/Makefile:
 	git clone $(msrepo)/makestuff
 	ls $@
