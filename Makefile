@@ -39,7 +39,7 @@ vim_session:
 ## Appearance
 Sources += main.header.html main.footer.html $(wildcard styles/*.css)
 Ignore += main.css
-main.css: styles/experiment.css Makefile
+main.css: styles/light.css Makefile
 	$(copy)
 
 ## Content
