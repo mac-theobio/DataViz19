@@ -43,11 +43,29 @@ make pullall
 git add <name>.<ext>
 ```
 
-<ext> should be .mkd (straight markdown), .rmd, or .Rmd. This should automatically add
+<ext> should be .mkd (straight markdown), .rmd, or .Rmd. This should automatically add an .html to the pages branch when you finish the session
 
 ## Change a page
 
+[Edit, save, commit]
+
+## Force-push something
+
+```
+git add <name>.<ext>
+make  <name>.<ext>.pages
+```
+
+## Testing
+
+`make ship_pages` to push to the LOCAL pages branch
+`make push_pages` to ship_pages and then push to the web
+
+The testing part is terrible and is why we should switch to jekyll. Maybe next year. The local branch doesn't look write and pushing the web is slow and glitchy as we know
+
 ## Finish working
+
+`make push_all` does push_pages and also pushes the master branch
 
 # Architecture notes
 

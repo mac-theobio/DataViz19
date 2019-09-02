@@ -40,6 +40,11 @@ Sources += $(wildcard *.csv)
 
 ## sched.rwm: sched.csv vis.bib sched.rmd
 
+## Force-push a random page
+
+random.html.direct:
+Sources += random.html
+
 ######################################################################
 
 ### Resources
