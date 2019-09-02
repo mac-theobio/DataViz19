@@ -42,7 +42,7 @@ Sources += $(wildcard *.csv)
 
 ## Force-push a random page
 
-random.html.direct:
+## random.html.direct: 
 Sources += random.html
 
 ######################################################################
