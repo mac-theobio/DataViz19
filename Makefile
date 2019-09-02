@@ -46,20 +46,16 @@ main.css: styles/light.css Makefile
 
 ## pages/index.html: index.mkd
 
-######################################################################
+Sources += $(wildcard *.bib)
+Sources += $(wildcard *.csv)
 
-Sources += $(webSources)
+## sched.rwm: sched.csv vis.bib sched.rmd
 
 ######################################################################
 
 ### Resources
 
-## Use pardirs for direct editing if you decide to do that, but not for 
-## sd; we can sd from above to keep things flatter
-
 pardirs += QMEE 744
-
-## Makefile: $(pardirs) may or may not be wanted, also make sure it stays low if you do (after all the pardirs)
 
 ######################################################################
 
