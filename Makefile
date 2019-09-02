@@ -11,23 +11,12 @@ current: target
 
 ######################################################################
 
-## Flow
-
-## Use `make pull` to pull from both branches
-
-pullup pull: pull_pages
-pull_pages:
-	-cd pages && git commit -am "pullsync"
-	-cd pages && git pull
-
-######################################################################
-
 # Overview
 
 ## Sources += README.md notes.md
 Sources += $(wildcard *.md)
 
-Makefile: pages
+Makefile: makestuff/Makefile pages
 
 vim_session:
 	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"

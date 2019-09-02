@@ -28,7 +28,7 @@ These are also files which seem reasonably easy to look at.
 
 ```
 git clone https://github.com/mac-theobio/DataViz.git
-make makestuff || make pages
+make Makefile
 ```
 
 ## Start working
