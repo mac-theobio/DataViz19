@@ -64,12 +64,14 @@ pardirs += QMEE 744
 Sources += Makefile
 
 Ignore += makestuff
+msrepo = https://github.com/dushoff
 Makefile: makestuff/Makefile
-	touch $@
 makestuff/Makefile:
-	ls ../makestuff/Makefile && /bin/ln -s ../makestuff 
+	git clone $(msrepo)/makestuff
+	ls $@
 
 -include makestuff/rmdweb.mk
+
 -include makestuff/os.mk
 -include makestuff/git.mk
 -include makestuff/visual.mk
