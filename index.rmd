@@ -9,12 +9,15 @@ We are looking forward to seeing you on Friday for an organizational meeting!  S
 
 ## Info
 
-Course meetings
+### Course meetings
 
 - Tues 2:30-3:20 PM (HH 312)
 - Friday 9:30-11:30 AM (HH 207)
 
-[Course outline](outline.html)
+### Links
+
+- [course material on GitHub](https://github.com/mac-theobio/DataViz/)
+- [Course outline](outline.html)
 
 ## Faculty
 
@@ -23,12 +26,10 @@ Course meetings
 
 ## Schedule
 
-- everything here is provisional, especially the readings
+- everything here is provisional, especially the readings:
 
 ```{r echo=FALSE,results="asis",message=FALSE,warning=FALSE}
-library("knitr")
 library("pander")
-library("dplyr")
 dd <- read.csv("sched.csv",check.names=FALSE, comment="#")
 ## dd <- dd[,1:4]
 ## topics <- read.csv("topics.csv")
@@ -38,11 +39,12 @@ panderOptions('table.split.table',Inf)
 panderOptions('table.style','multiline')
 panderOptions('table.alignment.default','left')
 pander(dd)
-## kable(dd)
 ```
 
 <!-- regular html comment
-After break, the course will be student-driven (choice of topics, presentations)
+...
 --> 
+
+
 ## References
 
