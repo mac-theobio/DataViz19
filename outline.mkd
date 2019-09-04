@@ -46,8 +46,8 @@ platforms (e.g. ggobi, leaflet, D3.js) will also be discussed.
 - data manipulation basics for data visualization
 - graphical principles
      - Cleveland: perception and hierarchy
-	 - Tufte: minimalism in data presentation
-	 - Wilkinson and Wickham: the grammar of graphics
+     - Tufte: minimalism in data presentation
+     - Wilkinson and Wickham: the grammar of graphics
 - graphics for quality assurance and exploratory data analysis
 - graphics for model diagnostics
 - graphics for inference (coefficient plots etc.)
@@ -59,6 +59,7 @@ platforms (e.g. ggobi, leaflet, D3.js) will also be discussed.
 
 (which of these topics are covered and in what order will depend on student feedback)
 
+- visualization of uncertainty
 - info viz vs. data viz: chartjunk and graphics purists
 - perspective plotting (`rgl`, `plotly`)
 - high-dimensional data (`ggobi`, `ggvis` etc.)
