@@ -34,7 +34,7 @@ make Makefile
 ## Start working
 
 ```
-make pullall
+make pull_all
 ```
 
 ## Add a markdown page

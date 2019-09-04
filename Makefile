@@ -7,7 +7,6 @@
 
 current: target
 -include target.mk
--include makestuff/rmdweb.def
 
 ######################################################################
 
@@ -66,7 +65,6 @@ makestuff/Makefile:
 	ls $@
 
 -include makestuff/rmdweb.mk
-
 -include makestuff/os.mk
 -include makestuff/git.mk
 -include makestuff/visual.mk
