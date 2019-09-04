@@ -1,0 +1,48 @@
+---
+title: Data visualization
+bibliography: vis.bib
+---
+
+## Current
+
+We are looking forward to seeing you on Friday for an organizational meeting!  Sep 6 from 9:30-10 AM in Hamilton Hall 207 (the main floor of Hamilton Hall)
+
+## Info
+
+Course meetings
+
+- Tues 2:30-3:20 PM (HH 312)
+- Friday 9:30-11:30 AM (HH 207)
+
+[Course outline](outline.html)
+
+## Faculty
+
+-   [Jonathan Dushoff](http://www.biology.mcmaster.ca/dushoff/)
+-   [Ben Bolker](http://www.math.mcmaster.ca/~bolker/)
+
+## Schedule
+
+- everything here is provisional, especially the readings
+
+```{r echo=FALSE,results="asis",message=FALSE,warning=FALSE}
+library("knitr")
+library("pander")
+library("dplyr")
+dd <- read.csv("sched.csv",check.names=FALSE, comment="#")
+## dd <- dd[,1:4]
+## topics <- read.csv("topics.csv")
+## dd2 <- arrange(merge(dd,topics,by.x="topic",by.y="title",all.x=TRUE),number)
+panderOptions('table.split.cells', 15)
+panderOptions('table.split.table',Inf)
+panderOptions('table.style','multiline')
+panderOptions('table.alignment.default','left')
+pander(dd)
+## kable(dd)
+```
+
+<!-- regular html comment
+After break, the course will be student-driven (choice of topics, presentations)
+--> 
+## References
+
