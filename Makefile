@@ -34,7 +34,7 @@ main.css: styles/pandoc.css Makefile
 
 ## Content
 
-pages/index.html: index.rmd
+## pages/index.html: index.mkd
 
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
