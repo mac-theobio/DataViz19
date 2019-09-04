@@ -1,12 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>STAT 744: Data visualization (Fall 2019)</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="main.css" type="text/css" />
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header class="site-header">
@@ -19,12 +27,12 @@
 	</div>
 </div>
 </header>
-<div id="header">
+<header id="title-block-header">
 <h1 class="title">STAT 744: Data visualization (Fall 2019)</h1>
-</div>
+</header>
 <h2 id="personnel">Personnel</h2>
 <ul>
-<li>When e-mailing the instructors about the course, <strong>please include &quot;STAT 744&quot; in the subject and your Mac ID in the body of the e-mail</strong>.</li>
+<li>When e-mailing the instructors about the course, <strong>please include “STAT 744” in the subject and your Mac ID in the body of the e-mail</strong>.</li>
 <li><em>Instructors</em>: Ben Bolker (<code>bolker@mcmaster.ca</code>) and Jonathan Dushoff (<code>dushoff@mcmaster.ca</code>).</li>
 </ul>
 <h2 id="class-meetings">Class meetings</h2>
@@ -44,10 +52,10 @@
 <li>There will be some weekly reading assignments and 3-7 homework assignments, as well as a final project (possibly in pairs or groups). Final grades will be based on the following components: class participation (15%, see below); homework (35%); project presentations (20%); project writeup (30%).</li>
 </ul>
 <h3 id="participation-marks">participation marks</h3>
-<p>In an attempt to make participation marks more objective, part of this component will be based on out-of-class participation. At various times during the term, you will be asked to write a few sentences to a paragraph on a particular topic. The purpose of these assignments is to assess your general depth of engagement and understanding. If you don't come to lecture you might not hear about these participatory emails. If you don't complete these assignments you will receive a low participation mark. You can also enhance your participation mark by engaging in class.</p>
-<p>You can gain your first participation mark by sending an e-mail to the instructors with the subject line &quot;stat 744: <your_macid> read the outline&quot;. For example, my subject line would be &quot;stat 744: bolkerb read the outline&quot;.</p>
+<p>In an attempt to make participation marks more objective, part of this component will be based on out-of-class participation. At various times during the term, you will be asked to write a few sentences to a paragraph on a particular topic. The purpose of these assignments is to assess your general depth of engagement and understanding. If you don’t come to lecture you might not hear about these participatory emails. If you don’t complete these assignments you will receive a low participation mark. You can also enhance your participation mark by engaging in class.</p>
+<p>You can gain your first participation mark by sending an e-mail to the instructors with the subject line “stat 744: <your_macid> read the outline”. For example, my subject line would be “stat 744: bolkerb read the outline”.</p>
 <h2 id="course-objective-and-content">Course objective and content</h2>
-<p>The objective of this course is for students to gain both a theoretical and practical grounding in the issues surrounding data visualization in statistics and data science, including both the foundational work of Cleveland, Tufte, and Wilkinson and recent developments and controversies in the area of data visualization. For practical applications the course will focus on the <code>ggplot</code> package for R, but other more specialized platforms (e.g. ggobi, leaflet, D3.js) will also be discussed.</p>
+<p>The objective of this course is for students to gain both a theoretical and practical grounding in the issues surrounding data visualization in statistics and data science, including both the foundational work of Cleveland, Tufte, and Wilkinson and recent developments and controversies in the area of data visualization. For practical applications the course will focus on the <code>ggplot</code> package for R, but other more specialized platforms (e.g. ggobi, leaflet, D3.js) will also be discussed.</p>
 <h3 id="part-1-core-topics">part 1: core topics</h3>
 <ul>
 <li>data manipulation basics for data visualization</li>
@@ -67,8 +75,7 @@
 <h3 id="part-2-specialized-topics">part 2: specialized topics</h3>
 <p>(which of these topics are covered and in what order will depend on student feedback)</p>
 <ul>
-<li>visualization of uncertainty</li>
-<li>info viz vs. data viz: chartjunk and graphics purists</li>
+<li>info viz vs. data viz: chartjunk and graphics purists</li>
 <li>perspective plotting (<code>rgl</code>, <code>plotly</code>)</li>
 <li>high-dimensional data (<code>ggobi</code>, <code>ggvis</code> etc.)</li>
 <li>dynamic graphics (<code>ggvis</code>, <code>plotly</code>, google charts, D3.js (?))</li>
@@ -78,10 +85,10 @@
 </ul>
 <h2 id="legal-stuff">Legal stuff</h2>
 <h3 id="policies">Policies</h3>
-<ol style="list-style-type: decimal">
-<li><p><strong>Policy on missed work or lectures:</strong> You should be aware of the <a href="http://academiccalendars.romcmaster.ca/content.php?catoid=7&amp;navoid=559#Requests_for_Relief_for_Missed_Academic_Term_Work">Policy For Absence from School Due to Illness or Compassionate Reasons</a> It is important to know your rights and your responsibilities. If you must miss a presentation or cannot submit assigned work on time for a valid reason (e.g., medical reasons, etc.) you may be able to obtain an excused absence by taking appropriate documentation (e.g. note from physician) to the Faculty/Program office and then discussing this with your instructor. If the Faculty/Program gives its approval, the final examination will then be given the appropriate extra weighting. Otherwise, a grade of zero will be entered for the missed work.</p>
-<p>If you must miss a lecture or lab, it is your responsibility to find out what was covered. The best way to do this is to borrow a classmate's notes, read them over, and then ask your instructor if there is something that you do not understand.</p></li>
-<li><p>Students' grades will be returned on Avenue.</p></li>
+<ol type="1">
+<li><p><strong>Policy on missed work or lectures:</strong> You should be aware of the <a href="http://academiccalendars.romcmaster.ca/content.php?catoid=7&amp;navoid=559#Requests_for_Relief_for_Missed_Academic_Term_Work">Policy For Absence from School Due to Illness or Compassionate Reasons</a> It is important to know your rights and your responsibilities. If you must miss a presentation or cannot submit assigned work on time for a valid reason (e.g., medical reasons, etc.) you may be able to obtain an excused absence by taking appropriate documentation (e.g. note from physician) to the Faculty/Program office and then discussing this with your instructor. If the Faculty/Program gives its approval, the final examination will then be given the appropriate extra weighting. Otherwise, a grade of zero will be entered for the missed work.</p>
+<p>If you must miss a lecture or lab, it is your responsibility to find out what was covered. The best way to do this is to borrow a classmate’s notes, read them over, and then ask your instructor if there is something that you do not understand.</p></li>
+<li><p>Students’ grades will be returned on Avenue.</p></li>
 </ol>
 <h3 id="accommodations">Accommodations</h3>
 <p>Students who require academic accommodation must contact Student Accessibility Services (SAS) to make arrangements with a Program Coordinator. Academic accommodations must be arranged for each term of study. Student Accessibility Services can be contacted by phone 905-525-9140 ext. 28652 or e-mail <code>sas@mcmaster.ca</code>. For further information, consult McMaster University’s <a href="http://www.mcmaster.ca/policy/Students-AcademicStudies/AcademicAccommodation-StudentsWithDisabilities.pdf">Policy for Academic Accommodation of Students with Disabilities</a></p>
@@ -90,59 +97,59 @@
 <table>
 <thead>
 <tr class="header">
-<th align="left">A+</th>
-<th align="left">A</th>
-<th align="left">A-</th>
-<th align="left">B+</th>
-<th align="left">B</th>
-<th align="left">B-</th>
-<th align="left">C+</th>
-<th align="left">C</th>
-<th align="left">C-</th>
-<th align="left">D+</th>
-<th align="left">D</th>
-<th align="left">D-</th>
-<th align="left">F</th>
+<th style="text-align: left;">A+</th>
+<th style="text-align: left;">A</th>
+<th style="text-align: left;">A-</th>
+<th style="text-align: left;">B+</th>
+<th style="text-align: left;">B</th>
+<th style="text-align: left;">B-</th>
+<th style="text-align: left;">C+</th>
+<th style="text-align: left;">C</th>
+<th style="text-align: left;">C-</th>
+<th style="text-align: left;">D+</th>
+<th style="text-align: left;">D</th>
+<th style="text-align: left;">D-</th>
+<th style="text-align: left;">F</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">12</td>
-<td align="left">11</td>
-<td align="left">10</td>
-<td align="left">9</td>
-<td align="left">8</td>
-<td align="left">7</td>
-<td align="left">6</td>
-<td align="left">5</td>
-<td align="left">4</td>
-<td align="left">3</td>
-<td align="left">2</td>
-<td align="left">1</td>
-<td align="left">0</td>
+<td style="text-align: left;">12</td>
+<td style="text-align: left;">11</td>
+<td style="text-align: left;">10</td>
+<td style="text-align: left;">9</td>
+<td style="text-align: left;">8</td>
+<td style="text-align: left;">7</td>
+<td style="text-align: left;">6</td>
+<td style="text-align: left;">5</td>
+<td style="text-align: left;">4</td>
+<td style="text-align: left;">3</td>
+<td style="text-align: left;">2</td>
+<td style="text-align: left;">1</td>
+<td style="text-align: left;">0</td>
 </tr>
 <tr class="even">
-<td align="left">90-100</td>
-<td align="left">85-89</td>
-<td align="left">80-84</td>
-<td align="left">77-79</td>
-<td align="left">73-76</td>
-<td align="left">70-72</td>
-<td align="left">67-69</td>
-<td align="left">63-66</td>
-<td align="left">60-62</td>
-<td align="left">57-59</td>
-<td align="left">53-56</td>
-<td align="left">50-52</td>
-<td align="left">0-49</td>
+<td style="text-align: left;">90-100</td>
+<td style="text-align: left;">85-89</td>
+<td style="text-align: left;">80-84</td>
+<td style="text-align: left;">77-79</td>
+<td style="text-align: left;">73-76</td>
+<td style="text-align: left;">70-72</td>
+<td style="text-align: left;">67-69</td>
+<td style="text-align: left;">63-66</td>
+<td style="text-align: left;">60-62</td>
+<td style="text-align: left;">57-59</td>
+<td style="text-align: left;">53-56</td>
+<td style="text-align: left;">50-52</td>
+<td style="text-align: left;">0-49</td>
 </tr>
 </tbody>
 </table>
-<p>(from p. 29 of the current Undergraduate calendar)</p>
+<p>(from p. 29 of the current Undergraduate calendar)</p>
 <h3 id="dates-subject-to-change">Dates subject to change</h3>
 <p>The instructor and university reserve the right to modify elements of the course during the term. The university may change the dates and deadlines for any or all courses in extreme circumstances. If either type of modification becomes necessary, reasonable notice and communication with the students will be given with explanation and the opportunity to comment on changes. It is the responsibility of the student to check their McMaster email and course websites weekly during the term and to note any changes.</p>
 <h3 id="missing-tests-or-work">Missing tests or work</h3>
-<p>In most cases, missed work or tests will be addressed by reweighting the remaining work or tests. If you must miss a lecture, it is your responsibility to find out what was covered. The best way to do this is to borrow a classmate's notes, read them over, and then ask your instructor if there is something that you do not understand.</p>
+<p>In most cases, missed work or tests will be addressed by reweighting the remaining work or tests. If you must miss a lecture, it is your responsibility to find out what was covered. The best way to do this is to borrow a classmate’s notes, read them over, and then ask your instructor if there is something that you do not understand.</p>
 <h3 id="late-work">Late work</h3>
 <p>All assignments are due, as commits to a GitHub repository, prior to class, unless otherwise stated. We reserve the right to penalize late work by 10% per day.</p>
 <h3 id="online-component">Online component</h3>
@@ -152,8 +159,8 @@
 <p>You are expected to exhibit honesty and use ethical behavior in all aspects of the learning process. Academic credentials you earn are rooted in principles of honesty and academic integrity. Academic dishonesty can result in serious consequences, including a notation on the transcript, or suspension or expulsion from the university. It is your responsibility to understand what constitutes academic dishonesty; for more information please refer to the Academic Integrity Policy at <a href="http://www.mcmaster.ca/academicintegrity" class="uri">http://www.mcmaster.ca/academicintegrity</a>.</p>
 <p>Some common academic dishonesty issues:</p>
 <ul>
-<li><em>Plagiarism</em>: For example, the submission of work that is not one's own or for which other credit has been obtained.</li>
-<li><em>Improper collaboration</em>: In this course, you are encouraged to discuss the assigned problems with other students in your class. You may <em>discuss</em> the solutions to problem sets, but <strong>you must write up your solutions yourself without copying phrasing from other students’ work. If you work with others, you must clearly indicate on your write-up who you worked with.</strong> When work is not explicitly assigned as a group project you must write the solutions in your own words without referring to any other students' work. The copying or even paraphrasing of anyone's solutions will be considered academic dishonesty. For group projects, you will be asked to report your own assessment of how you contributed to the group's work.</li>
+<li><em>Plagiarism</em>: For example, the submission of work that is not one’s own or for which other credit has been obtained.</li>
+<li><em>Improper collaboration</em>: In this course, you are encouraged to discuss the assigned problems with other students in your class. You may <em>discuss</em> the solutions to problem sets, but <strong>you must write up your solutions yourself without copying phrasing from other students’ work. If you work with others, you must clearly indicate on your write-up who you worked with.</strong> When work is not explicitly assigned as a group project you must write the solutions in your own words without referring to any other students’ work. The copying or even paraphrasing of anyone’s solutions will be considered academic dishonesty. For group projects, you will be asked to report your own assessment of how you contributed to the group’s work.</li>
 </ul>
 <hr />
 <p>This outline will be linked from the course home page. However, it is your responsibility to check the course home page and syllabus regularly for further announcements, course handouts, assigned work and its due dates, information about test dates and locations when this information becomes available, downloadable course related material, etc.. Recorded marks for tests and assignments will be posted on Avenue. You should check these once they become available and bring any discrepancies to the attention of the instructors as soon as possible.</p>
