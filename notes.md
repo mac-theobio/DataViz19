@@ -58,10 +58,10 @@ make  <name>.<ext>.pages
 
 ## Testing
 
-`make ship_pages` to push to the LOCAL pages branch
-`make push_pages` to ship_pages and then push to the web
+* `make ship_pages` to push to the LOCAL pages branch
+* `make push_pages` to ship_pages and then push to the web
 
-The testing part is terrible and is why we should switch to jekyll. Maybe next year. The local branch doesn't look write and pushing the web is slow and glitchy as we know
+The testing part is terrible and is why we should switch to jekyll. Maybe next year. The local branch doesn't look right and pushing the web is slow and glitchy as we know
 
 ## Finish working
 
@@ -69,13 +69,14 @@ The testing part is terrible and is why we should switch to jekyll. Maybe next y
 
 # Architecture notes
 
-.md should _never_ be involved in the web pathway, that's for pages like this one
+.md should _never_ be involved in the web pathway, since it causes ambiguities. This also makes us free to use it for r-side pages like this one.
 
-I'm thinking:
+## Pipeline extensions
 
 * .rmd and .Rmd are synonyms with the obvious meaning
 * .mkd for simple markdown (e.g., index.mkd)
 * .rwm for "raw" markdown (converted by rstudio (??)) that we don't like yet (the yaml problem that I always talk about but never document); these are intermediate files that we should try to ignore
 * .rmk for patched, converted markdown; this then becomes a synonym for .mkd
+
 * pages/*.html (automatically when .rmk can be made?)
-* pages/*.ioslides.html (when requested and/or marked by Makefile?)
+* pages/*.ioslides.html (when requested and/or marked by Makefile?) _not implemented_
