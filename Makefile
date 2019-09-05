@@ -7,7 +7,6 @@
 
 current: target
 -include target.mk
--include makestuff/rmdweb.def
 
 ######################################################################
 
@@ -18,7 +17,6 @@ Sources += $(wildcard *.md)
 Sources += $(wildcard *.rmd)
 
 Makefile: makestuff/Makefile pages
-pages: makestuff/Makefile
 
 vim_session:
 	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
@@ -35,7 +33,7 @@ main.css: styles/pandoc.css Makefile
 
 ## Content
 
-pages/index.html: index.rmd
+## pages/index.html: index.mkd
 
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
@@ -67,7 +65,6 @@ makestuff/Makefile:
 	ls $@
 
 -include makestuff/rmdweb.mk
-
 -include makestuff/os.mk
 -include makestuff/git.mk
 -include makestuff/visual.mk
