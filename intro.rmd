@@ -2,7 +2,7 @@
 title: intro material
 author: Ben Bolker
 date: "`r format(Sys.time(), '%d %b %Y')`"
-bibliography: ../vis.bib
+bibliography: vis.bib
 csl: reflist2.csl
 output:
   ioslides_presentation
@@ -99,7 +99,7 @@ enter commit message > click "Commit" button (*ignore "amend previous commit" bu
     - speed
 	- new hotness
 - disadvantages
-    - (minor) incompatibilities with base R
+    - minor incompatibilities with base R
 	- rapid evolution
 	- non-standard evaluation
 
@@ -125,14 +125,14 @@ equivalent to `subset(x,condition)` or
 - `group_by()`: adds grouping information
 - `summarise()`: collapses variables to a single value
 - e.g.
-```{r, eval=FALSE,echo=TRUE}
+```{r SAC_ex, eval=FALSE,echo=TRUE}
 x <- group_by(x,course)
 summarise(x,mean_score=mean(score),sd_score=sd(score))
 ```
           
 - equivalent to
 
-```{r split_apply_combine,eval=FALSE,echo=TRUE}
+```{r SAC_ex2,eval=FALSE,echo=TRUE}
 d_split <- split(d,d$var)       ## split
 d_proc <- lapply(d_split, ...)  ## apply
 d_res <- do.call(rbind,d_proc)  ## combine
@@ -167,40 +167,44 @@ d_res <- do.call(rbind,d_proc)  ## combine
 - `gather(data,key,value,<include/exclude>)`
     - wide to long
 	- `reshape2::melt()`
+	- `pivot_longer()` in `tidyr` v 1.0 (see [here](https://tidyr.tidyverse.org/dev/articles/pivot.html))
 - `spread(data,key,value)`
     - long to wide
 	- `reshape2::cast()`
-
+	- `pivot_wider()` in `tidyr` v 1.0
+	
 # types of data visualization
 
 ## exploratory
 
+<!-- https://stackoverflow.com/questions/45757950/how-do-i-provide-only-the-year-in-a-citation-in-r-markdown -->
+
 - find patterns in data, explore hypotheses
 - emphasize **robust** approaches
 - minimize (parametric) assumptions
-- [John Tukey](https://en.wikipedia.org/wiki/John_Tukey), [William Cleveland](https://en.wikipedia.org/wiki/William_S._Cleveland)
+- [John Tukey](https://en.wikipedia.org/wiki/John_Tukey), [William Cleveland](https://en.wikipedia.org/wiki/William_S._Cleveland) [-@cleveland_visualizing_1993]
 
 ## diagnostic
 
 - evaluate assumptions of a model
-    - normality
+	- unbiasedness/goodness of fit
 	- homoscedasticity
-	- lack of bias/goodness of fit
+    - normality
 - easily spot deviations
 - identify outliers and influential points
 
 ## inferential
 
-- coefficient plots
-- replacement for tables
-- also: tests of inference @wickham_graphical_2010
+- coefficient plots (e.g. `dotwhisker` package)
+- replacement for tables [@gelman_lets_2002]
+- also: tests of inference [@wickham_graphical_2010]
 - [Andrew Gelman](https://en.wikipedia.org/wiki/Andrew_Gelman)
 
 ## expository: data-viz
 
 - tell an accurate story
 - high information density
-- Cleveland, [Edward Tufte](https://en.wikipedia.org/wiki/Edward_Tufte#Criticism_of_Tufte)
+- Cleveland, [Edward Tufte](https://en.wikipedia.org/wiki/Edward_Tufte)
 
 ## presentation: info-viz
 

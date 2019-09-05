@@ -15,6 +15,7 @@ current: target
 
 ## Sources += README.md notes.md
 Sources += $(wildcard *.md)
+Sources += $(wildcard *.rmd)
 
 Makefile: makestuff/Makefile pages
 pages: makestuff/Makefile

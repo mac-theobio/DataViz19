@@ -1,0 +1,6 @@
+## week 1
+
+- install RStudio etc. if necessary
+- set up GitHub repo, add us as collaborators (email us too?)
+- watch Rausher
+- read chapters (how many?) of Wilke's book: https://serialmentor.com/dataviz/
