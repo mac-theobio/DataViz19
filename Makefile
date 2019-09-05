@@ -16,7 +16,6 @@ current: target
 Sources += $(wildcard *.md)
 
 Makefile: makestuff/Makefile pages
-pages: makestuff/Makefile
 
 vim_session:
 	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
