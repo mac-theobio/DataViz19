@@ -80,15 +80,15 @@ General introduction to data viz principles and tools
 - - -
 
 - repeat:
-	 - **pull** (fetch and integrate changes from GH) [`git pull`]
+	 - **pull** (fetch and integrate changes from GH, `git pull`)
 		  - RStudio: Git panel > click blue down-arrow
      - do stuff (create, edit files, etc.)
-	 - **stage**  [`git add`]
+	 - **stage**  (`git add`)
 		  - RStudio: Git panel > click "Staged" button
-     - **commit** [`git commit`]
+     - **commit** (`git commit`)
 		  - RStudio: Git panel > click "Commit" icon >  
 enter commit message > click "Commit" button (*ignore "amend previous commit" button!*)
-	 - **push** [`git push`]
+	 - **push** (`git push`)
 		  - RStudio: Git panel > click green up-arrow
 
 ## tidyverse 
