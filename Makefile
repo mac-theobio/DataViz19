@@ -24,6 +24,10 @@ vim_session:
 
 ## Flow targets
 
+# pull_all:
+# local_index: for a quick and dirty view
+# push_all:
+
 ######################################################################
 
 ## Trying to develop a pipeline 2019 Sep 01 (Sun)
