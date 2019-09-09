@@ -22,6 +22,14 @@ vim_session:
 
 ######################################################################
 
+## Flow targets
+
+# pull_all:
+# local_index: for a quick and dirty view
+# push_all:
+
+######################################################################
+
 ## Trying to develop a pipeline 2019 Sep 01 (Sun)
 
 ## Appearance
@@ -32,7 +40,7 @@ main.css: styles/pandoc.css Makefile
 
 ## Content
 
-pages/index.html: index.rmd sched.csv
+## pages/index.html: index.rmd
 ## pages/intro.lect.html: intro.lect.rmd
 ## pages/intro.io.html: intro.lect.rmd
 

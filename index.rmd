@@ -16,13 +16,14 @@ We are looking forward to seeing you on Friday for an organizational meeting!  S
 
 ### Links
 
-- [course material on GitHub](https://github.com/mac-theobio/DataViz/)
 - [Course outline](outline.html)
+- [Assignments](assignments.html)
+- [The github back-end for this site](https://github.com/mac-theobio/DataViz/)
 
 ## Faculty
 
--   [Jonathan Dushoff](http://www.biology.mcmaster.ca/dushoff/)
 -   [Ben Bolker](http://www.math.mcmaster.ca/~bolker/)
+-   [Jonathan Dushoff](http://www.biology.mcmaster.ca/dushoff/)
 
 ## Schedule
 
