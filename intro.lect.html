@@ -1,21 +1,13 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <meta name="author" content="Ben Bolker" />
   <title>intro material</title>
-  <style>
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <link rel="stylesheet" href="main.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
 <header class="site-header">
@@ -28,11 +20,11 @@
 	</div>
 </div>
 </header>
-<header id="title-block-header">
+<div id="header">
 <h1 class="title">intro material</h1>
-<p class="author">Ben Bolker</p>
-<p class="date"><code>r format(Sys.time(), '%d %b %Y')</code></p>
-</header>
+<h2 class="author">Ben Bolker</h2>
+<h3 class="date"><code>r format(Sys.time(), '%d %b %Y')</code></h3>
+</div>
 <!-- 
 apa.csl is a slightly hacked version of APA 
   (modified for "et al" after 2 authors in text)
@@ -105,11 +97,11 @@ img {
 <li>Git: distributed version control system</li>
 <li>GitHub: centralized version control server
 <ul>
-<li>alternatives: BitBucket, GitLab, …</li>
+<li>alternatives: BitBucket, GitLab, ...</li>
 </ul></li>
 <li>Git <em>clients</em>: software for working with Git on your computer
 <ul>
-<li>command-line (e.g. <code>git add foo.rmd</code>)</li>
+<li>command-line (e.g. <code>git add foo.rmd</code>)</li>
 <li>RStudio</li>
 <li>others (GitHub desktop etc.)</li>
 </ul></li>
@@ -120,28 +112,28 @@ img {
 <li>copy repository to local machine
 <ul>
 <li><code>git clone</code></li>
-<li>RStudio: <code>File</code> &gt; <code>New Project</code> &gt; <code>Version Control</code> &gt; <code>Git</code> &gt; fill in name from “Clone” button on GH</li>
+<li>RStudio: <code>File</code> &gt; <code>New Project</code> &gt; <code>Version Control</code> &gt; <code>Git</code> &gt; fill in name from &quot;Clone&quot; button on GH</li>
 </ul></li>
 </ul>
 <hr />
 <ul>
 <li>repeat:
 <ul>
-<li><strong>pull</strong> (fetch and integrate changes from GH) [<code>git pull</code>]
+<li><strong>pull</strong> (fetch and integrate changes from GH, <code>git pull</code>)
 <ul>
 <li>RStudio: Git panel &gt; click blue down-arrow</li>
 </ul></li>
 <li>do stuff (create, edit files, etc.)</li>
-<li><strong>stage</strong> [<code>git add</code>]
+<li><strong>stage</strong> (<code>git add</code>)
 <ul>
-<li>RStudio: Git panel &gt; click “Staged” button</li>
+<li>RStudio: Git panel &gt; click &quot;Staged&quot; button</li>
 </ul></li>
-<li><strong>commit</strong> [<code>git commit</code>]
+<li><strong>commit</strong> (<code>git commit</code>)
 <ul>
-<li>RStudio: Git panel &gt; click “Commit” icon &gt;<br />
-enter commit message &gt; click “Commit” button (<em>ignore “amend previous commit” button!</em>)</li>
+<li>RStudio: Git panel &gt; click &quot;Commit&quot; icon &gt;<br />
+enter commit message &gt; click &quot;Commit&quot; button (<em>ignore &quot;amend previous commit&quot; button!</em>)</li>
 </ul></li>
-<li><strong>push</strong> [<code>git push</code>]
+<li><strong>push</strong> (<code>git push</code>)
 <ul>
 <li>RStudio: Git panel &gt; click green up-arrow</li>
 </ul></li>
@@ -218,7 +210,7 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</code></pre>
 <li>labels columns by type</li>
 </ul></li>
 <li>no rownames</li>
-<li>never drops dimensions (<code>tib[,"column1"]</code> is still a tibble)</li>
+<li>never drops dimensions (<code>tib[,&quot;column1&quot;]</code> is still a tibble)</li>
 </ul></li>
 </ul>
 <h2 id="tidyverse-reshaping-tidyr-package">tidyverse: reshaping (<code>tidyr</code> package)</h2>
@@ -244,7 +236,7 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</code></pre>
 <li>emphasize <strong>robust</strong> approaches</li>
 <li>minimize (parametric) assumptions</li>
 <li><a href="https://en.wikipedia.org/wiki/John_Tukey">John Tukey</a>, <a href="https://en.wikipedia.org/wiki/William_S._Cleveland">William Cleveland</a>
-<ol start="1993" type="1">
+<ol start="1993" style="list-style-type: decimal">
 <li></li>
 </ol></li>
 </ul>
@@ -261,9 +253,9 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</code></pre>
 </ul>
 <h2 id="inferential">inferential</h2>
 <ul>
-<li>coefficient plots (e.g. <code>dotwhisker</code> package)</li>
-<li>replacement for tables (Gelman et al. 2002)</li>
-<li>also: tests of inference (Wickham et al. 2010)</li>
+<li>coefficient plots (e.g. <code>dotwhisker</code> package)</li>
+<li>replacement for tables (Gelman et al. 2002)</li>
+<li>also: tests of inference (Wickham et al. 2010)</li>
 <li><a href="https://en.wikipedia.org/wiki/Andrew_Gelman">Andrew Gelman</a></li>
 </ul>
 <h2 id="expository-data-viz">expository: data-viz</h2>
@@ -275,7 +267,7 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</code></pre>
 <h2 id="presentation-info-viz">presentation: info-viz</h2>
 <ul>
 <li>grab attention/engage/sell/entertain</li>
-<li>“puzzle” graphics</li>
+<li>&quot;puzzle&quot; graphics</li>
 </ul>
 <h2 id="dashboards">dashboards</h2>
 <ul>
@@ -293,8 +285,8 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</code></pre>
 <!-- http://stackoverflow.com/questions/30990262/applying-css-to-make-code-smaller-in-ioslides-style -->
 <h2 id="references">References</h2>
 <p>Cleveland, W. 1993. <em>Visualizing Data</em>. Summit, NJ: Hobart Press.</p>
-<p>Gelman, A et al. 2002.. <em>The American Statistician</em> 56 (2): 121–130. <a href="http://www.tandfonline.com/doi/abs/10.1198/000313002317572790" class="uri">http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
-<p>Wickham, H et al. 2010.. <em>IEEE Transactions on Visualization and Computer Graphics</em> 16 (6) (November): 973–979. doi:<a href="https://doi.org/10.1109/TVCG.2010.161">10.1109/TVCG.2010.161</a>.</p>
+<p>Gelman, A et al. 2002. <em>The American Statistician</em> 56 (2): 121–130. <a href="http://www.tandfonline.com/doi/abs/10.1198/000313002317572790" class="uri">http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
+<p>Wickham, H et al. 2010. <em>IEEE Transactions on Visualization and Computer Graphics</em> 16 (6) (November): 973–979. doi:<a href="https://doi.org/10.1109/TVCG.2010.161">10.1109/TVCG.2010.161</a>.</p>
 <div id="footer">
 	<div style="text-align:center">
 		<a href="index.html">Course home page</a>
