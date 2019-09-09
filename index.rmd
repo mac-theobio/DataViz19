@@ -40,7 +40,7 @@ library("dplyr")
 library("readr")
 mk_url <- function(x) {
   ifelse(nchar(trimws(x))==0,x,
-         sprintf("[%s](https://mac-theobio.github.io/notes/%s.html)",
+         sprintf("[%s](https://mac-theobio.github.io/DataViz/%s.html)",
                  x,x))
 }
 dd <- (read_csv("sched.csv", comment="#")
