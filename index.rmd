@@ -29,8 +29,24 @@ We are looking forward to seeing you on Friday for an organizational meeting!  S
 - everything here is provisional, especially the readings:
 
 ```{r echo=FALSE,results="asis",message=FALSE,warning=FALSE}
+## what do we want to include here?
+## do we need to hack format?
+##   widths
+##   alternating gray background?
+## is there something better than pander (e.g. huxtable)?
+## how do we associate notes with 
 library("pander")
-dd <- read.csv("sched.csv",check.names=FALSE, comment="#")
+library("dplyr")
+library("readr")
+mk_url <- function(x) {
+  ifelse(nchar(trimws(x))==0,x,
+         sprintf("[%s](https://mac-theobio.github.io/notes/%s)",
+                 x,x))
+}
+dd <- (read_csv("sched.csv", comment="#")
+  %>% mutate_if(is.character,tidyr::replace_na,"")
+  %>% mutate(`lecture notes`=mk_url(`lecture notes`))
+)
 ## dd <- dd[,1:4]
 ## topics <- read.csv("topics.csv")
 ## dd2 <- arrange(merge(dd,topics,by.x="topic",by.y="title",all.x=TRUE),number)

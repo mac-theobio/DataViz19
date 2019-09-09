@@ -5,12 +5,12 @@ By class on Tuesday:
 
 - make sure you can run RStudio (and R)
 - set up a GitHub account if necessary
-	* make a repo called Stat744, and add `dushoff` and `bbolker` as collaborators
+	* make an (empty except for a `README` file) repository called Stat744, and add `dushoff` and `bbolker` as collaborators
 - watch the Rausher video (see main page)
 
 By Friday at 16:30:
 
-- read Sections 1-3 of book: https://serialmentor.com/dataviz/
+- read Sections 1-3 of Wilke's book: https://serialmentor.com/dataviz/
 - email us to let us know you have finished, and to tell us your github username
 
 ## General
