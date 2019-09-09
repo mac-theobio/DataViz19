@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Ben Bolker" />
+  <title>intro material</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">intro material</h1>
+<h2 class="author">Ben Bolker</h2>
+<h3 class="date"><code>r format(Sys.time(), '%d %b %Y')</code></h3>
+</div>
+<!-- 
+apa.csl is a slightly hacked version of APA 
+  (modified for "et al" after 2 authors in text)
+-->
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+<!-- 
+apa.csl is a slightly hacked version of APA 
+  (modified for "et al" after 2 authors in text)
+-->
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+<h1 id="course-structure">Course structure</h1>
+<h2 id="course-goals">Course goals</h2>
+<p>General introduction to data viz principles and tools</p>
+<h2 id="course-structure-1">Course structure</h2>
+<ul>
+<li>lectures</li>
+<li>in-class work</li>
+<li>homework</li>
+<li>student projects &amp; presentations</li>
+</ul>
+<h1 id="tools">Tools</h1>
+<h2 id="version-control">Version control</h2>
+<ul>
+<li>Git: distributed version control system</li>
+<li>GitHub: centralized version control server
+<ul>
+<li>alternatives: BitBucket, GitLab, ...</li>
+</ul></li>
+<li>Git <em>clients</em>: software for working with Git on your computer
+<ul>
+<li>command-line (e.g. <code>git add foo.rmd</code>)</li>
+<li>RStudio</li>
+<li>others (GitHub desktop etc.)</li>
+</ul></li>
+</ul>
+<h2 id="basic-git-workflow-with-rstudio">Basic Git workflow with RStudio</h2>
+<ul>
+<li>create <strong>repository</strong> on Github</li>
+<li>copy repository to local machine
+<ul>
+<li><code>git clone</code></li>
+<li>RStudio: <code>File</code> &gt; <code>New Project</code> &gt; <code>Version Control</code> &gt; <code>Git</code> &gt; fill in name from &quot;Clone&quot; button on GH</li>
+</ul></li>
+</ul>
+<hr />
+<ul>
+<li>repeat:
+<ul>
+<li><strong>pull</strong> (fetch and integrate changes from GH) [<code>git pull</code>]
+<ul>
+<li>RStudio: Git panel &gt; click blue down-arrow</li>
+</ul></li>
+<li>do stuff (create, edit files, etc.)</li>
+<li><strong>stage</strong> [<code>git add</code>]
+<ul>
+<li>RStudio: Git panel &gt; click &quot;Staged&quot; button</li>
+</ul></li>
+<li><strong>commit</strong> [<code>git commit</code>]
+<ul>
+<li>RStudio: Git panel &gt; click &quot;Commit&quot; icon &gt;<br />
+enter commit message &gt; click &quot;Commit&quot; button (<em>ignore &quot;amend previous commit&quot; button!</em>)</li>
+</ul></li>
+<li><strong>push</strong> [<code>git push</code>]
+<ul>
+<li>RStudio: Git panel &gt; click green up-arrow</li>
+</ul></li>
+</ul></li>
+</ul>
+<h2 id="tidyverse">tidyverse</h2>
+<ul>
+<li>set of R packages: <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a></li>
+<li>advantages
+<ul>
+<li>expressiveness</li>
+<li>speed</li>
+<li>new hotness</li>
+</ul></li>
+<li>disadvantages
+<ul>
+<li>minor incompatibilities with base R</li>
+<li>rapid evolution</li>
+<li>non-standard evaluation</li>
+</ul></li>
+</ul>
+<h2 id="tidyverse-big-ideas">tidyverse: big ideas</h2>
+<ul>
+<li>new verbs</li>
+<li>piping</li>
+<li>tibbles</li>
+</ul>
+<h2 id="tidyverse-new-verbs">tidyverse: new verbs</h2>
+<ul>
+<li><code>filter(x,condition)</code>: choose rows equivalent to <code>subset(x,condition)</code> or <code>x[condition,]</code> (with non-standard evaluation)</li>
+<li><code>select(x,condition)</code>: choose columns
+<ul>
+<li>equivalent to <code>subset(x,select=condition)</code> or <code>x[,condition]</code></li>
+<li>helper functions such as <code>starts_with()</code>, <code>matches()</code></li>
+</ul></li>
+<li><code>mutate(x,var=...)</code>: change or add variables (equivalent to <code>x$var = ...</code> or <code>transform(x,var=...)</code></li>
+</ul>
+<h2 id="tidyverse-split-apply-combine">tidyverse: split-apply-combine</h2>
+<ul>
+<li><code>group_by()</code>: adds grouping information</li>
+<li><code>summarise()</code>: collapses variables to a single value</li>
+<li>e.g.</li>
+</ul>
+<!-- -->
+<pre><code>x &lt;- group_by(x,course)
+summarise(x,mean_score=mean(score),sd_score=sd(score))</code></pre>
+<ul>
+<li>equivalent to</li>
+</ul>
+<!-- -->
+<pre><code>d_split &lt;- split(d,d$var)       ## split
+d_proc &lt;- lapply(d_split, ...)  ## apply
+d_res &lt;- do.call(rbind,d_proc)  ## combine</code></pre>
+<h2 id="tidyverse-piping">tidyverse: piping</h2>
+<ul>
+<li>new <code>%&gt;%</code> operator (orig. from <code>magrittr</code> package)</li>
+<li>directs result of previous operation to next function, as first argument</li>
+<li>e.g.</li>
+</ul>
+<!-- -->
+<pre><code>(d_input
+    %&gt;% select(row1,row2)
+    %&gt;% filter(cond1,cond2)
+    %&gt;% mutate(...)
+) -&gt; d_output</code></pre>
+<h2 id="tidyverse-tibbles">tidyverse: tibbles</h2>
+<ul>
+<li>extension of data frames</li>
+<li>differences
+<ul>
+<li>printing
+<ul>
+<li>only prints first few rows/columns</li>
+<li>labels columns by type</li>
+</ul></li>
+<li>no rownames</li>
+<li>never drops dimensions (<code>tib[,&quot;column1&quot;]</code> is still a tibble)</li>
+</ul></li>
+</ul>
+<h2 id="tidyverse-reshaping-tidyr-package">tidyverse: reshaping (<code>tidyr</code> package)</h2>
+<ul>
+<li><code>gather(data,key,value,&lt;include/exclude&gt;)</code>
+<ul>
+<li>wide to long</li>
+<li><code>reshape2::melt()</code></li>
+<li><code>pivot_longer()</code> in <code>tidyr</code> v 1.0 (see <a href="https://tidyr.tidyverse.org/dev/articles/pivot.html">here</a>)</li>
+</ul></li>
+<li><code>spread(data,key,value)</code>
+<ul>
+<li>long to wide</li>
+<li><code>reshape2::cast()</code></li>
+<li><code>pivot_wider()</code> in <code>tidyr</code> v 1.0</li>
+</ul></li>
+</ul>
+<h1 id="types-of-data-visualization">types of data visualization</h1>
+<h2 id="exploratory">exploratory</h2>
+<!-- https://stackoverflow.com/questions/45757950/how-do-i-provide-only-the-year-in-a-citation-in-r-markdown -->
+<ul>
+<li>find patterns in data, explore hypotheses</li>
+<li>emphasize <strong>robust</strong> approaches</li>
+<li>minimize (parametric) assumptions</li>
+<li><a href="https://en.wikipedia.org/wiki/John_Tukey">John Tukey</a>, <a href="https://en.wikipedia.org/wiki/William_S._Cleveland">William Cleveland</a>
+<ol start="1993" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ul>
+<h2 id="diagnostic">diagnostic</h2>
+<ul>
+<li>evaluate assumptions of a model
+<ul>
+<li>unbiasedness/goodness of fit</li>
+<li>homoscedasticity</li>
+<li>normality</li>
+</ul></li>
+<li>easily spot deviations</li>
+<li>identify outliers and influential points</li>
+</ul>
+<h2 id="inferential">inferential</h2>
+<ul>
+<li>coefficient plots (e.g. <code>dotwhisker</code> package)</li>
+<li>replacement for tables (Gelman et al. 2002)</li>
+<li>also: tests of inference (Wickham et al. 2010)</li>
+<li><a href="https://en.wikipedia.org/wiki/Andrew_Gelman">Andrew Gelman</a></li>
+</ul>
+<h2 id="expository-data-viz">expository: data-viz</h2>
+<ul>
+<li>tell an accurate story</li>
+<li>high information density</li>
+<li>Cleveland, <a href="https://en.wikipedia.org/wiki/Edward_Tufte">Edward Tufte</a></li>
+</ul>
+<h2 id="presentation-info-viz">presentation: info-viz</h2>
+<ul>
+<li>grab attention/engage/sell/entertain</li>
+<li>&quot;puzzle&quot; graphics</li>
+</ul>
+<h2 id="dashboards">dashboards</h2>
+<ul>
+<li>present a quick overview of a data set</li>
+<li>user control</li>
+<li>business-oriented</li>
+</ul>
+<h2 id="dynamic">dynamic</h2>
+<ul>
+<li>time dimension</li>
+<li>engage</li>
+<li>allow viewer to drill down</li>
+<li><a href="https://en.wikipedia.org/wiki/Dianne_Cook_(statistician)">Dianne Cook</a></li>
+</ul>
+<!-- http://stackoverflow.com/questions/30990262/applying-css-to-make-code-smaller-in-ioslides-style -->
+<h2 id="references">References</h2>
+<p>Cleveland, W. 1993. <em>Visualizing Data</em>. Summit, NJ: Hobart Press.</p>
+<p>Gelman, A et al. 2002. <em>The American Statistician</em> 56 (2): 121–130. <a href="http://www.tandfonline.com/doi/abs/10.1198/000313002317572790" class="uri">http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
+<p>Wickham, H et al. 2010. <em>IEEE Transactions on Visualization and Computer Graphics</em> 16 (6) (November): 973–979. doi:<a href="https://doi.org/10.1109/TVCG.2010.161">10.1109/TVCG.2010.161</a>.</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
