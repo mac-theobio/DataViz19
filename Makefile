@@ -32,7 +32,7 @@ main.css: styles/pandoc.css Makefile
 
 ## Content
 
-## pages/index.html: index.rmd
+pages/index.html: index.rmd sched.csv
 ## pages/intro.lect.html: intro.lect.rmd
 ## pages/intro.io.html: intro.lect.rmd
 
