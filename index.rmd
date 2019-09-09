@@ -44,12 +44,12 @@ mk_url <- function(x) {
                  x,x))
 }
 dd <- (read_csv("sched.csv", comment="#")
-  %>% mutate_if(is.character,tidyr::replace_na,"")
   %>% mutate(`lecture notes`=mk_url(`lecture notes`))
 )
 ## dd <- dd[,1:4]
 ## topics <- read.csv("topics.csv")
 ## dd2 <- arrange(merge(dd,topics,by.x="topic",by.y="title",all.x=TRUE),number)
+panderOptions('missing', '')
 panderOptions('table.split.cells', 15)
 panderOptions('table.split.table',Inf)
 panderOptions('table.style','multiline')
