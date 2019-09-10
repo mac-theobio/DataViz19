@@ -53,7 +53,7 @@ git add <name>.<ext>
 
 ```
 git add <name>.<ext>
-make  <name>.<ext>.pages
+make  <name>.<ext>.pagepush
 ```
 
 ## Testing

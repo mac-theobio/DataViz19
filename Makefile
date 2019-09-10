@@ -49,12 +49,13 @@ main.css: styles/pandoc.css Makefile
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
-## sched.rwm: sched.csv vis.bib sched.rmd
+## Manual dependencies 
+intro.rwm: sched.csv vis.bib sched.rmd
 
-## Force-push a random page
+## Push a page from outside the paradigm
+## actually, pagepush might be better for this?
 
-## random.html.direct: 
-Sources += random.html
+random.html.pagepush:
 
 ######################################################################
 
