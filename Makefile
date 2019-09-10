@@ -8,7 +8,6 @@ current: target
 -include target.mk
 
 -include makestuff/perl.def
--include makestuff/newtalk.def
 
 ######################################################################
 
@@ -62,9 +61,25 @@ Sources += random.html
 ## JD dumb mark-up content
 ## Should this be deprecated? Moved?
 
+-include makestuff/newtalk.def
+
 Sources += $(wildcard *.lect.txt)
 
 scales.lect.draft.pdf: scales.lect.txt
+scales.lect.handouts.pdf: scales.lect.txt
+scales.lect.handouts.pdf.pagepush: scales.lect.txt
+
+Sources += copy.tex
+
+Ignore += local.txt.format
+-include makestuff/newtalk.mk
+-include makestuff/texdeps.mk
+
+######################################################################
+
+## R stuff (see above)
+
+Sources += $(wildcard *.R)
 
 Ignore += temps.csv
 temps.csv:
@@ -78,16 +93,6 @@ circulation.Rout: circulation.csv circulation.R
 
 Sources += ClevelandHierarchyR.png steel_production.png
 
-Ignore += local.txt.format
-
--include makestuff/newtalk.mk
--include makestuff/texdeps.mk
-
-######################################################################
-
-## R stuff (see above)
-
-Sources += $(wildcard *.R)
 
 -include makestuff/wrapR.mk
 

@@ -14,7 +14,7 @@ print(stretch <- base + ylim(c(0, 20)))
 print(plain <- (stretch + theme(panel.grid = element_blank())))
 
 print(secret <- plain + xlab("Time") + ylab("")
-	+ theme(axis.text.x = element_blank())
+	+ theme(axis.text.y = element_blank())
 )
 
 print(ggplot(gis, aes(Year, Mean))
