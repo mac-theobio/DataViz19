@@ -3,6 +3,15 @@ title: Data visualization
 bibliography: vis.bib
 ---
 
+<!-- from https://www.w3schools.com/css/css_table.asp -->
+<style>
+th, td {
+   vertical-align: top;
+   padding: 15px;
+}
+tr:nth-child(even) {background-color: #f2f2f2;} 
+</style>
+
 ## Current
 
 We are looking forward to seeing you on Friday for an organizational meeting!  Sep 6 from 9:30-10 AM in Hamilton Hall 207 (the main floor of Hamilton Hall)
@@ -29,7 +38,7 @@ We are looking forward to seeing you on Friday for an organizational meeting!  S
 
 - everything here is provisional, especially the readings:
 
-```{r echo=FALSE,results="asis",message=FALSE,warning=FALSE}
+```{r echo=FALSE,message=FALSE,warning=FALSE, results="asis"}
 ## what do we want to include here?
 ## do we need to hack format?
 ##   widths
@@ -37,6 +46,7 @@ We are looking forward to seeing you on Friday for an organizational meeting!  S
 ## is there something better than pander (e.g. huxtable)?
 ## how do we associate notes with 
 library("pander")
+## library("huxtable")
 library("dplyr")
 library("readr")
 mk_url <- function(x) {
@@ -56,6 +66,7 @@ panderOptions('table.split.table',Inf)
 panderOptions('table.style','multiline')
 panderOptions('table.alignment.default','left')
 pander(dd)
+##print_latex(theme_plain(huxtable(dd)))
 ```
 
 <!-- regular html comment
