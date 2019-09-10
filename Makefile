@@ -7,6 +7,9 @@
 current: target
 -include target.mk
 
+-include makestuff/perl.def
+-include makestuff/newtalk.def
+
 ######################################################################
 
 # Overview
@@ -56,7 +59,42 @@ Sources += random.html
 
 ######################################################################
 
-### Resources
+## JD dumb mark-up content
+## Should this be deprecated? Moved?
+
+Sources += $(wildcard *.lect.txt)
+
+scales.lect.draft.pdf: scales.lect.txt
+
+Ignore += temps.csv
+temps.csv:
+	wget -O $@ https://datahub.io/core/global-temp/r/annual.csv
+
+temps.Rout: temps.csv temps.R
+temppix.Rout: temps.Rout temppix.R
+
+Sources += circulation.csv
+circulation.Rout: circulation.csv circulation.R
+
+Sources += ClevelandHierarchyR.png steel_production.png
+
+Ignore += local.txt.format
+
+-include makestuff/newtalk.mk
+-include makestuff/texdeps.mk
+
+######################################################################
+
+## R stuff (see above)
+
+Sources += $(wildcard *.R)
+
+-include makestuff/wrapR.mk
+
+
+######################################################################
+
+### Resource directories
 
 pardirs += QMEE 744
 
