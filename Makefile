@@ -68,6 +68,7 @@ Sources += $(wildcard *.lect.txt)
 
 scales.lect.draft.pdf: scales.lect.txt
 scales.lect.handouts.pdf: scales.lect.txt
+scales.lect.final.pdf: scales.lect.txt
 scales.lect.handouts.pdf.pagepush: scales.lect.txt
 
 Sources += copy.tex
