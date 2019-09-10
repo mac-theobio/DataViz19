@@ -66,9 +66,6 @@ Sources += $(wildcard *.lect.txt)
 
 scales.lect.draft.pdf: scales.lect.txt
 
--include makestuff/newtalk.mk
--include makestuff/texdeps.mk
-
 Ignore += temps.csv
 temps.csv:
 	wget -O $@ https://datahub.io/core/global-temp/r/annual.csv
@@ -80,6 +77,11 @@ Sources += circulation.csv
 circulation.Rout: circulation.csv circulation.R
 
 Sources += ClevelandHierarchyR.png steel_production.png
+
+Ignore += local.txt.format
+
+-include makestuff/newtalk.mk
+-include makestuff/texdeps.mk
 
 ######################################################################
 
