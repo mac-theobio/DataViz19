@@ -56,7 +56,14 @@ Sources += random.html
 
 ######################################################################
 
-### Resources
+## JD dumb mark-up content
+## Should this be deprecated? Moved?
+
+Sources += $(wildcard *.lect)
+
+######################################################################
+
+### Resource directories
 
 pardirs += QMEE 744
 
