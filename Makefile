@@ -7,6 +7,9 @@
 current: target
 -include target.mk
 
+-include makestuff/perl.def
+-include makestuff/newtalk.def
+
 ######################################################################
 
 # Overview
@@ -59,7 +62,33 @@ Sources += random.html
 ## JD dumb mark-up content
 ## Should this be deprecated? Moved?
 
-Sources += $(wildcard *.lect)
+Sources += $(wildcard *.lect.txt)
+
+scales.lect.draft.pdf: scales.lect.txt
+
+-include makestuff/newtalk.mk
+-include makestuff/texdeps.mk
+
+Ignore += temps.csv
+temps.csv:
+	wget -O $@ https://datahub.io/core/global-temp/r/annual.csv
+
+temps.Rout: temps.csv temps.R
+temppix.Rout: temps.Rout temppix.R
+
+Sources += circulation.csv
+circulation.Rout: circulation.csv circulation.R
+
+Sources += ClevelandHierarchyR.png steel_production.png
+
+######################################################################
+
+## R stuff (see above)
+
+Sources += $(wildcard *.R)
+
+-include makestuff/wrapR.mk
+
 
 ######################################################################
 
