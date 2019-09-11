@@ -51,8 +51,8 @@ img {
 }
 </style>
 <h2 id="packages">Packages</h2>
-<pre><code>library(rainbow)
-library(ggplot2); theme_set(theme_bw())
+<pre><code>library(ggplot2); theme_set(theme_bw())
+library(rainbow)  ## bagplots etc.
 library(ggthemes)
 library(directlabels)
 theme_update(panel.spacing=grid::unit(0,&quot;lines&quot;))
@@ -60,7 +60,14 @@ library(cowplot) ## for arranging multiple plots, labeling, etc.
 library(Hmisc)</code></pre>
 <h1 id="tukey-and-exploratory-data-analysis">Tukey and exploratory data analysis</h1>
 <h2 id="tukey-principles">Tukey: principles</h2>
-<p><img src="pix/John_Tukey.jpg" width="192" /> - simplicity - speed - flexibility - robustness - parsimony</p>
+<p><img src="pix/John_Tukey.jpg" width="96" /></p>
+<ul>
+<li>simplicity</li>
+<li>speed</li>
+<li>flexibility</li>
+<li>robustness</li>
+<li>parsimony</li>
+</ul>
 <h2 id="stem-and-leaf-plot">stem-and-leaf plot</h2>
 <pre><code>stem(mtcars$hp)
 
@@ -95,6 +102,7 @@ rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
 </ul>
 <h1 id="cleveland">Cleveland</h1>
 <h2 id="principles">principles</h2>
+<embed src="pix/william_cleveland.jp" width="192" />
 <ul>
 <li>accuracy of quantitative representation</li>
 <li>visual estimation of <em>differences</em></li>
@@ -132,6 +140,7 @@ rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
 </div>
 <p>Heer et al. (2010)</p>
 <h1 id="tufte">Tufte</h1>
+<p><img src="pix/Edward_Tufte_-_cropped.jpg" width="192" /></p>
 <h2 id="tufte-principles">Tufte principles</h2>
 <ul>
 <li>functional, minimal graphics</li>
