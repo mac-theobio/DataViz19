@@ -89,7 +89,7 @@ library(Hmisc)</code></pre>
 </div>
 <h2 id="bag-plot-2d-boxplot">bag plot (2D boxplot)</h2>
 <!-- weird citation rendering. Try @rousseeuw_bagplot_1999 on a line by itself ... -->
-<p>(Rousseeuw et al. 1999) In <code>ggplot</code> (note hidden code):</p>
+<p>(Rousseeuw et al. 1999) In <code>ggplot</code> (<em>note</em> hidden code):</p>
 <pre><code>ggplot(iris, aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
   geom_point()+ geom_bag()</code></pre>
 <div class="figure">
@@ -184,9 +184,16 @@ print(plot_grid(g1,direct.label(g1)))</code></pre>
 <img src="principles.lect_files/figure-markdown_strict/directlabels-1.png" />
 
 </div>
-<h2 id="directlabels-package"><code>directlabels</code> package</h2>
+<h2 id="direct-labeling">direct labeling</h2>
 <ul>
-<li><a href="http://directlabels.r-forge.r-project.org/docs/index.html">directlabels documentation</a></li>
+<li>manually <strong>if necessary</strong></li>
+<li><code>directlabels</code> package
+<ul>
+<li>works with <code>lattice</code> and <code>ggplot</code> graphics</li>
+<li>variety of labeling choices, e.g. <code>last.bumpup</code>: &quot;Label last points, bumping labels up if they collide&quot;</li>
+<li><a href="http://directlabels.r-forge.r-project.org/docs/index.html">documentation</a></li>
+</ul></li>
+<li>related: <code>ggrepel</code> (auto-repelling text labels)</li>
 </ul>
 <h1 id="other">other</h1>
 <h2 id="rules-of-thumb">Rules of thumb</h2>
