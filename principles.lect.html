@@ -58,8 +58,8 @@ library(directlabels)
 theme_update(panel.spacing=grid::unit(0,&quot;lines&quot;))
 library(cowplot) ## for arranging multiple plots, labeling, etc.
 library(Hmisc)</code></pre>
-<h1 id="john-tukey-and-exploratory-data-analysis">John Tukey and exploratory data analysis</h1>
-<p><img src="pix/John_Tukey.jpg" width="96" /></p>
+<h1 id="john-tukey-exploratory-data-analysis">John Tukey: exploratory data analysis</h1>
+<p><img src="pix/John_Tukey.jpg" width="192" /></p>
 <h2 id="tukey-principles">Tukey: principles</h2>
 <ul>
 <li>simplicity</li>
@@ -86,21 +86,31 @@ library(Hmisc)</code></pre>
 <img src="principles.lect_files/figure-markdown_strict/box1-1.png" />
 
 </div>
-<h2 id="bag-plot-2d-boxplot">bag plot (2D boxplot)</h2>
-<pre><code>library(rainbow)
-rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
-                  plot.type = &quot;bivariate&quot;,
-                  type = &quot;bag&quot;, projmethod=&quot;PCAproj&quot;)</code></pre>
+<h2 id="bag-plot-2d-boxplot">bag plot (2D boxplot) (<span class="citeproc-not-found" data-reference-id="rousseeuw_bagplot_1999"><strong>???</strong></span>)</h2>
+<p>In <code>ggplot</code>:</p>
+<pre><code>ghash &lt;- &quot;00772ccea2dd0b0f1745&quot;
+devtools::source_gist(ghash, filename = &quot;000_geom_bag.r&quot;)
+devtools::source_gist(ghash, filename = &quot;001_bag_functions.r&quot;)
+ggplot(iris,
+       aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
+  geom_point()+
+  geom_bag()</code></pre>
 <div class="figure">
-<img src="principles.lect_files/figure-markdown_strict/bag1-1.png" />
+<img src="principles.lect_files/figure-markdown_strict/get_ggbag-1.png" />
 
 </div>
+<hr />
+<p>The <code>rainbow</code> package implements <strong>functional</strong> boxplots, for high-dimensional (functional) data analysis: it uses various forms of projection or dimension reduction, followed by a bagplot of the first two projected dimensions</p>
+<pre><code>rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
+                  plot.type = &quot;bivariate&quot;,
+                  type = &quot;bag&quot;, projmethod=&quot;PCAproj&quot;)</code></pre>
+<hr />
 <h2 id="is-tukey-still-relevant">is Tukey still relevant?</h2>
 <ul>
 <li>yes (principles)</li>
 <li>simultaneous increase in data size/complexity and computing power</li>
 </ul>
-<h1 id="william-cleveland">William Cleveland</h1>
+<h1 id="william-cleveland-quantifying-efficacy-of-graphics">William Cleveland: quantifying efficacy of graphics</h1>
 <embed src="pix/william_cleveland.jp" width="192" />
 <h2 id="principles">principles</h2>
 <ul>
@@ -134,6 +144,7 @@ rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
 </ul></li>
 </ul></li>
 </ul>
+<hr />
 <div class="figure">
 <img src="pix/cm_bh.jpeg" />
 
