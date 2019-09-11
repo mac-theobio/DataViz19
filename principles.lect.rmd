@@ -1,8 +1,9 @@
 ---
 title: stuff
+bibliography: vis.bib
+csl: reflist2.csl
 output:
   ioslides_presentation
-bibliography: ../vis.bib
 ---
 
 <!-- 
@@ -37,8 +38,8 @@ img {
 ## Packages
 
 ```{r pkgs, message=FALSE}
-library(rainbow)
 library(ggplot2); theme_set(theme_bw())
+library(rainbow)  ## bagplots etc.
 library(ggthemes)
 library(directlabels)
 theme_update(panel.spacing=grid::unit(0,"lines"))
@@ -46,7 +47,9 @@ library(cowplot) ## for arranging multiple plots, labeling, etc.
 library(Hmisc)
 ```
 
-# Tukey and exploratory data analysis
+# John Tukey: exploratory data analysis
+
+![](pix/John_Tukey.jpg){width=2in}
 
 ## Tukey: principles
 
@@ -71,19 +74,37 @@ ggplot(mtcars,aes(cyl,hp,group=cyl))+geom_boxplot()
 ## bag plot (2D boxplot)
 
 ```{r bag1}
-rainbow::fboxplot(data = ElNino,
+library(rainbow)
+rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
                   plot.type = "bivariate",
                   type = "bag", projmethod="PCAproj")
 ```
+
+---
+Bagplots in `ggplot`:
+
+```{r get_ggbag,message=FALSE,warning=FALSE}
+ghash <- "00772ccea2dd0b0f1745"
+devtools::source_gist(ghash, filename = "000_geom_bag.r")
+devtools::source_gist(ghash, filename = "001_bag_functions.r")
+ggplot(iris,
+       aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
+  geom_point()+
+  geom_bag()
+```
+
 
 ## is Tukey still relevant?
 
 - yes (principles)
 - simultaneous increase in data size/complexity and computing power
 
-# Cleveland
+# William Cleveland: quantifying efficacy of graphics
+
+![](pix/william_cleveland.jp){width=2in}
 
 ## principles
+
 
 - accuracy of quantitative representation
 - visual estimation of *differences*
@@ -109,13 +130,18 @@ rainbow::fboxplot(data = ElNino,
 		 - memory
 		 - preference
 
+---
+
 ![](pix/cm_bh.jpeg)
 
 @heer_crowdsourcing_2010
+
 </div>
 
 
-# Tufte
+# Edward Tufte
+
+![](pix/Edward_Tufte_-_cropped.jpg){width=2in}
 
 ## Tufte principles
 
