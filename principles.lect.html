@@ -88,16 +88,22 @@ library(Hmisc)</code></pre>
 
 </div>
 <h2 id="bag-plot-2d-boxplot-rousseeuw-et-al.-1999">bag plot (2D boxplot): Rousseeuw et al. (1999)</h2>
-<p>In <code>ggplot</code>:</p>
-<pre><code>ghash &lt;- &quot;00772ccea2dd0b0f1745&quot;
-devtools::source_gist(ghash, filename = &quot;000_geom_bag.r&quot;)
-devtools::source_gist(ghash, filename = &quot;001_bag_functions.r&quot;)
-ggplot(iris,
+<p>In <code>ggplot</code> (note hidden code):</p>
+<pre><code>ggplot(iris,
        aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
   geom_point()+
-  geom_bag()</code></pre>
+  geom_bag()
+
+## Warning: In prcomp.default(xydata, na.action = na.omit) :
+##  extra argument &#39;na.action&#39; will be disregarded
+
+## Warning: In prcomp.default(xydata, na.action = na.omit) :
+##  extra argument &#39;na.action&#39; will be disregarded
+
+## Warning: In prcomp.default(xydata, na.action = na.omit) :
+##  extra argument &#39;na.action&#39; will be disregarded</code></pre>
 <div class="figure">
-<img src="principles.lect_files/figure-markdown_strict/get_ggbag-1.png" />
+<img src="principles.lect_files/figure-markdown_strict/ggbag-1.png" />
 
 </div>
 <hr />
