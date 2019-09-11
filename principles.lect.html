@@ -87,12 +87,13 @@ library(Hmisc)</code></pre>
 <img src="principles.lect_files/figure-markdown_strict/box1-1.png" />
 
 </div>
-<h2 id="bag-plot-2d-boxplot-rousseeuw-et-al.-1999">bag plot (2D boxplot): Rousseeuw et al. (1999)</h2>
-<p>In <code>ggplot</code> (note hidden code):</p>
-<pre><code>ggplot(iris,
-       aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
-  geom_point()+
-  geom_bag()</code></pre>
+<h2 id="bag-plot-2d-boxplot">bag plot (2D boxplot)</h2>
+<ol style="list-style-type: decimal">
+<li>In <code>ggplot</code> (note hidden code):</li>
+</ol>
+<!-- -->
+<pre><code>ggplot(iris, aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
+  geom_point()+ geom_bag()</code></pre>
 <div class="figure">
 <img src="principles.lect_files/figure-markdown_strict/ggbag-1.png" />
 
@@ -295,7 +296,6 @@ print(plot_grid(g1,direct.label(g1)))</code></pre>
 <p>Elliott, K. 2016. <em>Medium</em>. <a href="https://medium.com/@kennelliott/39-studies-about-human-perception-in-30-minutes-4728f9e31a73" class="uri">https://medium.com/@kennelliott/39-studies-about-human-perception-in-30-minutes-4728f9e31a73</a>.</p>
 <p>Heer, J et al. 2010. In <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</em>, 203–212. ACM.</p>
 <p>McGill, R et al. 1978. <em>The American Statistician</em> 32 (1): 12–16. doi:<a href="https://doi.org/10.2307/2683468">10.2307/2683468</a>. <a href="http://www.jstor.org/stable/2683468" class="uri">http://www.jstor.org/stable/2683468</a>.</p>
-<p>Rousseeuw, PJ et al. 1999. <em>The American Statistician</em> 53 (4) (November): 382–387. doi:<a href="https://doi.org/10.1080/00031305.1999.10474494">10.1080/00031305.1999.10474494</a>. <a href="https://www.tandfonline.com/doi/abs/10.1080/00031305.1999.10474494" class="uri">https://www.tandfonline.com/doi/abs/10.1080/00031305.1999.10474494</a>.</p>
 <p>Sciani, M. 2018. <a href="https://github.com/marcosci/cividis" class="uri">https://github.com/marcosci/cividis</a>.</p>
 <div id="footer">
 	<div style="text-align:center">
