@@ -71,17 +71,9 @@ stem(mtcars$hp)
 ggplot(mtcars,aes(cyl,hp,group=cyl))+geom_boxplot()
 ```
 
-## bag plot (2D boxplot)
+## bag plot (2D boxplot) @rousseeuw_bagplot_1999
 
-```{r bag1}
-library(rainbow)
-rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
-                  plot.type = "bivariate",
-                  type = "bag", projmethod="PCAproj")
-```
-
----
-Bagplots in `ggplot`:
+In `ggplot`:
 
 ```{r get_ggbag,message=FALSE,warning=FALSE}
 ghash <- "00772ccea2dd0b0f1745"
@@ -92,6 +84,18 @@ ggplot(iris,
   geom_point()+
   geom_bag()
 ```
+
+---
+
+The `rainbow` package implements **functional** boxplots, for high-dimensional (functional) data analysis: it uses various forms of projection or dimension reduction, followed by a bagplot of the first two projected dimensions
+
+```{r rainbox, eval=FALSE}
+rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
+                  plot.type = "bivariate",
+                  type = "bag", projmethod="PCAproj")
+```
+
+---
 
 
 ## is Tukey still relevant?
