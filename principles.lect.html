@@ -1,0 +1,287 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>stuff</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">stuff</h1>
+</div>
+<!-- 
+apa.csl is a slightly hacked version of APA 
+  (modified for "et al" after 2 authors in text)
+-->
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 530px;     
+  max-width: 800px; 
+}
+</style>
+<h2 id="packages">Packages</h2>
+<pre><code>library(rainbow)
+library(ggplot2); theme_set(theme_bw())
+library(ggthemes)
+library(directlabels)
+theme_update(panel.spacing=grid::unit(0,&quot;lines&quot;))
+library(cowplot) ## for arranging multiple plots, labeling, etc.
+library(Hmisc)</code></pre>
+<h1 id="tukey-and-exploratory-data-analysis">Tukey and exploratory data analysis</h1>
+<h2 id="tukey-principles">Tukey: principles</h2>
+<p><img src="pix/John_Tukey.jpg" width="192" /> - simplicity - speed - flexibility - robustness - parsimony</p>
+<h2 id="stem-and-leaf-plot">stem-and-leaf plot</h2>
+<pre><code>stem(mtcars$hp)
+
+## 
+##   The decimal point is 2 digit(s) to the right of the |
+## 
+##   0 | 5677799
+##   1 | 0011111122
+##   1 | 55888888
+##   2 | 123
+##   2 | 556
+##   3 | 4</code></pre>
+<h2 id="boxplot">boxplot</h2>
+<pre><code>ggplot(mtcars,aes(cyl,hp,group=cyl))+geom_boxplot()</code></pre>
+<div class="figure">
+<img src="principles.lect_files/figure-markdown_strict/box1-1.png" />
+
+</div>
+<h2 id="bag-plot-2d-boxplot">bag plot (2D boxplot)</h2>
+<pre><code>library(rainbow)
+rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
+                  plot.type = &quot;bivariate&quot;,
+                  type = &quot;bag&quot;, projmethod=&quot;PCAproj&quot;)</code></pre>
+<div class="figure">
+<img src="principles.lect_files/figure-markdown_strict/bag1-1.png" />
+
+</div>
+<h2 id="is-tukey-still-relevant">is Tukey still relevant?</h2>
+<ul>
+<li>yes (principles)</li>
+<li>simultaneous increase in data size/complexity and computing power</li>
+</ul>
+<h1 id="cleveland">Cleveland</h1>
+<h2 id="principles">principles</h2>
+<ul>
+<li>accuracy of quantitative representation</li>
+<li>visual estimation of <em>differences</em></li>
+</ul>
+<h2 id="perceptual-experiments">perceptual experiments</h2>
+<ul>
+<li>show participants the same data in different formats</li>
+<li>ask them questions about relative magnitudes</li>
+</ul>
+<div class="figure">
+<img src="pix/ClevelandMcGill_fig3.png" />
+
+</div>
+<h2 id="perceptual-experiments-results">perceptual experiments: results</h2>
+<div class="figure">
+<img src="pix/ClevelandMcGill_fig16.png" />
+
+</div>
+<h2 id="is-cleveland-still-relevant">is Cleveland still relevant?</h2>
+<ul>
+<li>yes!</li>
+<li>Elliott (2016), &quot;39 studies about human perception in 30 minutes&quot;
+<ul>
+<li>healthy tradition of scientific experiments on graphical perception
+<ul>
+<li>accuracy</li>
+<li>memory</li>
+<li>preference</li>
+</ul></li>
+</ul></li>
+</ul>
+<div class="figure">
+<img src="pix/cm_bh.jpeg" />
+
+</div>
+<p>Heer et al. (2010)</p>
+<h1 id="tufte">Tufte</h1>
+<h2 id="tufte-principles">Tufte principles</h2>
+<ul>
+<li>functional, minimal graphics</li>
+<li>maximize data-ink / minimize non-data-ink</li>
+<li>don't lie (<strong>lie factor</strong>)</li>
+<li>small multiples</li>
+<li>&quot;If a picture isn't worth 1000 words, the hell with it&quot; - Ad Reinhardt</li>
+<li>information at the point of need (legends etc.)</li>
+<li>Powerpoint sucks</li>
+</ul>
+<p>&quot;Understand that Tufte’s ideas are a good starting point, not a religion&quot; <a href="https://eagereyes.org/criticism/edward-tufte-one-day-course">Robert Kosara</a></p>
+<h2 id="data-ink">data ink</h2>
+<ul>
+<li>maximize data ink (within reason)</li>
+</ul>
+<!-- -->
+<pre><code>g0 &lt;- ggplot(OrchardSprays,aes(treatment,decrease))+scale_y_log10()
+print(plot_grid(g0 + geom_boxplot(),  g0 + geom_tufteboxplot()))</code></pre>
+<div class="figure">
+<img src="principles.lect_files/figure-markdown_strict/tufteboxplot-1.png" />
+
+</div>
+<p><code>ggthemes::geom_tufteboxplot()</code></p>
+<h2 id="information-at-the-point-of-need">information at the point of need</h2>
+<ul>
+<li>less eye movement is better</li>
+<li>direct labels &gt; legends &gt; info in caption &gt; info in text</li>
+</ul>
+<!-- -->
+<pre><code>g1 &lt;- ggplot(iris,aes(Sepal.Length,Petal.Length,colour=Species,
+                shape=Species))+geom_point()
+print(plot_grid(g1,direct.label(g1)))</code></pre>
+<div class="figure">
+<img src="principles.lect_files/figure-markdown_strict/directlabels-1.png" />
+
+</div>
+<h2 id="directlabels-package"><code>directlabels</code> package</h2>
+<ul>
+<li><a href="http://directlabels.r-forge.r-project.org/docs/index.html">directlabels documentation</a></li>
+</ul>
+<h1 id="other">other</h1>
+<h2 id="rules-of-thumb">Rules of thumb</h2>
+<ul>
+<li>(Continuous) response on the <em>y</em>-axis
+<ul>
+<li>assumes we have a single, quantitative/ordered (continuous or discrete) response variable; multivariate responses more challenging</li>
+</ul></li>
+<li>put most salient predictor on the <em>x</em>-axis
+<ul>
+<li>highest value in Cleveland hierarchy</li>
+<li>if most important predictor is categorical, use most important <em>continous</em> predictor on <em>x</em>-axis</li>
+<li>if most important predictor has few categories, use next most important predictor with many categories</li>
+</ul></li>
+</ul>
+<h2 id="rules-of-thumb-continued">Rules of thumb (continued)</h2>
+<ul>
+<li>Put most salient comparisons within the same subplot (distinguished by color/shape), and nearby within the subplot when grouping bars/points</li>
+<li>Facet rows &gt; facet columns</li>
+</ul>
+<h2 id="rules-of-thumb-3">Rules of thumb (3)</h2>
+<ul>
+<li>Use transparency to include important but potentially distracting detail</li>
+<li>Do category levels need to be <em>identified</em> or just <em>distinguished</em>? (Direct labeling, e.g. via <code>directlabels</code> package)</li>
+<li>Order categorical variables meaningfully (&quot;Alabama/Alberta&quot; problem)</li>
+<li>Think about whether to display <em>population variation</em> (standard deviations, boxplots) or <em>estimation uncertainty</em> (standard errors, mean ± 2 SE, boxplot notches)</li>
+<li>Try to match graphics to statistical analysis, but not at all costs</li>
+<li>Choose colors carefully (<code>RColorBrewer</code>/<a href="http://colorbrewer2.org/">ColorBrewer</a>, <a href="http://tools.medialab.sciences-po.fr/iwanthue/">IWantHue</a>: respect dichromats and B&amp;W printouts (see <code>dichromat</code> &amp; <a href="https://github.com/clauswilke/colorblindr">colorblindr</a> &amp; <a href="https://github.com/marcosci/cividis">cividis</a> packages (Sciani
+<ol start="2018" style="list-style-type: decimal">
+<li></li>
+</ol></li>
+</ul>
+<h2 id="data-presentation-scales-with-data-size">Data presentation scales with data size</h2>
+<ul>
+<li><strong>small</strong> show all points, possibly dodged/jittered, with some summary statistics: dotplot, beeswarm. Simple trends (linear/GLM/loess)</li>
+<li><strong>medium</strong> boxplots, loess, histograms, GAM (or linear regression)</li>
+<li><strong>large</strong> modern nonparametrics: violin plots, hexbin plots, kernel densities: computational burden, and display overlapping problems, relevant</li>
+<li>combinations or overlays where appropriate (beanplot; rugs+scatterplot)</li>
+</ul>
+<h2 id="examples">examples</h2>
+<p>Some examples (from a <a href="http://emdbolker.wikidot.com/blog:dynamite">screed on &quot;dynamite plots&quot;</a>):</p>
+<div class="figure">
+<img src="principles.lect_files/figure-markdown_strict/panels-1.png" />
+
+</div>
+<h2 id="notes">Notes</h2>
+<ol style="list-style-type: lower-alpha">
+<li>the dreaded &quot;dynamite plot&quot;. Problems:</li>
+</ol>
+<ul>
+<li>bar plot on logarithmic axis is inappropriate (anchors graph to arbitrary zero point)</li>
+<li>assumes distribution is symmetric (although this applies to b,c as well)</li>
+<li>some forms of this plot show only top whisker (makes comparison even harder)</li>
+</ul>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>inferential (point ± 2 SE) plot</li>
+</ol>
+<ul>
+<li>same assumptions as dynamite plot</li>
+<li>less strongly anchored to zero</li>
+</ul>
+<h2 id="notes-continued">Notes (continued)</h2>
+<ol start="3" style="list-style-type: lower-alpha">
+<li>points ± 1 and 2 SE</li>
+</ol>
+<ul>
+<li>de-emphasizes approximate 95% CI</li>
+<li>equivalent for Bayesian posterior intervals would typically show both 50% and 95% credible intervals (based on quantiles or highest posterior density)</li>
+</ul>
+<ol start="4" style="list-style-type: lower-alpha">
+<li>points alone</li>
+</ol>
+<ul>
+<li>true to the data</li>
+<li>description only; provides no inferential help</li>
+<li>can confound sample size and range (larger samples have more extreme values so look more variable)</li>
+</ul>
+<h2 id="notes-continued-1">Notes (continued)</h2>
+<ol start="5" style="list-style-type: lower-alpha">
+<li>boxplots</li>
+</ol>
+<ul>
+<li>well-established</li>
+<li>&quot;outliers&quot; can be misleading (Dawson 2011)</li>
+<li>can add notches to indicate approximate 95% CI on medians (McGill et al. 1978)</li>
+</ul>
+<ol start="6" style="list-style-type: lower-alpha">
+<li>violin plots</li>
+</ol>
+<ul>
+<li>mirror-image density plots</li>
+<li>best for large data sets</li>
+<li>may be funky for small/medium data sets</li>
+<li>can be combined with jittered data, segments indicating median/quantiles, etc.</li>
+</ul>
+<h2 id="example">Example</h2>
+<ul>
+<li><a href="@beus_redesign_2018">story</a> (<a href="https://medium.com/tdebeus/redesign-of-a-truly-bananas-chart-1617f930808d">link</a>)</li>
+<li><a href="@debeus_contribute_2017%20%5Blink%5D(https://github.com/thomasdebeus/colourful-facts)">github repo</a></li>
+<li><a href="https://github.com/thomasdebeus/colourful-facts/blob/develop/projects/Redesign-of-worst-chart-ever/FAOSTAT_data_1-7-2018.csv">direct link to data</a></li>
+</ul>
+<h2 id="references">References</h2>
+<p>Dawson, R. 2011. <em>Journal of Statistics Education</em> 19 (2): 1–12.</p>
+<p>Elliott, K. 2016. <em>Medium</em>. <a href="https://medium.com/@kennelliott/39-studies-about-human-perception-in-30-minutes-4728f9e31a73" class="uri">https://medium.com/@kennelliott/39-studies-about-human-perception-in-30-minutes-4728f9e31a73</a>.</p>
+<p>Heer, J et al. 2010. In <em>Proceedings of the SIGCHI Conference on Human Factors in Computing Systems</em>, 203–212. ACM.</p>
+<p>McGill, R et al. 1978. <em>The American Statistician</em> 32 (1): 12–16. doi:<a href="https://doi.org/10.2307/2683468">10.2307/2683468</a>. <a href="http://www.jstor.org/stable/2683468" class="uri">http://www.jstor.org/stable/2683468</a>.</p>
+<p>Sciani, M. 2018. <a href="https://github.com/marcosci/cividis" class="uri">https://github.com/marcosci/cividis</a>.</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
