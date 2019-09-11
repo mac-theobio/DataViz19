@@ -88,6 +88,7 @@ library(Hmisc)</code></pre>
 
 </div>
 <h2 id="bag-plot-2d-boxplot">bag plot (2D boxplot)</h2>
+<!-- weird citation rendering. Try @rousseeuw_bagplot_1999 on a line by itself ... -->
 <p>(Rousseeuw et al. 1999) In <code>ggplot</code> (note hidden code):</p>
 <pre><code>ggplot(iris, aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
   geom_point()+ geom_bag()</code></pre>
@@ -100,14 +101,13 @@ library(Hmisc)</code></pre>
 <pre><code>rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
                   plot.type = &quot;bivariate&quot;,
                   type = &quot;bag&quot;, projmethod=&quot;PCAproj&quot;)</code></pre>
-<hr />
 <h2 id="is-tukey-still-relevant">is Tukey still relevant?</h2>
 <ul>
 <li>yes (principles)</li>
-<li>simultaneous increase in data size/complexity and computing power</li>
+<li>data size/complexity and computing power are both increasing</li>
 </ul>
 <h1 id="william-cleveland-quantifying-efficacy-of-graphics">William Cleveland: quantifying efficacy of graphics</h1>
-<embed src="pix/william_cleveland.jp" width="192" />
+<p><img src="pix/william_cleveland.jpg" width="192" /></p>
 <h2 id="principles">principles</h2>
 <ul>
 <li>accuracy of quantitative representation</li>
