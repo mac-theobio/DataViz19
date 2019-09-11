@@ -1,5 +1,5 @@
 ---
-title: stuff
+title: further principles of data visualization
 bibliography: vis.bib
 csl: reflist2.csl
 output:
@@ -61,6 +61,8 @@ library(Hmisc)
 
 ## stem-and-leaf plot
 
+Distribution of horsepower:
+
 ```{r stem}
 stem(mtcars$hp)
 ```
@@ -71,18 +73,22 @@ stem(mtcars$hp)
 ggplot(mtcars,aes(cyl,hp,group=cyl))+geom_boxplot()
 ```
 
-## bag plot (2D boxplot) @rousseeuw_bagplot_1999
+## bag plot (2D boxplot)
 
-In `ggplot`:
+<!-- weird citation rendering. Try @rousseeuw_bagplot_1999 on a line by itself ... -->
 
-```{r get_ggbag,message=FALSE,warning=FALSE}
+[@rousseeuw_bagplot_1999] In `ggplot` (*note* hidden code):
+
+```{r get_ggbag,message=FALSE,warning=FALSE,echo=FALSE,cache=TRUE}
+## FIXME:: download code/add to course web page/fix na.action problem?
 ghash <- "00772ccea2dd0b0f1745"
 devtools::source_gist(ghash, filename = "000_geom_bag.r")
 devtools::source_gist(ghash, filename = "001_bag_functions.r")
-ggplot(iris,
-       aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
-  geom_point()+
-  geom_bag()
+```
+
+```{r ggbag,warning=FALSE,fig.height=4}
+ggplot(iris, aes(Sepal.Length,Sepal.Width,colour=Species,shape=Species,fill=Species))+
+  geom_point()+ geom_bag()
 ```
 
 ---
@@ -95,17 +101,14 @@ rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
                   type = "bag", projmethod="PCAproj")
 ```
 
----
-
-
 ## is Tukey still relevant?
 
 - yes (principles)
-- simultaneous increase in data size/complexity and computing power
+- data size/complexity and computing power are both increasing
 
-# William Cleveland: quantifying efficacy of graphics
+# Cleveland: quantifying viz efficacy
 
-![](pix/william_cleveland.jp){width=2in}
+![](pix/william_cleveland.jpg){width=1.5in}
 
 ## principles
 
@@ -164,7 +167,7 @@ rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
 
 - maximize data ink (within reason)
 
-```{r tufteboxplot}
+```{r tufteboxplot,fig.height=4}
 g0 <- ggplot(OrchardSprays,aes(treatment,decrease))+scale_y_log10()
 print(plot_grid(g0 + geom_boxplot(),  g0 + geom_tufteboxplot()))
 ```
@@ -176,15 +179,20 @@ print(plot_grid(g0 + geom_boxplot(),  g0 + geom_tufteboxplot()))
 - less eye movement is better
 - direct labels > legends > info in caption > info in text
 
-```{r directlabels,fig.width=10}
+```{r directlabels,fig.width=10,fig.height=4}
 g1 <- ggplot(iris,aes(Sepal.Length,Petal.Length,colour=Species,
                 shape=Species))+geom_point()
 print(plot_grid(g1,direct.label(g1)))
 ```
 
-## `directlabels` package
+## direct labeling
 
-- [directlabels documentation](http://directlabels.r-forge.r-project.org/docs/index.html)
+- manually **if necessary**
+- `directlabels` package
+     - works with `lattice` and `ggplot` graphics
+     - variety of labeling choices, e.g. `last.bumpup`: "Label last points, bumping labels up if they collide"
+     - [documentation](http://directlabels.r-forge.r-project.org/docs/index.html)
+- related: `ggrepel` (auto-repelling text labels)	 
 
 # other
 
