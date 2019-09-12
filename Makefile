@@ -117,6 +117,13 @@ makestuff/Makefile:
 	git clone $(msrepo)/makestuff
 	ls $@
 
+iohack: principles.lect.rmd
+	echo "rmarkdown::render('principles.lect.rmd', output_format='ioslides_presentation')" | R --slave
+	mv -f principles.lect.html pages/principles.io2.html
+
+clean:
+	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
+
 -include makestuff/rmdweb.mk
 -include makestuff/os.mk
 -include makestuff/git.mk
