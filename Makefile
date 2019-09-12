@@ -68,7 +68,6 @@ Sources += $(wildcard *.lect.txt)
 
 scales.lect.draft.pdf: scales.lect.txt
 scales.lect.handouts.pdf: scales.lect.txt
-scales.lect.final.pdf: scales.lect.txt
 scales.lect.handouts.pdf.pagepush: scales.lect.txt
 
 Sources += copy.tex
@@ -117,9 +116,6 @@ msrepo = https://github.com/dushoff
 makestuff/Makefile:
 	git clone $(msrepo)/makestuff
 	ls $@
-
-clean:
-	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
 
 -include makestuff/rmdweb.mk
 -include makestuff/os.mk
