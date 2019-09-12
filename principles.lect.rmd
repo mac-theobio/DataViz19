@@ -312,9 +312,9 @@ f\. violin plots
 
 ## Example
 
-- [story](@beus_redesign_2018) ([link](https://medium.com/tdebeus/redesign-of-a-truly-bananas-chart-1617f930808d))
-- [github repo](@debeus_contribute_2017 [link](https://github.com/thomasdebeus/colourful-facts))
+- [story](https://medium.com/tdebeus/redesign-of-a-truly-bananas-chart-1617f930808d)
+- [github repo](https://github.com/thomasdebeus/colourful-facts/blob/develop/projects/Redesign-of-worst-chart-ever/)
 - [direct link to data](https://github.com/thomasdebeus/colourful-facts/blob/develop/projects/Redesign-of-worst-chart-ever/FAOSTAT_data_1-7-2018.csv)
 
-## References
+## References {.refs}
 
