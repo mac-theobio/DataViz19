@@ -68,7 +68,6 @@ Sources += $(wildcard *.lect.txt)
 
 scales.lect.draft.pdf: scales.lect.txt
 scales.lect.handouts.pdf: scales.lect.txt
-scales.lect.final.pdf: scales.lect.txt
 scales.lect.handouts.pdf.pagepush: scales.lect.txt
 
 Sources += copy.tex
@@ -95,7 +94,6 @@ circulation.Rout: circulation.csv circulation.R
 
 Sources += ClevelandHierarchyR.png steel_production.png
 
-
 -include makestuff/wrapR.mk
 
 
@@ -117,6 +115,9 @@ msrepo = https://github.com/dushoff
 makestuff/Makefile:
 	git clone $(msrepo)/makestuff
 	ls $@
+
+# pages/principles.io.html: principles.lect.rmd
+pages/%.io.html: %.lect.rmd; $(mdio_r)
 
 iohack: principles.lect.rmd
 	echo "rmarkdown::render('principles.lect.rmd', output_format='ioslides_presentation')" | R --slave
