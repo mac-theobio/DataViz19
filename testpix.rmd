@@ -1,0 +1,30 @@
+---
+title: "ioslides test of pix on title pages"
+output:
+  ioslides_presentation
+---
+
+# this is a title slide
+
+![](pix/John_Tukey.jpg)
+
+## this is not a title slide
+
+![](pix/John_Tukey.jpg)
+
+
+# title slide with width
+
+<!-- ```{r tukey_pix, echo=FALSE, out.width="200px"}
+knitr::include_graphics("pix/John_Tukey.jpg")
+```
+-->
+
+![](pix/John_Tukey.jpg){width="200px"}
+
+## non-title slide with width
+
+<img src="pix/John_Tukey.jpg" width="200px">
+
+
+<!-- https://stackoverflow.com/questions/45306242/resizing-external-image-in-rmarkdown-html-vs-ioslides-output -->

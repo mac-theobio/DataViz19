@@ -6,6 +6,14 @@ output:
   ioslides_presentation
 ---
 
+<!-- conclusion about pix width: ioslides can *only* handle widths in 
+   units of pixels, not in [inches] 
+ despite https://stackoverflow.com/questions/45306242/resizing-external-image-in-rmarkdown-html-vs-ioslides-output which suggests that
+ 
+ a chunk with  out.width  and echo=FALSE plus
+knitr::include_graphics("pix/John_Tukey.jpg")
+does the trick -->
+
 <!-- 
 apa.csl is a slightly hacked version of APA 
   (modified for "et al" after 2 authors in text)
@@ -49,7 +57,14 @@ library(Hmisc)
 
 # John Tukey: exploratory data analysis
 
-![](pix/John_Tukey.jpg){width=2in}
+<!-- ```{r tukey_pix, out.width = "2in", echo=FALSE}
+knitr::include_graphics("pix/John_Tukey.jpg")
+``` -->
+
+
+![](pix/John_Tukey.jpg){width="200pix"}
+
+<!-- {width=2in}  -->
 
 ## Tukey: principles
 
@@ -106,9 +121,40 @@ rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
 - yes (principles)
 - data size/complexity and computing power are both increasing
 
+
+```{r compute_size,echo=FALSE}
+## data from http://www.genome.gov/sequencingcosts/
+cdat <- read.csv("data/sequencing_costs_oct2015.csv",stringsAsFactors=FALSE)
+cdat[-1] <- lapply(cdat[-1],
+                    function(x) as.numeric(gsub("[,$]","", x)))
+cdat$Date <- as.Date(paste0("01-",cdat$Date),"%d-%b-%y")
+expfun <- function(x,a,b,x0) {
+    r <- a*exp(-b*as.numeric(x-x0))
+    return(log10(r))
+}
+brk <- which(cdat$Date==as.Date("2012-01-01"))
+ldat <- data.frame(x=as.Date("2010-01-01"),y=800,
+                  label="atop(Moore*minute*s ~~ law*':',T[1/2] %~~% 1.5*yr)")
+## plot(Cost.per.Mb~Date,cdat,log="y")
+b_moore <- (log(2)/1.5)/365         ## moore's law: log(2)/r = 1.5
+ggplot(cdat,aes(Date,Cost.per.Mb))+geom_line()+
+    scale_y_continuous(trans="log10",labels=scales::dollar)+
+        stat_function(fun=expfun,args=list(a=cdat[1,2],b=b_moore,
+                                           x0=as.Date("2002-01-01")),
+                      lty=2)+
+        stat_function(data=cdat[brk:nrow(cdat),],
+                          fun=expfun,args=list(a=cdat[brk,2],b=b_moore,
+                                     x0=cdat$Date[brk]),
+                          lty=2)+
+                labs(x="Date",y="Cost per megabase")+
+        geom_text(data=ldat,aes(x,y,label=label),
+                  parse=TRUE)
+## how do I stop parse from glomming labels together?
+```
+
 # Cleveland: quantifying viz efficacy
 
-![](pix/william_cleveland.jpg){width=1.5in}
+![](pix/william_cleveland.jpg){width="150px"}
 
 ## principles
 
@@ -148,14 +194,14 @@ rainbow::fboxplot(data = ElNino_ERSST_region_1and2,
 
 # Edward Tufte
 
-![](pix/Edward_Tufte_-_cropped.jpg){width=2in}
+![](pix/Edward_Tufte_-_cropped.jpg){width="200px"}
 
 ## Tufte principles
 
 - functional, minimal graphics
 - maximize data-ink / minimize non-data-ink
 - don't lie (**lie factor**)
-- small multiples
+- small multiples (= trellis/lattice, facets, panels)
 - "If a picture isn't worth 1000 words, the hell with it" - Ad Reinhardt
 - information at the point of need (legends etc.)
 - Powerpoint sucks
