@@ -96,9 +96,8 @@ ggplot(mtcars,aes(cyl,hp,group=cyl))+geom_boxplot()
 
 ```{r get_ggbag,message=FALSE,warning=FALSE,echo=FALSE,cache=TRUE}
 ## FIXME:: download code/add to course web page/fix na.action problem?
-ghash <- "00772ccea2dd0b0f1745"
-devtools::source_gist(ghash, filename = "000_geom_bag.r")
-devtools::source_gist(ghash, filename = "001_bag_functions.r")
+ghash <- "01c25068df145aa0b97f"
+devtools::source_gist(ghash, filename = "barplot3d.R")
 ```
 
 ```{r ggbag,warning=FALSE,fig.height=4}
