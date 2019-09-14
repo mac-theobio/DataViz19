@@ -66,9 +66,15 @@ random.html.pagepush:
 
 Sources += $(wildcard *.lect.txt)
 
+## Scales lecture
 scales.lect.draft.pdf: scales.lect.txt
 scales.lect.handouts.pdf: scales.lect.txt
 scales.lect.handouts.pdf.pagepush: scales.lect.txt
+
+## Visualization lecture
+explore.lect.draft.pdf: explore.lect.txt
+explore.lect.handouts.pdf: explore.lect.txt
+explore.lect.handouts.pdf.pagepush: explore.lect.txt
 
 Sources += copy.tex
 
