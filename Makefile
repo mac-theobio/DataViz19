@@ -64,17 +64,27 @@ random.html.pagepush:
 
 -include makestuff/newtalk.def
 
+## You may want to set a specific directory for images
+
 Sources += $(wildcard *.lect.txt)
 
+## Scales lecture
 scales.lect.draft.pdf: scales.lect.txt
 scales.lect.handouts.pdf: scales.lect.txt
 scales.lect.handouts.pdf.pagepush: scales.lect.txt
 
+## Visualization lecture
+explore.lect.draft.pdf: explore.lect.txt
+explore.lect.handouts.pdf: explore.lect.txt
+explore.lect.handouts.pdf.pagepush: explore.lect.txt
+
 Sources += copy.tex
 
+## Keeping lecture stuff together, because I kind of want to move it out our else really move beyond it
 Ignore += local.txt.format
 -include makestuff/newtalk.mk
 -include makestuff/texdeps.mk
+-include makestuff/webpix.mk
 
 ######################################################################
 
