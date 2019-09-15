@@ -73,7 +73,7 @@ dotwhisker::dwplot(m3)
 
 ## add reference line
 
-```{r}
+```{r dw_refline}
 gg0 <- dotwhisker::dwplot(m3)+geom_vline(xintercept=0,lty=2)
 print(gg0)
 ```
@@ -99,20 +99,17 @@ m3_sc <- update(m3,
 
 ## plot
 
-```{r}
+```{r dwplot2}
 dotwhisker::dwplot(m3_sc,effects="fixed")+
     geom_vline(xintercept=0,lty=2)
 ```
 
-```{r}
-cc <- broom::tidy(m3_sc,effects="fixed")
+```{r dwplot3}
+cc <- broom.mixed::tidy(m3_sc,effects="fixed")
 print(cc,digits=3)
 ```
 
-```{r}
-```
-
-```{r}
+```{r m3_glm}
 m3_fixed <-  glm(
     use ~ sc_age * ch + I(sc_age^2) + urban,
     data=Contraception, family=binomial)
@@ -194,7 +191,7 @@ and predictions
 
 ```{r get_data,message=FALSE}
 ## need read_table2() for 'irregular' data
-dd <- read_table2("../data/wei_tab5.5.txt")
+dd <- read_table2("data/wei_tab5.5.txt")
 head(dd)
 ```
     
