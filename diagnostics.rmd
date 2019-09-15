@@ -2,7 +2,7 @@
 title: diagnostic graphs
 output:
   ioslides_presentation
-bibliography: ../vis.bib
+bibliography: vis.bib
 ---
 
 <!-- 
