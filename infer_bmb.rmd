@@ -2,7 +2,7 @@
 title: "inference"
 output:
   ioslides_presentation
-bibliography: ../vis.bib
+bibliography: vis.bib
 ---
 
 # setup
@@ -90,7 +90,7 @@ print(gg0)
 
 ## update with scaled age parameter 
 
-```{r}
+```{r update}
 Contraception <- Contraception %>%
     mutate(sc_age=drop(scale(age)))
 m3_sc <- update(m3,
