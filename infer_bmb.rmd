@@ -17,6 +17,7 @@ library(directlabels)
 ## modeling/coef plots
 library(lme4)
 library(broom)
+library(broom.mixed)
 library(dotwhisker)
 library(ggstance) ## horizontal geoms
 library(stargazer)
