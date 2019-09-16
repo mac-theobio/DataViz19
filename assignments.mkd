@@ -17,7 +17,8 @@ or download the data directly from [here](http://sciencestatic.aws.aaas.org.s3.a
 * *extra credit*: see if you can find information about vaccine coverage over time (i.e., estimates of fraction vaccinated in the US per year) - not just the date of licensing - and incorporate it in your results (we have no idea if this is possible)
 
 - read Sections 4-7 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
-- email us to let us know you have finished.
+
+* Remember to follow the General instructions (below)
 
 ## week 1
 
