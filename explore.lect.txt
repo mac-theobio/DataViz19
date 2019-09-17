@@ -61,7 +61,7 @@ FIG orchard.Rout-2.pdf
 
 Means and standard deviations
 
-FIG orchard.Rout-3.pdf
+FIG orchard.Rout-5.pdf
 
 ----------------------------------------------------------------------
 
@@ -71,23 +71,35 @@ FIG orchard.Rout-4.pdf
 
 ----------------------------------------------------------------------
 
-RSLIDE Means and standard deviations
+REPSLIDE Means and standard deviations
 
 SUBH Next steps?
 
-FIG orchard.Rout-3.pdf
+FIG orchard.Rout-4.pdf
 
 ----------------------------------------------------------------------
 
-RSLIDE Non-parametric
-
-FIG orchard.Rout-5.pdf
-
-----------------------------------------------------------------------
-
-RSLIDE Non-parametric
+Non-parametric
 
 FIG orchard.Rout-6.pdf
+
+----------------------------------------------------------------------
+
+Non-parametric
+
+FIG orchard.Rout-7.pdf
+
+----------------------------------------------------------------------
+
+Non-parametric
+
+FIG orchard.Rout-8.pdf
+
+----------------------------------------------------------------------
+
+Non-parametric
+
+FIG orchard.Rout-9.pdf
 
 ----------------------------------------------------------------------
 
@@ -109,7 +121,7 @@ FIG bike_plots.Rout-2.pdf
 
 ----------------------------------------------------------------------
 
-Standard deviations
+Standard deviations (2 sd, in fact)
 
 FIG bike_plots.Rout-3.pdf
 
@@ -123,7 +135,7 @@ FIG bike_plots.Rout-4.pdf
 
 Data shape
 
-FIG bike_plots.Rout-7.pdf
+FIG bike_plots.Rout-8.pdf
 
 ----------------------------------------------------------------------
 
@@ -135,13 +147,19 @@ FIG bike_plots.Rout-5.pdf
 
 Data shape
 
-FIG bike_plots.Rout-8.pdf
+FIG bike_plots.Rout-9.pdf
 
 ----------------------------------------------------------------------
 
-Data shape and weight
+Shape and weight
 
 FIG bike_plots.Rout-6.pdf
+
+----------------------------------------------------------------------
+
+Shape and weight
+
+FIG bike_plots.Rout-7.pdf
 
 ----------------------------------------------------------------------
 
@@ -171,10 +189,8 @@ Banking
 
 		Even though many examples are bogus
 
-	Since the point is make patterns visually clear, trial-and-error is usually
-	as good as algorithm
-
-		But it is worth considering
+	Since the point is to make patterns visually clear, trial-and-error
+	is usually as good as algorithm
 
 ----------------------------------------------------------------------
 
@@ -203,8 +219,8 @@ Scatter plots
 
 	They can often be improved with trend interpolations
 
-		Interpolations may be particularly good for discrete responses (count or
-		true-false)
+		Interpolations may be particularly good for discrete responses
+		(count or true-false)
 
 ----------------------------------------------------------------------
 
@@ -326,6 +342,12 @@ FIG smoke_levels.Rout-4.pdf
 
 ----------------------------------------------------------------------
 
+Hexes
+
+FIG smoke_levels.Rout-5.pdf
+
+----------------------------------------------------------------------
+
 Color principles
 
 	Use clear gradients
@@ -334,10 +356,12 @@ Color principles
 
 		e.g., white to blue, white to red
 
+			or red to white with red borders (heat map)
+
 		If the map contrasts with a background, zero should match the background
 
-	If there's a natural \emph{middle}, you can use blue to white to red, or
-	something similar
+	If there's a natural \emph{middle}, you can use blue to white to
+	red, or something similar
 
 ----------------------------------------------------------------------
 

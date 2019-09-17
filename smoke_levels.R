@@ -39,6 +39,9 @@ print(af + aes(color=sex) + geom_density_2d())
 
 library(hexbin)
 
+## Default (bad colors)
 print(afh <- af + geom_hex(binwidth=c(1,0.4)))
+
+## My color ramp
 print (afh + scale_fill_gradient(low="#F0F0FF", high="#131393"))
 

@@ -77,6 +77,7 @@ scales.lect.handouts.pdf.pagepush: scales.lect.txt
 ## Visualization lecture
 explore.lect.draft.pdf: explore.lect.txt
 explore.lect.handouts.pdf: explore.lect.txt
+explore.lect.final.pdf: explore.lect.txt
 explore.lect.handouts.pdf.pagepush: explore.lect.txt
 
 Sources += copy.tex
@@ -105,10 +106,12 @@ circulation.Rout: circulation.csv circulation.R
 
 Sources += ClevelandHierarchyR.png steel_production.png
 
+## Much abused; I keep switching between L1 and L2
+orchard.Rout: orchard.R
+
 ### explore
 
-%.R: ../17/lectures/%.R
-	$(copy)
+## %.R: ../17/lectures/%.R; $(copy)
 
 bikes.zip:
 	wget -O $@ https://archive.ics.uci.edu/ml/machine-learning-databases/00275/Bike-Sharing-Dataset.zip

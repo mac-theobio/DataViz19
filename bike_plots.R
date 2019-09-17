@@ -1,3 +1,4 @@
+## Redo with ggtitle!
 library(ggplot2)
 theme_set(theme_bw(base_size=18))
 
@@ -23,5 +24,6 @@ print(base
 print(base + geom_boxplot())
 print(lbase + geom_boxplot())
 print(base + geom_boxplot(varwidth=TRUE))
+print(lbase + geom_boxplot(varwidth=TRUE))
 print(base + geom_violin())
 print(lbase + geom_violin())
