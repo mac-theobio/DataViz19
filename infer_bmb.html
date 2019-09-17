@@ -1,12 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>inference</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="main.css" type="text/css" />
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header class="site-header">
@@ -19,9 +27,9 @@
 	</div>
 </div>
 </header>
-<div id="header">
+<header id="title-block-header">
 <h1 class="title">inference</h1>
-</div>
+</header>
 <h1 id="setup">setup</h1>
 <h2 id="load-packages">load packages</h2>
 <pre><code>## graphics
@@ -272,17 +280,11 @@ Bayesian Inf. Crit.
 </table>
 <h2 id="coefficient-plot">coefficient plot</h2>
 <pre><code>dotwhisker::dwplot(m3)</code></pre>
-<div class="figure">
-<img src="infer_bmb_files/figure-markdown_strict/dw1-1.png" />
-
-</div>
+<p><img src="infer_bmb_files/figure-markdown_strict/dw1-1.png" /></p>
 <h2 id="add-reference-line">add reference line</h2>
 <pre><code>gg0 &lt;- dotwhisker::dwplot(m3)+geom_vline(xintercept=0,lty=2)
 print(gg0)</code></pre>
-<div class="figure">
-<img src="infer_bmb_files/figure-markdown_strict/dw_refline-1.png" />
-
-</div>
+<p><img src="infer_bmb_files/figure-markdown_strict/dw_refline-1.png" /></p>
 <h2 id="scaling">scaling</h2>
 <ul>
 <li>need to scale parameters appropriately to compare magnitude</li>
@@ -303,10 +305,7 @@ m3_sc &lt;- update(m3,
 <h2 id="plot">plot</h2>
 <pre><code>dotwhisker::dwplot(m3_sc,effects=&quot;fixed&quot;)+
     geom_vline(xintercept=0,lty=2)</code></pre>
-<div class="figure">
-<img src="infer_bmb_files/figure-markdown_strict/dwplot2-1.png" />
-
-</div>
+<p><img src="infer_bmb_files/figure-markdown_strict/dwplot2-1.png" /></p>
 <pre><code>cc &lt;- broom.mixed::tidy(m3_sc,effects=&quot;fixed&quot;)
 print(cc,digits=3)
 
@@ -325,13 +324,10 @@ m3_fixed &lt;-  glm(
     data=Contraception, family=binomial)
 dotwhisker::dwplot(list(m3_sc,m3_fixed))+
     geom_vline(xintercept=0,lty=2)+ scale_colour_brewer(palette=&quot;Dark2&quot;)</code></pre>
-<div class="figure">
-<img src="infer_bmb_files/figure-markdown_strict/m3_glm-1.png" />
-
-</div>
+<p><img src="infer_bmb_files/figure-markdown_strict/m3_glm-1.png" /></p>
 <h2 id="dotwhisker-limitations">dotwhisker limitations</h2>
 <ul>
-<li>uses <code>coord_flip</code> internally; doesn't interact well with facets</li>
+<li>uses <code>coord_flip</code> internally; doesn’t interact well with facets</li>
 <li>might want to post-process output of <code>tidy()</code></li>
 </ul>
 <h2 id="alternative-data-prep">alternative: data prep</h2>
@@ -349,19 +345,13 @@ dotwhisker::dwplot(list(m3_sc,m3_fixed))+
     + scale_colour_brewer(palette=&quot;Dark2&quot;) + geom_vline(xintercept=0,lty=2))
 
 ## Warning: Removed 1 rows containing missing values (geom_linerangeh).</code></pre>
-<div class="figure">
-<img src="infer_bmb_files/figure-markdown_strict/unnamed-chunk-2-1.png" />
-
-</div>
+<p><img src="infer_bmb_files/figure-markdown_strict/unnamed-chunk-2-1.png" /></p>
 <h2 id="reorder-terms">reorder terms</h2>
 <pre><code>m3_res_order &lt;- mutate(m3_res,term=reorder(term,estimate))
 gg5 %+% m3_res_order
 
 ## Warning: Removed 1 rows containing missing values (geom_linerangeh).</code></pre>
-<div class="figure">
-<img src="infer_bmb_files/figure-markdown_strict/unnamed-chunk-3-1.png" />
-
-</div>
+<p><img src="infer_bmb_files/figure-markdown_strict/unnamed-chunk-3-1.png" /></p>
 <h2 id="other-improvementsapplications">other improvements/applications</h2>
 <ul>
 <li>useful comparing lots of models</li>
@@ -398,10 +388,7 @@ gg5 %+% m3_res_order
 <li>Cleveland hierarchy etc.</li>
 </ul>
 <h2 id="example-wei-2017-table-5.5">example: Wei (2017) Table 5.5</h2>
-<div class="figure">
-<img src="pix/wei_tab5.5.png" />
-
-</div>
+<p><img src="pix/wei_tab5.5.png" /></p>
 <h2 id="rearranged-data">rearranged data</h2>
 <pre><code>## need read_table2() for &#39;irregular&#39; data
 dd &lt;- read_table2(&quot;data/wei_tab5.5.txt&quot;)
@@ -457,10 +444,7 @@ dd3 &lt;- dd2 %&gt;% merge(simtab,by=&quot;dataset&quot;)</code></pre>
     + labs(x=&quot;r (proportion missing)&quot;,y=&quot;&quot;)
     + scale_colour_brewer(palette=&quot;Dark2&quot;) + scale_fill_brewer(palette=&quot;Dark2&quot;))</code></pre>
 <h2 id="picture">picture</h2>
-<div class="figure">
-<img src="infer_bmb_files/figure-markdown_strict/unnamed-chunk-4-1.png" />
-
-</div>
+<p><img src="infer_bmb_files/figure-markdown_strict/unnamed-chunk-4-1.png" /></p>
 <h2 id="possible-improvements">possible improvements?</h2>
 <ul>
 <li>order models</li>
@@ -471,10 +455,10 @@ dd3 &lt;- dd2 %&gt;% merge(simtab,by=&quot;dataset&quot;)</code></pre>
 <li>invert ARI or ERR so rankings are the same?</li>
 </ul>
 <h2 id="references">references</h2>
-<p>Gelman, Andrew. 2008. “Scaling Regression Inputs by Dividing by Two Standard Deviations.” <em>Statistics in Medicine</em> 27 (15): 2865–73. doi:<a href="https://doi.org/10.1002/sim.3107">10.1002/sim.3107</a>.</p>
-<p>———. 2011. “Why Tables Are Really Much Better Than Graphs.” <em>Journal of Computational and Graphical Statistics</em> 20 (1): 3–7. doi:<a href="https://doi.org/10.1198/jcgs.2011.09166">10.1198/jcgs.2011.09166</a>.</p>
+<p>Gelman, Andrew. 2008. “Scaling Regression Inputs by Dividing by Two Standard Deviations.” <em>Statistics in Medicine</em> 27 (15): 2865–73. <a href="https://doi.org/10.1002/sim.3107" class="uri">https://doi.org/10.1002/sim.3107</a>.</p>
+<p>———. 2011. “Why Tables Are Really Much Better Than Graphs.” <em>Journal of Computational and Graphical Statistics</em> 20 (1): 3–7. <a href="https://doi.org/10.1198/jcgs.2011.09166" class="uri">https://doi.org/10.1198/jcgs.2011.09166</a>.</p>
 <p>Gelman, Andrew, Cristian Pasarica, and Rahul Dodhia. 2002. “Let’s Practice What We Preach: Turning Tables into Graphs.” <em>The American Statistician</em> 56 (2): 121–30. <a href="http://www.tandfonline.com/doi/abs/10.1198/000313002317572790" class="uri">http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
-<p>Schielzeth, Holger. 2010. “Simple Means to Improve the Interpretability of Regression Coefficients.” <em>Methods in Ecology and Evolution</em> 1: 103–13. doi:<a href="https://doi.org/10.1111/j.2041-210X.2010.00012.x">10.1111/j.2041-210X.2010.00012.x</a>.</p>
+<p>Schielzeth, Holger. 2010. “Simple Means to Improve the Interpretability of Regression Coefficients.” <em>Methods in Ecology and Evolution</em> 1: 103–13. <a href="https://doi.org/10.1111/j.2041-210X.2010.00012.x" class="uri">https://doi.org/10.1111/j.2041-210X.2010.00012.x</a>.</p>
 <p>Wei, Yuhong. 2017. “Extending Growth Mixture Models and Handling Missing Values via Mixtures of Non-Elliptical Distributions.” Thesis. <a href="https://macsphere.mcmaster.ca/handle/11375/21987" class="uri">https://macsphere.mcmaster.ca/handle/11375/21987</a>.</p>
 <div id="footer">
 	<div style="text-align:center">
