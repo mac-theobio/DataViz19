@@ -1,5 +1,5 @@
 ---
-title: diagnostic graphs
+title: diagnostic graphics
 output:
   ioslides_presentation
 bibliography: vis.bib
@@ -41,12 +41,16 @@ library(tidyverse)
 theme_set(theme_bw())
 library(car)
 library(broom)
+library(broom.mixed)
 library(magrittr)
-library(lme4); library(MCMCglmm); library(glmmTMB) ## for models
-library(coda) ## for trace plots
+## modeling
+library(lme4)
+library(MCMCglmm)
+library(glmmTMB)
+library(coda) ## Bayesian methods (trace plots etc.)
 library(lattice) ## built-in
 library(cowplot)
-library(nullabor)
+library(nullabor) ## visual inference
 ```
 
 
@@ -95,14 +99,23 @@ ggdraw(gg1C)
 ```
 
 ## quantile plots
-```{r q2, fig.width=10}
+```{r q2}
 m0 <- lm(y~x,dd)
-augment(m0) %>% select(x,y,.resid) %>%
-    gather(type,value) %>%
-    mutate(type=factor(type,levels=c("x","y",".resid"))) -> a0
-ggplot(a0,aes(sample=value))+
-    stat_qq()+facet_wrap(~type)+
-    stat_qq_line(colour="red")
+a0 <- (augment(m0)
+  %>% select(x,y,.resid)
+  %>% gather(type,value)
+  %>% mutate(type=factor(type,levels=c("x","y",".resid")))
+)
+```
+
+---
+
+```{r q2B,fig.width=10}
+(ggplot(a0,aes(sample=value))
+  + stat_qq()
+  + facet_wrap(~type)
+  + stat_qq_line(colour="red")
+)
 ```
 
 ## model diagnosis
@@ -248,10 +261,10 @@ m3 <- glmer(use ~ age * ch + I(age^2) + urban + (1 | urban:district),
 
 ## plot
 
-```{r binary_smooth_plot1,message=FALSE}
+```{r binary_smooth_plot1,message=FALSE,warning=FALSE}
 a3 <- augment(m3,data=Contraception,type.residuals="response")
 gg_bin1 <- (ggplot(a3,aes(.fitted,.resid))+
-            geom_point()+ geom_smooth())
+            geom_point()+ geom_smooth(method="loess"))
 print(gg_bin1)
 ```
 
@@ -280,7 +293,7 @@ gg_bin1+geom_point(data=a3_sum,colour="blue")
 
 ##
 
-```{r}
+```{r binary2}
 ggplot(a3,aes(.fitted,.resid,colour=livch,shape=urban,linetype=urban))+
             geom_point()+ geom_smooth(se=FALSE)+
     scale_colour_brewer(palette="Dark2")
@@ -289,7 +302,7 @@ ggplot(a3,aes(.fitted,.resid,colour=livch,shape=urban,linetype=urban))+
 
 ## keep trying ...
 
-```{r}
+```{r binary3}
 ggplot(a3,aes(age,.resid,colour=urban))+
     geom_point()+
     geom_smooth(method="loess")+
@@ -300,7 +313,7 @@ ggplot(a3,aes(age,.resid,colour=urban))+
 
 ##
 
-```{r}
+```{r binary4}
 ggplot(a3,aes(age,.resid,colour=urban))+
     geom_point()+
     geom_smooth(method="loess",
@@ -312,7 +325,7 @@ ggplot(a3,aes(age,.resid,colour=urban))+
 
 - try `method="gam"` ?
 
-```{r}
+```{r binary_gam}
 ggplot(a3,aes(age,.resid,colour=urban))+
     geom_point()+
     geom_smooth(method="gam",formula =y ~ s(x, k=25)) +
@@ -338,7 +351,7 @@ ggplot(a3,aes(age,.resid,colour=urban))+
 
 ## coverage
 
-![](glycera_pvals.png)
+![](pix/glycera_pvals.png)
 
 ## likelihood profiles {.smaller}
 
@@ -385,7 +398,7 @@ lattice::xyplot(m4$Sol,aspect="fill",layout=c(2,3))
 ```{r owls,cache=TRUE,echo=FALSE}
 owls_nb1 <- glmmTMB(SiblingNegotiation ~ FoodTreatment*SexParent +
                                          (1|Nest)+offset(log(BroodSize)),
-                   family = list(family="nbinom1",link="log"),
+                   family = nbinom1(),
                    data=Owls)
 ```
 
