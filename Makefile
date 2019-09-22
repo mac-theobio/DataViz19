@@ -82,10 +82,10 @@ explore.lect.handouts.pdf.pagepush: explore.lect.txt
 ## JD inference
 
 ## Inference lecture
-Sources += infer.txt
-infer.draft.pdf: infer.txt
-infer.final.pdf: infer.txt
-infer.handouts.pdf: infer.txt
+Sources += infer.lect.txt
+infer.lect.draft.pdf: infer.lect.txt
+infer.lect.final.pdf: infer.lect.txt
+infer.lect.handouts.pdf: infer.lect.txt
 
 Sources += copy.tex
 
