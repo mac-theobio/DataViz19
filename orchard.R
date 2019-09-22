@@ -1,3 +1,7 @@
+## 2019 Sep 17 (Tue)
+## Redo this completely next time; clear logic (add log_10)
+## Label the graphs themselves to not go crazy
+
 library(ggplot2)
 theme_set(theme_bw(base_size=18))
 
@@ -24,19 +28,23 @@ print(lbase
 	+ stat_summary(fun.data=mean_cl_normal,geom="pointrange")
 )
 
-## Now we have just sds, I guess
-print(lbase 
-	+ stat_summary(fun.data=mean_sdl,geom="pointrange")
+## sd (default is 2 sds!!)
+print(lsd <- lbase 
+	+ stat_summary(fun.data=mean_sdl
+		, geom="pointrange"
+		, fun.args = list(mult=1)
+	)
 )
 
 print(base 
-	+ stat_summary(fun.data=mean_sdl,geom="pointrange")
+	+ stat_summary(fun.data=mean_sdl
+		, geom="pointrange"
+		, fun.args = list(mult=1)
+	)
 )
 
 print(lbase + geom_point())
 print(lbase + geom_boxplot())
 print(lbase + geom_violin())
 
-## Old idea, oldly suppressed as well
-## Hybrid of data and inference; is it good?
-##print(lrange + geom_point(color="blue", alpha=0.3))
+print(lsd + geom_point(color="blue", alpha=0.3))
