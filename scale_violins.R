@@ -18,4 +18,4 @@ plot_grid(
     g0+geom_violin(fill="gray",scale="count")+labs(title="scale='count'"),
     g0+geom_violin(fill="gray",scale="width")+labs(title="scale='width'"),
     nrow=1)
-    
+ggsave("violin_scales.pdf",width=12,height=4)    
