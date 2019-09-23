@@ -1,3 +1,5 @@
+## Data from: https://www.healthsystemtracker.org/chart-collection/current-costs-outcomes-related-mental-health-substance-abuse-disorders/#item-eighteen-percent-adults-united-states-mental-behavioral-emotional-disorder
+
 library(tidyverse)
 library(ggalt)
 dd <- (read_csv("data/data-fHPJK.csv")
@@ -17,3 +19,4 @@ ggplot(dd,aes(colour=category,x=Group,y=pct))+
     theme(legend.position="none") +
     labs(x="",y="Percent of adults with AMI")+
     scale_colour_brewer(palette="Dark2")
+ggsave("kaiser_mentalillness.png")
