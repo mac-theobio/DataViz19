@@ -14,9 +14,9 @@ dd <- (read_csv("data/data-fHPJK.csv")
 )
 library(ggplot2); theme_set(theme_classic())
 ggplot(dd,aes(colour=category,x=Group,y=pct))+
-    scale_x_discrete(breaks=rev(levels(dd$Group))) +
+    scale_x_discrete()+
     geom_lollipop(size=5) + coord_flip() +
     theme(legend.position="none") +
     labs(x="",y="Percent of adults with AMI")+
     scale_colour_brewer(palette="Dark2")
-ggsave("kaiser_mentalillness.png")
+## ggsave("kaiser_mentalillness.png")
