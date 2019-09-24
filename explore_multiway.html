@@ -28,10 +28,191 @@ library(ggplot2); theme_set(theme_bw())
 library(GGally)   ## pairs plots etc.
 library(corrplot) ## correlation plots
 library(dplyr)    ## data manipulation
+library(tidyr)
 library(readr)    ## read CSV files
-library(agridat)  ## agricultural data sets
+library(agridat)  ## agricultural data sets</code></pre>
+<h2 id="smooth-curves-glm-vs-loess-vs-gam">smooth curves; (g)lm vs loess vs GAM</h2>
+<ul>
+<li><a href="https://en.wikipedia.org/wiki/Local_regression">loess</a>
+<ul>
+<li>local polynomial regression (quadratic by default)</li>
+<li>used by default for N&lt;1000</li>
+<li>&quot;Somewhat anecdotally, 'loess' gives a better appearance, but is O(N^2) in memory, so does not work for larger datasets&quot;</li>
+<li>increase <code>span</code> to get smoother result</li>
+</ul></li>
+</ul>
+<h2 id="multiple-continuous-predictors-single-response">multiple continuous predictors, single response</h2>
+<p>&quot;melt&quot; data to long format (<code>gather()</code>, <code>pivot_longer()</code>)</p>
+<pre><code>cars_long &lt;- pivot_longer(mtcars,
+                          -mpg,  ## DON&#39;T melt mpg
+                          names_to=&quot;xvar&quot;,values_to=&quot;xval&quot;)
+g1 &lt;- (ggplot(cars_long,aes(xval,mpg)) +
+       geom_point()+
+       facet_wrap(~xvar,scale=&quot;free_x&quot;)+
+       geom_smooth()
+)</code></pre>
+<hr />
+<pre><code>print(g1)  
 
-data(olive,package=&quot;pgmm&quot;)
+## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at -0.005
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 1.005
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 0
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1.01
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
+## at -0.005
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 1.005
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
+## condition number 0
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other
+## near singularities as well. 1.01
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 4
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 2
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 1.8444e-16
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
+## at 4
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 2
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
+## condition number 1.8444e-16
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 3.98
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 4.02
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 2.0055e-16
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 16.16
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
+## at 3.98
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 4.02
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
+## condition number 2.0055e-16
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other
+## near singularities as well. 16.16
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 2.99
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 1.01
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 0
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 4.0401
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
+## at 2.99
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 1.01
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
+## condition number 0
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other
+## near singularities as well. 4.0401
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at -0.005
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 1.005
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 0
+
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1.01
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
+## at -0.005
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
+## 1.005
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
+## condition number 0
+
+## Warning in predLoess(object$y, object$x, newx = if
+## (is.null(newdata)) object$x else if (is.data.frame(newdata))
+## as.matrix(model.frame(delete.response(terms(object)), : There are other
+## near singularities as well. 1.01</code></pre>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/g1plot-1.png" />
+
+</div>
+<h2 id="multivariate-data">multivariate data</h2>
+<pre><code>data(olive,package=&quot;pgmm&quot;)
 data(fisher.barley,package=&quot;agridat&quot;)</code></pre>
 <p>Hints on looking for stuff:</p>
 <pre><code>library(&quot;sos&quot;)
@@ -102,7 +283,7 @@ pairs(olive2[,num_cols],
       cex=0.5,   ## smaller points
       col=colvec[olive2$region],
       diag.panel=panel.density)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/unnamed-chunk-1-1.png" /> This took significant hacking to get the way I wanted it! haven't adjusted the panels above the diagonal, yet ...</p>
+<p><img src="explore_multiway_files/figure-markdown_strict/pairs-1.png" /> This took significant hacking to get the way I wanted it! haven't adjusted the panels above the diagonal, yet ...</p>
 <pre><code>## https://stackoverflow.com/questions/37889222/change-colors-in-ggpairs-now-that-params-is-deprecated
 ggp1 &lt;- ggpairs(olive2,
                 lower=list(continuous= function(data,mapping,...) {
@@ -141,12 +322,12 @@ print(ggp1)</code></pre>
 <pre><code>library(corrplot)
 corrplot(cor(olive2[,num_cols]),method=&quot;ellipse&quot;)</code></pre>
 <div class="figure">
-<img src="explore_multiway_files/figure-markdown_strict/unnamed-chunk-2-1.png" />
+<img src="explore_multiway_files/figure-markdown_strict/corrplot-1.png" />
 
 </div>
 <pre><code>corrplot.mixed(cor(olive2[,num_cols]),lower=&quot;number&quot;,upper=&quot;ellipse&quot;)</code></pre>
 <div class="figure">
-<img src="explore_multiway_files/figure-markdown_strict/unnamed-chunk-2-2.png" />
+<img src="explore_multiway_files/figure-markdown_strict/corrplot-2.png" />
 
 </div>
 <div id="footer">
