@@ -1,6 +1,41 @@
 ---
 title: "exploring multivariate data"
+bibliography: vis.bib
+csl: reflist2.csl
+output:
+  ioslides_presentation
 ---
+
+<!-- 
+apa.csl is a slightly hacked version of APA 
+  (modified for "et al" after 2 authors in text)
+-->
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+
+## 
 
 ```{r pkgs, message=FALSE}
 library(pgmm)    ## for olives data
@@ -21,6 +56,22 @@ library(agridat)  ## agricultural data sets
     - used by default for N<1000
 	- "Somewhat anecdotally, 'loess' gives a better appearance, but is O(N^2) in memory, so does not work for larger datasets"
 	- increase `span` to get smoother result
+	- could use `method.args = list(degree=1)` to get locally linear fit ...
+	
+## GAM
+
+- additive model
+- penalized regression (decides on smoothness automatically)
+- typical results are smoother than loess
+- may oversmooth (try adjusting max knots, e.g. `formula = y ~ s(x,k=10,bs="cs")`)
+- can use e.g. `method.args = list(family=poisson)` to account for data ranges
+
+## (G)LMs
+
+- simplest, smoothest
+- but also most constraining
+- can fit polynomials, e.g. `formula= y ~ poly(x,2)`
+- use `method.arg=list(family=...)` as appropriate
 
 ## multiple continuous predictors, single response
 
@@ -39,7 +90,7 @@ g1 <- (ggplot(cars_long,aes(xval,mpg)) +
 
 ---
 
-```{r g1plot}
+```{r g1plot,warning=FALSE}
 print(g1)  
 ```
 
@@ -50,7 +101,8 @@ data(olive,package="pgmm")
 data(fisher.barley,package="agridat")
 ```
 
-Hints on looking for stuff:
+## Hints on looking for stuff
+
 ```{r search, eval=FALSE}
 library("sos")
 findFn("barley")      ## full-text search of CRAN
@@ -58,7 +110,7 @@ findFn("barley")      ## full-text search of CRAN
 help.search("barley",agrep=FALSE) ## search in *installed* package
 ```
 
-Order data and factor-ize year:
+## Order data and factor-ize year
 
 ```{r barley1}
 ff <- (fisher.barley
@@ -69,6 +121,8 @@ ff <- (fisher.barley
 )
 ```
 
+---
+
 ```{r barley_basic}
 gg0 <- (ggplot(ff,
                aes(x=env,y=yield,colour=year,group=year))
@@ -76,12 +130,21 @@ gg0 <- (ggplot(ff,
   + geom_point()+geom_line()
   + facet_wrap(~gen,nrow=1)  ## 1-row layout
 )
+```
+
+--- 
+
+```{r barley_print}
 print(gg0)
 ```
+
+---
 
 Hard to see x-axis labels: try rotating?
 `coord_flip()` doesn't interact well with faceting
 (see also `ggstance`)
+
+---
 
 ```{r barley2}
 gg0_h <- (ggplot(ff,
@@ -93,8 +156,15 @@ gg0_h <- (ggplot(ff,
   + theme(panel.spacing=grid::unit(0,"lines"))
   + coord_fixed(ratio=20)
 )
+```
+
+---
+
+```{r print2}
 print(gg0_h)
 ```
+
+---
 
 maybe use `ncol=1, coord_fixed(ratio=1/20)`?
 Then yields would be aligned along the same
@@ -102,6 +172,8 @@ axis (but a tall skinny plot might not
 be convenient)
 
 Could calculate *differences* ...
+
+## olives
 
 ```{r olive1,message=FALSE}
 ## restore names to data set 
@@ -117,11 +189,12 @@ olive2 <-
 colvec <- c("red","blue","goldenrod")
 ```
 
-First a pairs plot in base R
+---
+
+First a pairs plot in base R:
+
 ```{r pairs}
-## define a function for panel density
-panel.density <- function(x, ...)
-{
+panel.density <- function(x, ...) {
   usr <- par("usr"); on.exit(par(usr))
   par(usr = c(usr[1:2], 0, 1.5) ) ## modify y limits
   h <- lapply(split(x,olive2$region),density)
@@ -130,14 +203,20 @@ panel.density <- function(x, ...)
   }
 }
 num_cols <- 3:ncol(olive2)
+```
+
+---
+
+```{r pairs2}
 pairs(olive2[,num_cols],
       gap=0,     ## no spaces
       cex=0.5,   ## smaller points
       col=colvec[olive2$region],
       diag.panel=panel.density)
 ```
+
+## 
 This took significant hacking to get the way I wanted it!
-haven't adjusted the panels above the diagonal, yet ...
 
 ```{r ggpairs}
 ## https://stackoverflow.com/questions/37889222/change-colors-in-ggpairs-now-that-params-is-deprecated
@@ -162,8 +241,15 @@ ggp1 <- ggpairs(olive2,
                 mapping=aes(colour=region))
 ## https://github.com/ggobi/ggally/issues/14
 theme_set(theme_bw()+ theme(panel.spacing=grid::unit(0,"lines")))
+```
+
+---
+
+```{r print_ggpairs}
 print(ggp1)
 ```
+
+---
 
 ```{r car}
 car::scatterplotMatrix(olive2[,num_cols],
@@ -171,10 +257,17 @@ car::scatterplotMatrix(olive2[,num_cols],
                        gap=0)
 ```
 
+---
+
 What about just showing correlations? (Probably not "exploratory".)
 
 ```{r corrplot}
 library(corrplot)
 corrplot(cor(olive2[,num_cols]),method="ellipse")
+```
+
+---
+
+```{r mixed}
 corrplot.mixed(cor(olive2[,num_cols]),lower="number",upper="ellipse")
 ```
