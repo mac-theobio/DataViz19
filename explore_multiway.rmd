@@ -216,6 +216,7 @@ pairs(olive2[,num_cols],
 ```
 
 ## 
+
 This took significant hacking to get the way I wanted it!
 
 ```{r ggpairs}
