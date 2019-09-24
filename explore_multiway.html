@@ -22,6 +22,34 @@
 <div id="header">
 <h1 class="title">exploring multivariate data</h1>
 </div>
+<!-- 
+apa.csl is a slightly hacked version of APA 
+  (modified for "et al" after 2 authors in text)
+-->
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
 <pre><code>library(pgmm)    ## for olives data
 library(skimr)   ## for text-based summaries
 library(ggplot2); theme_set(theme_bw())
@@ -39,7 +67,23 @@ library(agridat)  ## agricultural data sets</code></pre>
 <li>used by default for N&lt;1000</li>
 <li>&quot;Somewhat anecdotally, 'loess' gives a better appearance, but is O(N^2) in memory, so does not work for larger datasets&quot;</li>
 <li>increase <code>span</code> to get smoother result</li>
+<li>could use <code>method.args = list(degree=1)</code> to get locally linear fit ...</li>
 </ul></li>
+</ul>
+<h2 id="gam">GAM</h2>
+<ul>
+<li>additive model</li>
+<li>penalized regression (decides on smoothness automatically)</li>
+<li>typical results are smoother than loess</li>
+<li>may oversmooth (try adjusting max knots, e.g. <code>formula = y ~ s(x,k=10,bs=&quot;cs&quot;)</code>)</li>
+<li>can use e.g. <code>method.args = list(family=poisson)</code> to account for data ranges</li>
+</ul>
+<h2 id="glms">(G)LMs</h2>
+<ul>
+<li>simplest, smoothest</li>
+<li>but also most constraining</li>
+<li>can fit polynomials, e.g. <code>formula= y ~ poly(x,2)</code></li>
+<li>use <code>method.arg=list(family=...)</code> as appropriate</li>
 </ul>
 <h2 id="multiple-continuous-predictors-single-response">multiple continuous predictors, single response</h2>
 <p>&quot;melt&quot; data to long format (<code>gather()</code>, <code>pivot_longer()</code>)</p>
@@ -54,159 +98,7 @@ g1 &lt;- (ggplot(cars_long,aes(xval,mpg)) +
 <hr />
 <pre><code>print(g1)  
 
-## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at -0.005
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 1.005
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 0
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 1.01
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
-## at -0.005
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 1.005
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
-## condition number 0
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other
-## near singularities as well. 1.01
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at 4
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 2
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 1.8444e-16
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
-## at 4
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 2
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
-## condition number 1.8444e-16
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at 3.98
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 4.02
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 2.0055e-16
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 16.16
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
-## at 3.98
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 4.02
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
-## condition number 2.0055e-16
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other
-## near singularities as well. 16.16
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at 2.99
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 1.01
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 0
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 4.0401
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
-## at 2.99
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 1.01
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
-## condition number 0
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other
-## near singularities as well. 4.0401
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at -0.005
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 1.005
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 0
-
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 1.01
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : pseudoinverse used
-## at -0.005
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : neighborhood radius
-## 1.005
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : reciprocal
-## condition number 0
-
-## Warning in predLoess(object$y, object$x, newx = if
-## (is.null(newdata)) object$x else if (is.data.frame(newdata))
-## as.matrix(model.frame(delete.response(terms(object)), : There are other
-## near singularities as well. 1.01</code></pre>
+## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
 <div class="figure">
 <img src="explore_multiway_files/figure-markdown_strict/g1plot-1.png" />
 
@@ -214,31 +106,34 @@ g1 &lt;- (ggplot(cars_long,aes(xval,mpg)) +
 <h2 id="multivariate-data">multivariate data</h2>
 <pre><code>data(olive,package=&quot;pgmm&quot;)
 data(fisher.barley,package=&quot;agridat&quot;)</code></pre>
-<p>Hints on looking for stuff:</p>
+<h2 id="hints-on-looking-for-stuff">Hints on looking for stuff</h2>
 <pre><code>library(&quot;sos&quot;)
 findFn(&quot;barley&quot;)      ## full-text search of CRAN
 ?RSiteSearch          ## similar
 help.search(&quot;barley&quot;,agrep=FALSE) ## search in *installed* package</code></pre>
-<p>Order data and factor-ize year:</p>
+<h2 id="order-data-and-factor-ize-year">Order data and factor-ize year</h2>
 <pre><code>ff &lt;- (fisher.barley
   %&gt;% mutate(gen=reorder(gen,yield),
              env=reorder(env,yield),
              year=factor(year))
   %&gt;% arrange(gen,env)
-)
-
-gg0 &lt;- (ggplot(ff,
+)</code></pre>
+<hr />
+<pre><code>gg0 &lt;- (ggplot(ff,
                aes(x=env,y=yield,colour=year,group=year))
   ## geom_boxplot(aes(x=gen,y=yield,fill=factor(year)))
   + geom_point()+geom_line()
   + facet_wrap(~gen,nrow=1)  ## 1-row layout
-)
-print(gg0)</code></pre>
+)</code></pre>
+<hr />
+<pre><code>print(gg0)</code></pre>
 <div class="figure">
-<img src="explore_multiway_files/figure-markdown_strict/barley_basic-1.png" />
+<img src="explore_multiway_files/figure-markdown_strict/barley_print-1.png" />
 
 </div>
+<hr />
 <p>Hard to see x-axis labels: try rotating? <code>coord_flip()</code> doesn't interact well with faceting (see also <code>ggstance</code>)</p>
+<hr />
 <pre><code>gg0_h &lt;- (ggplot(ff,
                aes(y=env,x=yield,colour=year,group=year))
         ## geom_boxplot(aes(x=gen,y=yield,fill=factor(year)))
@@ -247,14 +142,17 @@ print(gg0)</code></pre>
   + facet_wrap(~gen,nrow=1)
   + theme(panel.spacing=grid::unit(0,&quot;lines&quot;))
   + coord_fixed(ratio=20)
-)
-print(gg0_h)</code></pre>
+)</code></pre>
+<hr />
+<pre><code>print(gg0_h)</code></pre>
 <div class="figure">
-<img src="explore_multiway_files/figure-markdown_strict/barley2-1.png" />
+<img src="explore_multiway_files/figure-markdown_strict/print2-1.png" />
 
 </div>
+<hr />
 <p>maybe use <code>ncol=1, coord_fixed(ratio=1/20)</code>? Then yields would be aligned along the same axis (but a tall skinny plot might not be convenient)</p>
 <p>Could calculate <em>differences</em> ...</p>
+<h2 id="olives">olives</h2>
 <pre><code>## restore names to data set 
 olive_regions &lt;-
   read_csv(&quot;data/olive_regions.csv&quot;)
@@ -266,10 +164,9 @@ olive2 &lt;-
   %&gt;% mutate_at(c(&quot;region&quot;,&quot;area&quot;),factor)
   )
 colvec &lt;- c(&quot;red&quot;,&quot;blue&quot;,&quot;goldenrod&quot;)</code></pre>
-<p>First a pairs plot in base R</p>
-<pre><code>## define a function for panel density
-panel.density &lt;- function(x, ...)
-{
+<hr />
+<p>First a pairs plot in base R:</p>
+<pre><code>panel.density &lt;- function(x, ...) {
   usr &lt;- par(&quot;usr&quot;); on.exit(par(usr))
   par(usr = c(usr[1:2], 0, 1.5) ) ## modify y limits
   h &lt;- lapply(split(x,olive2$region),density)
@@ -277,13 +174,18 @@ panel.density &lt;- function(x, ...)
     lines(h[[i]]$x,h[[i]]$y/max(h[[i]]$y),col=colvec[i])
   }
 }
-num_cols &lt;- 3:ncol(olive2)
-pairs(olive2[,num_cols],
+num_cols &lt;- 3:ncol(olive2)</code></pre>
+<hr />
+<pre><code>pairs(olive2[,num_cols],
       gap=0,     ## no spaces
       cex=0.5,   ## smaller points
       col=colvec[olive2$region],
       diag.panel=panel.density)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/pairs-1.png" /> This took significant hacking to get the way I wanted it! haven't adjusted the panels above the diagonal, yet ...</p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/pairs2-1.png" />
+
+</div>
+<p>This took significant hacking to get the way I wanted it!</p>
 <pre><code>## https://stackoverflow.com/questions/37889222/change-colors-in-ggpairs-now-that-params-is-deprecated
 ggp1 &lt;- ggpairs(olive2,
                 lower=list(continuous= function(data,mapping,...) {
@@ -305,12 +207,14 @@ ggp1 &lt;- ggpairs(olive2,
                 columns=num_cols,
                 mapping=aes(colour=region))
 ## https://github.com/ggobi/ggally/issues/14
-theme_set(theme_bw()+ theme(panel.spacing=grid::unit(0,&quot;lines&quot;)))
-print(ggp1)</code></pre>
+theme_set(theme_bw()+ theme(panel.spacing=grid::unit(0,&quot;lines&quot;)))</code></pre>
+<hr />
+<pre><code>print(ggp1)</code></pre>
 <div class="figure">
-<img src="explore_multiway_files/figure-markdown_strict/ggpairs-1.png" />
+<img src="explore_multiway_files/figure-markdown_strict/print_ggpairs-1.png" />
 
 </div>
+<hr />
 <pre><code>car::scatterplotMatrix(olive2[,num_cols],
                        groups=olive2$region,
                        gap=0)</code></pre>
@@ -318,6 +222,7 @@ print(ggp1)</code></pre>
 <img src="explore_multiway_files/figure-markdown_strict/car-1.png" />
 
 </div>
+<hr />
 <p>What about just showing correlations? (Probably not &quot;exploratory&quot;.)</p>
 <pre><code>library(corrplot)
 corrplot(cor(olive2[,num_cols]),method=&quot;ellipse&quot;)</code></pre>
@@ -325,9 +230,10 @@ corrplot(cor(olive2[,num_cols]),method=&quot;ellipse&quot;)</code></pre>
 <img src="explore_multiway_files/figure-markdown_strict/corrplot-1.png" />
 
 </div>
+<hr />
 <pre><code>corrplot.mixed(cor(olive2[,num_cols]),lower=&quot;number&quot;,upper=&quot;ellipse&quot;)</code></pre>
 <div class="figure">
-<img src="explore_multiway_files/figure-markdown_strict/corrplot-2.png" />
+<img src="explore_multiway_files/figure-markdown_strict/mixed-1.png" />
 
 </div>
 <div id="footer">
