@@ -1,0 +1,155 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>tables vs graphs</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">tables vs graphs</h1>
+</div>
+<h1 id="setup">setup</h1>
+<h2 id="load-packages">load packages</h2>
+<pre><code>## graphics
+library(ggplot2)
+theme_set(theme_bw()+theme(panel.spacing=grid::unit(0,&quot;lines&quot;)))
+library(directlabels)
+## modeling/coef plots
+library(lme4)
+library(broom)
+library(dotwhisker)
+library(ggstance) ## horizontal geoms
+library(stargazer)
+## manipulation
+library(tidyr)
+library(dplyr)
+library(purrr)
+library(readr)</code></pre>
+<h1 id="turning-tables-into-graphs">turning tables into graphs</h1>
+<h2 id="why-graphs-instead-of-tables">why graphs instead of tables?</h2>
+<ul>
+<li>Gelman, Pasarica, and Dodhia (2002); Gelman (2011)</li>
+</ul>
+<blockquote>
+<p>tables are best suited for looking up specific information, and graphs are better for perceiving trends and making comparisons and predictions</p>
+</blockquote>
+<ul>
+<li>easier to read and compare</li>
+<li>easier to perceive magnitudes</li>
+<li>less prone to dichotomization</li>
+</ul>
+<h2 id="why-not-tables-instead-of-graphs">why not tables instead of graphs?</h2>
+<ul>
+<li>looking up specific values (dynamic graphs?)</li>
+<li>cultural familiarity</li>
+<li>includes all the information
+<ul>
+<li>include data separately/machine-readably?</li>
+</ul></li>
+</ul>
+<h2 id="principles">principles</h2>
+<ul>
+<li>use small multiples</li>
+<li>use appropriate scales</li>
+<li>Cleveland hierarchy etc.</li>
+</ul>
+<h2 id="example-wei-2017-table-5.5">example: Wei (2017) Table 5.5</h2>
+<div class="figure">
+<img src="pix/wei_tab5.5.png" />
+
+</div>
+<h2 id="rearranged-data">rearranged data</h2>
+<pre><code>## need read_table2() for &#39;irregular&#39; data
+dd &lt;- read_table2(&quot;data/wei_tab5.5.txt&quot;)
+head(dd)
+
+## # A tibble: 6 x 11
+##   dataset     r type  MGHD.ERR MGHD.ARI MST.ERR MST.ARI `MI/MGHD.ERR`
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1 sim1     0.05 est     0.0608   0.774   0.0688  0.771         0.121 
+## 2 sim1     0.05 sd      0.0292   0.0925  0.0557  0.0998        0.0302
+## 3 sim1     0.1  est     0.0578   0.782   0.277   0.456         0.188 
+## 4 sim1     0.1  sd      0.0116   0.0412  0.0895  0.215         0.0392
+## 5 sim1     0.2  est     0.0674   0.752   0.231   0.562         0.311 
+## 6 sim1     0.2  sd      0.0335   0.108   0.0604  0.105         0.0552
+## # … with 3 more variables: `MI/MGHD.ARI` &lt;dbl&gt;, `MI/MST.ERR` &lt;dbl&gt;,
+## #   `MI/MST.ARI` &lt;dbl&gt;</code></pre>
+<h2 id="rearrange">rearrange</h2>
+<pre><code>dd2 &lt;- (dd
+    %&gt;% gather(key=model,value=val,-c(dataset,r,type))
+    %&gt;% separate(model,into=c(&quot;model&quot;,&quot;stat&quot;),sep=&quot;\\.&quot;)
+    %&gt;% spread(key=type,value=val) ## est + sd in a single row
+)
+head(dd2)
+
+## # A tibble: 6 x 6
+##   dataset     r model   stat     est     sd
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 sim1     0.05 MGHD    ARI   0.774  0.0925
+## 2 sim1     0.05 MGHD    ERR   0.0608 0.0292
+## 3 sim1     0.05 MI/MGHD ARI   0.594  0.0874
+## 4 sim1     0.05 MI/MGHD ERR   0.121  0.0302
+## 5 sim1     0.05 MI/MST  ARI   0.607  0.098 
+## 6 sim1     0.05 MI/MST  ERR   0.118  0.0341
+
+simtab &lt;- read.table(header=TRUE,text=&quot;
+dataset distribution covstruc separation
+sim1 MGHD VEE well-separated
+sim2 MGHD VEE overlapping
+sim3 MST VEI well-separated
+sim4 MST VEI overlapping
+sim5 GMM VEE well-separated
+sim6 GMM VEE overlapping
+&quot;)
+dd3 &lt;- dd2 %&gt;% merge(simtab,by=&quot;dataset&quot;)</code></pre>
+<h2 id="code">code</h2>
+<pre><code>gg1 &lt;- (ggplot(dd3,aes(factor(r),est,colour=model)) 
+  + geom_point()+geom_line(aes(group=model))   ## points and lines
+  ## transparent ribbons, +/- 1 SD:
+  + geom_ribbon(aes(ymin=est-sd,ymax=est+sd,group=model,fill=model),
+                colour=NA,alpha=0.3)
+  ## limit y-axis, compress out-of-bounds values
+  + scale_y_continuous(limits=c(0,1),oob=scales::squish)
+  + facet_grid(stat~distribution+covstruc+separation)
+  + labs(x=&quot;r (proportion missing)&quot;,y=&quot;&quot;)
+  + scale_colour_brewer(palette=&quot;Dark2&quot;)
+  + scale_fill_brewer(palette=&quot;Dark2&quot;))</code></pre>
+<h2 id="picture">picture</h2>
+<div class="figure">
+<img src="tables_files/figure-markdown_strict/plot-1.png" />
+
+</div>
+<h2 id="possible-improvements">possible improvements?</h2>
+<ul>
+<li>order models</li>
+<li>colour panel backgrounds according to whether well-separated or not (<code>geom_rect</code>)</li>
+<li>direct labeling (only in rightmost facets?)</li>
+<li>could collapse sim labels</li>
+<li>change x-axis to continuous?</li>
+<li>invert ARI or ERR so rankings are the same?</li>
+</ul>
+<h2 id="references">references</h2>
+<p>Gelman, Andrew. 2011. “Why Tables Are Really Much Better Than Graphs.” <em>Journal of Computational and Graphical Statistics</em> 20 (1): 3–7. doi:<a href="https://doi.org/10.1198/jcgs.2011.09166">10.1198/jcgs.2011.09166</a>.</p>
+<p>Gelman, Andrew, Cristian Pasarica, and Rahul Dodhia. 2002. “Let’s Practice What We Preach: Turning Tables into Graphs.” <em>The American Statistician</em> 56 (2): 121–30. <a href="http://www.tandfonline.com/doi/abs/10.1198/000313002317572790" class="uri">http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
+<p>Wei, Yuhong. 2017. “Extending Growth Mixture Models and Handling Missing Values via Mixtures of Non-Elliptical Distributions.” Thesis. <a href="https://macsphere.mcmaster.ca/handle/11375/21987" class="uri">https://macsphere.mcmaster.ca/handle/11375/21987</a>.</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>

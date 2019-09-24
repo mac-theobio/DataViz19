@@ -1,0 +1,158 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>exploring multivariate data</title>
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">exploring multivariate data</h1>
+</div>
+<pre><code>library(pgmm)    ## for olives data
+library(skimr)   ## for text-based summaries
+library(ggplot2); theme_set(theme_bw())
+library(GGally)   ## pairs plots etc.
+library(corrplot) ## correlation plots
+library(dplyr)    ## data manipulation
+library(readr)    ## read CSV files
+library(agridat)  ## agricultural data sets
+
+data(olive,package=&quot;pgmm&quot;)
+data(fisher.barley,package=&quot;agridat&quot;)</code></pre>
+<p>Hints on looking for stuff:</p>
+<pre><code>library(&quot;sos&quot;)
+findFn(&quot;barley&quot;)      ## full-text search of CRAN
+?RSiteSearch          ## similar
+help.search(&quot;barley&quot;,agrep=FALSE) ## search in *installed* package</code></pre>
+<p>Order data and factor-ize year:</p>
+<pre><code>ff &lt;- (fisher.barley
+  %&gt;% mutate(gen=reorder(gen,yield),
+             env=reorder(env,yield),
+             year=factor(year))
+  %&gt;% arrange(gen,env)
+)
+
+gg0 &lt;- (ggplot(ff,
+               aes(x=env,y=yield,colour=year,group=year))
+  ## geom_boxplot(aes(x=gen,y=yield,fill=factor(year)))
+  + geom_point()+geom_line()
+  + facet_wrap(~gen,nrow=1)  ## 1-row layout
+)
+print(gg0)</code></pre>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/barley_basic-1.png" />
+
+</div>
+<p>Hard to see x-axis labels: try rotating? <code>coord_flip()</code> doesn't interact well with faceting (see also <code>ggstance</code>)</p>
+<pre><code>gg0_h &lt;- (ggplot(ff,
+               aes(y=env,x=yield,colour=year,group=year))
+        ## geom_boxplot(aes(x=gen,y=yield,fill=factor(year)))
+  + geom_point()
+  + geom_path()
+  + facet_wrap(~gen,nrow=1)
+  + theme(panel.spacing=grid::unit(0,&quot;lines&quot;))
+  + coord_fixed(ratio=20)
+)
+print(gg0_h)</code></pre>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/barley2-1.png" />
+
+</div>
+<p>maybe use <code>ncol=1, coord_fixed(ratio=1/20)</code>? Then yields would be aligned along the same axis (but a tall skinny plot might not be convenient)</p>
+<p>Could calculate <em>differences</em> ...</p>
+<pre><code>## restore names to data set 
+olive_regions &lt;-
+  read_csv(&quot;data/olive_regions.csv&quot;)
+olive2 &lt;- 
+  (full_join(olive_regions,olive,
+      by=c(&quot;region_num&quot; = &quot;Region&quot;,
+           &quot;area_num&quot; = &quot;Area&quot;))  
+  %&gt;% select(-c(region_num,area_num))
+  %&gt;% mutate_at(c(&quot;region&quot;,&quot;area&quot;),factor)
+  )
+colvec &lt;- c(&quot;red&quot;,&quot;blue&quot;,&quot;goldenrod&quot;)</code></pre>
+<p>First a pairs plot in base R</p>
+<pre><code>## define a function for panel density
+panel.density &lt;- function(x, ...)
+{
+  usr &lt;- par(&quot;usr&quot;); on.exit(par(usr))
+  par(usr = c(usr[1:2], 0, 1.5) ) ## modify y limits
+  h &lt;- lapply(split(x,olive2$region),density)
+  for (i in 1:length(h)) {
+    lines(h[[i]]$x,h[[i]]$y/max(h[[i]]$y),col=colvec[i])
+  }
+}
+num_cols &lt;- 3:ncol(olive2)
+pairs(olive2[,num_cols],
+      gap=0,     ## no spaces
+      cex=0.5,   ## smaller points
+      col=colvec[olive2$region],
+      diag.panel=panel.density)</code></pre>
+<p><img src="explore_multiway_files/figure-markdown_strict/unnamed-chunk-1-1.png" /> This took significant hacking to get the way I wanted it! haven't adjusted the panels above the diagonal, yet ...</p>
+<pre><code>## https://stackoverflow.com/questions/37889222/change-colors-in-ggpairs-now-that-params-is-deprecated
+ggp1 &lt;- ggpairs(olive2,
+                lower=list(continuous= function(data,mapping,...) {
+                  (ggally_points(data,mapping,..., size=1)
+                    + scale_colour_brewer(palette=&quot;Dark2&quot;)
+                  )
+                }),
+                diag = list(continuous=function(data,mapping,...) {
+                  (ggplot(data,mapping) 
+                    + geom_density(...)
+                    + scale_colour_brewer(palette=&quot;Dark2&quot;)
+                  )
+                }),
+                upper = list(continuous=function(data,mapping, ...) {
+                  (ggally_cor(data,mapping,...)
+                    + scale_colour_brewer(palette=&quot;Dark2&quot;)
+                  )
+                }),
+                columns=num_cols,
+                mapping=aes(colour=region))
+## https://github.com/ggobi/ggally/issues/14
+theme_set(theme_bw()+ theme(panel.spacing=grid::unit(0,&quot;lines&quot;)))
+print(ggp1)</code></pre>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/ggpairs-1.png" />
+
+</div>
+<pre><code>car::scatterplotMatrix(olive2[,num_cols],
+                       groups=olive2$region,
+                       gap=0)</code></pre>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/car-1.png" />
+
+</div>
+<p>What about just showing correlations? (Probably not &quot;exploratory&quot;.)</p>
+<pre><code>library(corrplot)
+corrplot(cor(olive2[,num_cols]),method=&quot;ellipse&quot;)</code></pre>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/unnamed-chunk-2-1.png" />
+
+</div>
+<pre><code>corrplot.mixed(cor(olive2[,num_cols]),lower=&quot;number&quot;,upper=&quot;ellipse&quot;)</code></pre>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/unnamed-chunk-2-2.png" />
+
+</div>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
