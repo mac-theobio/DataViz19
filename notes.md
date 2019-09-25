@@ -59,6 +59,7 @@ make  <name>.<ext>.pagepush
 ## Testing
 
 * `make ship_pages` to push to the LOCAL pages branch
+	* `make local_index` does `ship_pages` and then opens index.html
 * `make push_pages` to ship_pages and then push to the web
 
 The testing part is terrible and is why we should switch to jekyll. Maybe next year. The local branch doesn't look right and pushing the web is slow and glitchy as we know
