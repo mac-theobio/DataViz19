@@ -119,9 +119,10 @@ orchard.Rout: orchard.R
 ### explore
 
 ## Comment in and out
-%.R: ../17/lectures/%.R; $(copy)
-%.txt: ../17/lectures/%.R; $(copy)
+## %.R: ../17/lectures/%.R; $(copy)
+## %.txt: ../17/lectures/%.R; $(copy)
 
+Ignore += bikes.zip
 bikes.zip:
 	wget -O $@ https://archive.ics.uci.edu/ml/machine-learning-databases/00275/Bike-Sharing-Dataset.zip
 
