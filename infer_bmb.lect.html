@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<head>
+  <meta charset="utf-8" />
+  <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
+  <title>inference</title>
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<header id="title-block-header">
+<h1 class="title">inference</h1>
+</header>
+<h1 id="setup">setup</h1>
+<h2 id="load-packages">load packages</h2>
+<pre><code>## graphics
+library(ggplot2)
+theme_set(theme_bw()+theme(panel.spacing=grid::unit(0,&quot;lines&quot;)))
+library(directlabels)
+## modeling/coef plots
+library(lme4)
+library(broom)
+library(broom.mixed)
+library(dotwhisker)
+library(ggstance) ## horizontal geoms
+library(stargazer)
+## manipulation
+library(tidyr)
+library(dplyr)
+library(purrr)
+library(readr)</code></pre>
+<h1 id="coefficient-plots">coefficient plots</h1>
+<h2 id="principles">principles</h2>
+<ul>
+<li>make it easy to compare magnitudes</li>
+<li>use appropriate scales</li>
+<li>which comparisons do you want to make?</li>
+<li>typically drop intercept (why?)</li>
+</ul>
+<h2 id="nuts-and-bolts">nuts and bolts</h2>
+<ul>
+<li>old and busted: <code>arm::coefplot</code>, <code>coefplot2</code></li>
+<li>new hotness:
+<ul>
+<li><code>dotwhisker</code></li>
+<li><code>broom</code> + <code>ggplot2</code> + <code>ggstance</code></li>
+</ul></li>
+</ul>
+<h2 id="example">example</h2>
+<pre><code>data(Contraception,package=&quot;mlmRev&quot;)
+Contraception &lt;- Contraception %&gt;%
+    mutate(ch=factor(livch != 0, labels = c(&quot;N&quot;, &quot;Y&quot;)))
+m3 &lt;- glmer(use ~ age * ch + I(age^2) + urban + (1 | urban:district),
+            data=Contraception, family=binomial)
+
+ss &lt;- stargazer(m3,type=&quot;html&quot;)</code></pre>
+<h2 id="stargazer-output">stargazer output</h2>
+<table style="text-align:center">
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+<em>Dependent variable:</em>
+</td>
+</tr>
+<tr>
+<td>
+</td>
+<td colspan="1" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+use
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+age
+</td>
+<td>
+-0.046<sup>**</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.022)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+chY
+</td>
+<td>
+1.213<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.210)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+I(age2)
+</td>
+<td>
+-0.006<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.001)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+urbanY
+</td>
+<td>
+0.787<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.172)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+age:chY
+</td>
+<td>
+0.066<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.026)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Constant
+</td>
+<td>
+-1.341<sup>***</sup>
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+(0.222)
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+</td>
+<td>
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Observations
+</td>
+<td>
+1,934
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Log Likelihood
+</td>
+<td>
+-1,177.237
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Akaike Inf. Crit.
+</td>
+<td>
+2,368.475
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+Bayesian Inf. Crit.
+</td>
+<td>
+2,407.446
+</td>
+</tr>
+<tr>
+<td colspan="2" style="border-bottom: 1px solid black">
+</td>
+</tr>
+<tr>
+<td style="text-align:left">
+<em>Note:</em>
+</td>
+<td style="text-align:right">
+<sup><em></sup>p&lt;0.1; <sup><strong></sup>p&lt;0.05; <sup></strong></em></sup>p&lt;0.01
+</td>
+</tr>
+</table>
+<h2 id="coefficient-plot">coefficient plot</h2>
+<pre><code>dotwhisker::dwplot(m3)</code></pre>
+<p><img src="infer_bmb.lect_files/figure-markdown_strict/dw1-1.png" /></p>
+<h2 id="add-reference-line">add reference line</h2>
+<pre><code>gg0 &lt;- dotwhisker::dwplot(m3)+geom_vline(xintercept=0,lty=2)
+print(gg0)</code></pre>
+<p><img src="infer_bmb.lect_files/figure-markdown_strict/dw_refline-1.png" /></p>
+<h2 id="scaling">scaling</h2>
+<ul>
+<li>need to scale parameters appropriately to compare magnitude</li>
+<li>Gelman (2008); Schielzeth (2010)</li>
+<li><code>arm::standardize</code>, <code>arm::rescale</code> (handy but inefficient)</li>
+</ul>
+<blockquote>
+<p>binary.inputs: options for standardizing binary variables, default is ‘center’; ‘0/1’ keeps original scale; ‘-0.5,0.5’ rescales 0 as -0.5 and 1 as 0.5; ‘center’ subtracts the mean; and ‘full’ subtracts the mean and divides by 2 sd.</p>
+</blockquote>
+<ul>
+<li>mixed models: standard deviations have same scale as corresponding parameter</li>
+</ul>
+<h2 id="update-with-scaled-age-parameter">update with scaled age parameter</h2>
+<pre><code>Contraception &lt;- Contraception %&gt;%
+    mutate(sc_age=drop(scale(age)))
+m3_sc &lt;- update(m3,
+      . ~ sc_age * ch + I(sc_age^2) + urban + (1 | urban:district))</code></pre>
+<h2 id="plot">plot</h2>
+<pre><code>dotwhisker::dwplot(m3_sc,effects=&quot;fixed&quot;)+
+    geom_vline(xintercept=0,lty=2)</code></pre>
+<p><img src="infer_bmb.lect_files/figure-markdown_strict/dwplot2-1.png" /></p>
+<pre><code>cc &lt;- broom.mixed::tidy(m3_sc,effects=&quot;fixed&quot;)
+print(cc,digits=3)
+
+## # A tibble: 6 x 6
+##   effect term        estimate std.error statistic  p.value
+##   &lt;chr&gt;  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
+## 1 fixed  (Intercept)   -1.34     0.222      -6.04 1.56e- 9
+## 2 fixed  sc_age        -0.416    0.198      -2.10 3.57e- 2
+## 3 fixed  chY            1.21     0.210       5.79 7.17e- 9
+## 4 fixed  I(sc_age^2)   -0.457    0.0690     -6.62 3.51e-11
+## 5 fixed  urbanY         0.787    0.172       4.57 4.88e- 6
+## 6 fixed  sc_age:chY     0.599    0.231       2.59 9.57e- 3
+
+m3_fixed &lt;-  glm(
+    use ~ sc_age * ch + I(sc_age^2) + urban,
+    data=Contraception, family=binomial)
+dotwhisker::dwplot(list(m3_sc,m3_fixed))+
+    geom_vline(xintercept=0,lty=2)+ scale_colour_brewer(palette=&quot;Dark2&quot;)</code></pre>
+<p><img src="infer_bmb.lect_files/figure-markdown_strict/m3_glm-1.png" /></p>
+<h2 id="dotwhisker-limitations">dotwhisker limitations</h2>
+<ul>
+<li>uses <code>coord_flip</code> internally; doesn’t interact well with facets</li>
+<li>might want to post-process output of <code>tidy()</code></li>
+</ul>
+<h2 id="alternative-data-prep">alternative: data prep</h2>
+<pre><code>m3_res &lt;- map(list(with_re=m3_sc,no_re=m3_fixed),tidy,
+              conf.int=TRUE) %&gt;%
+    bind_rows(.id=&quot;model&quot;) %&gt;%
+    mutate(term=factor(term,levels=unique(term))) %&gt;%
+    filter(term!=&quot;(Intercept)&quot;)</code></pre>
+<h2 id="alternative-plot">alternative: plot</h2>
+<pre><code>pd &lt;- ggstance::position_dodgev(height=0.5)
+(gg5 &lt;- ggplot(m3_res,aes(x=estimate,y=term,colour=model))
+    + geom_point(position=pd) + labs(y=&quot;&quot;)
+    + ggstance::geom_linerangeh(aes(xmin=conf.low,xmax=conf.high),
+                               position=pd)
+    + scale_colour_brewer(palette=&quot;Dark2&quot;) + geom_vline(xintercept=0,lty=2))
+
+## Warning: Removed 1 rows containing missing values (geom_linerangeh).</code></pre>
+<p><img src="infer_bmb.lect_files/figure-markdown_strict/unnamed-chunk-2-1.png" /></p>
+<h2 id="reorder-terms">reorder terms</h2>
+<pre><code>m3_res_order &lt;- mutate(m3_res,term=reorder(term,estimate))
+gg5 %+% m3_res_order
+
+## Warning: Removed 1 rows containing missing values (geom_linerangeh).</code></pre>
+<p><img src="infer_bmb.lect_files/figure-markdown_strict/unnamed-chunk-3-1.png" /></p>
+<h2 id="other-improvementsapplications">other improvements/applications</h2>
+<ul>
+<li>useful comparing lots of models</li>
+<li>models with many parallel parameters</li>
+<li>separate parameter types with facets</li>
+<li>sort by magnitude of estimate</li>
+</ul>
+<h1 id="turning-tables-into-graphs">turning tables into graphs</h1>
+<h2 id="why-graphs-instead-of-tables">why graphs instead of tables?</h2>
+<ul>
+<li>Gelman, Pasarica, and Dodhia (2002); Gelman (2011)</li>
+</ul>
+<blockquote>
+<p>tables are best suited for looking up specific information, and graphs are better for perceiving trends and making comparisons and predictions</p>
+</blockquote>
+<ul>
+<li>easier to read and compare</li>
+<li>easier to perceive magnitudes</li>
+<li>less prone to dichotomization</li>
+</ul>
+<h2 id="why-not-tables-instead-of-graphs">why not tables instead of graphs?</h2>
+<ul>
+<li>looking up specific values (dynamic graphs?)</li>
+<li>cultural familiarity</li>
+<li>includes all the information
+<ul>
+<li>include data separately/machine-readably?</li>
+</ul></li>
+</ul>
+<h2 id="principles-1">principles</h2>
+<ul>
+<li>use small multiples</li>
+<li>use appropriate scales</li>
+<li>Cleveland hierarchy etc.</li>
+</ul>
+<h2 id="example-wei-2017-table-5.5">example: Wei (2017) Table 5.5</h2>
+<p><img src="pix/wei_tab5.5.png" /></p>
+<h2 id="rearranged-data">rearranged data</h2>
+<pre><code>## need read_table2() for &#39;irregular&#39; data
+dd &lt;- read_table2(&quot;data/wei_tab5.5.txt&quot;)
+head(dd)
+
+## # A tibble: 6 x 11
+##   dataset     r type  MGHD.ERR MGHD.ARI MST.ERR MST.ARI `MI/MGHD.ERR`
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
+## 1 sim1     0.05 est     0.0608   0.774   0.0688  0.771         0.121 
+## 2 sim1     0.05 sd      0.0292   0.0925  0.0557  0.0998        0.0302
+## 3 sim1     0.1  est     0.0578   0.782   0.277   0.456         0.188 
+## 4 sim1     0.1  sd      0.0116   0.0412  0.0895  0.215         0.0392
+## 5 sim1     0.2  est     0.0674   0.752   0.231   0.562         0.311 
+## 6 sim1     0.2  sd      0.0335   0.108   0.0604  0.105         0.0552
+## # … with 3 more variables: `MI/MGHD.ARI` &lt;dbl&gt;, `MI/MST.ERR` &lt;dbl&gt;,
+## #   `MI/MST.ARI` &lt;dbl&gt;</code></pre>
+<h2 id="rearrange">rearrange</h2>
+<pre><code>dd2 &lt;- (dd
+    %&gt;% gather(key=model,value=val,-c(dataset,r,type))
+    %&gt;% separate(model,into=c(&quot;model&quot;,&quot;stat&quot;),sep=&quot;\\.&quot;)
+    %&gt;% spread(key=type,value=val) ## est + sd in a single row
+)
+head(dd2)
+
+## # A tibble: 6 x 6
+##   dataset     r model   stat     est     sd
+##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
+## 1 sim1     0.05 MGHD    ARI   0.774  0.0925
+## 2 sim1     0.05 MGHD    ERR   0.0608 0.0292
+## 3 sim1     0.05 MI/MGHD ARI   0.594  0.0874
+## 4 sim1     0.05 MI/MGHD ERR   0.121  0.0302
+## 5 sim1     0.05 MI/MST  ARI   0.607  0.098 
+## 6 sim1     0.05 MI/MST  ERR   0.118  0.0341
+
+simtab &lt;- read.table(header=TRUE,text=&quot;
+dataset distribution covstruc separation
+sim1 MGHD VEE well-separated
+sim2 MGHD VEE overlapping
+sim3 MST VEI well-separated
+sim4 MST VEI overlapping
+sim5 GMM VEE well-separated
+sim6 GMM VEE overlapping
+&quot;)
+dd3 &lt;- dd2 %&gt;% merge(simtab,by=&quot;dataset&quot;)</code></pre>
+<h2 id="code">code</h2>
+<pre><code>gg1 &lt;- (ggplot(dd3,aes(factor(r),est,colour=model)) 
+    + geom_point()+geom_line(aes(group=model))   ## points and lines
+    ## transparent ribbons, +/- 1 SD:
+    + geom_ribbon(aes(ymin=est-sd,ymax=est+sd,group=model,fill=model),
+                colour=NA,alpha=0.3)
+    + scale_y_continuous(limits=c(0,1),oob=scales::squish)
+    + facet_grid(stat~distribution+covstruc+separation)
+    + labs(x=&quot;r (proportion missing)&quot;,y=&quot;&quot;)
+    + scale_colour_brewer(palette=&quot;Dark2&quot;) + scale_fill_brewer(palette=&quot;Dark2&quot;))</code></pre>
+<h2 id="picture">picture</h2>
+<p><img src="infer_bmb.lect_files/figure-markdown_strict/unnamed-chunk-4-1.png" /></p>
+<h2 id="possible-improvements">possible improvements?</h2>
+<ul>
+<li>order models</li>
+<li>colour panel backgrounds according to whether well-separated or not (<code>geom_rect</code>)</li>
+<li>direct labeling (only in rightmost facets?)</li>
+<li>could collapse sim labels</li>
+<li>change x-axis to continuous?</li>
+<li>invert ARI or ERR so rankings are the same?</li>
+</ul>
+<h2 id="references">references</h2>
+<p>Gelman, Andrew. 2008. “Scaling Regression Inputs by Dividing by Two Standard Deviations.” <em>Statistics in Medicine</em> 27 (15): 2865–73. <a href="https://doi.org/10.1002/sim.3107" class="uri">https://doi.org/10.1002/sim.3107</a>.</p>
+<p>———. 2011. “Why Tables Are Really Much Better Than Graphs.” <em>Journal of Computational and Graphical Statistics</em> 20 (1): 3–7. <a href="https://doi.org/10.1198/jcgs.2011.09166" class="uri">https://doi.org/10.1198/jcgs.2011.09166</a>.</p>
+<p>Gelman, Andrew, Cristian Pasarica, and Rahul Dodhia. 2002. “Let’s Practice What We Preach: Turning Tables into Graphs.” <em>The American Statistician</em> 56 (2): 121–30. <a href="http://www.tandfonline.com/doi/abs/10.1198/000313002317572790" class="uri">http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
+<p>Schielzeth, Holger. 2010. “Simple Means to Improve the Interpretability of Regression Coefficients.” <em>Methods in Ecology and Evolution</em> 1: 103–13. <a href="https://doi.org/10.1111/j.2041-210X.2010.00012.x" class="uri">https://doi.org/10.1111/j.2041-210X.2010.00012.x</a>.</p>
+<p>Wei, Yuhong. 2017. “Extending Growth Mixture Models and Handling Missing Values via Mixtures of Non-Elliptical Distributions.” Thesis. <a href="https://macsphere.mcmaster.ca/handle/11375/21987" class="uri">https://macsphere.mcmaster.ca/handle/11375/21987</a>.</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
