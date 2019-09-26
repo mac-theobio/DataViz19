@@ -1,12 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta charset="utf-8" />
   <meta name="generator" content="pandoc" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>Data visualization</title>
-  <style type="text/css">code{white-space: pre;}</style>
-  <link rel="stylesheet" href="main.css" type="text/css" />
+  <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" />
+  <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
+  <![endif]-->
 </head>
 <body>
 <header class="site-header">
@@ -19,9 +27,9 @@
 	</div>
 </div>
 </header>
-<div id="header">
+<header id="title-block-header">
 <h1 class="title">Data visualization</h1>
-</div>
+</header>
 <!-- from https://www.w3schools.com/css/css_table.asp -->
 <style>
 th, td {
@@ -56,202 +64,202 @@ th {background-color: #ccccff;}
 </ul>
 <table>
 <colgroup>
-<col width="6%" />
-<col width="10%" />
-<col width="36%" />
-<col width="46%" />
+<col style="width: 6%" />
+<col style="width: 9%" />
+<col style="width: 36%" />
+<col style="width: 46%" />
 </colgroup>
 <thead>
 <tr class="header">
-<th align="left">
+<th style="text-align: left;">
 start date
 </th>
-<th align="left">
+<th style="text-align: left;">
 topic
 </th>
-<th align="left">
+<th style="text-align: left;">
 reading/viewing
 </th>
-<th align="left">
+<th style="text-align: left;">
 lecture notes
 </th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">
+<td style="text-align: left;">
 6 Sep
 </td>
-<td align="left">
+<td style="text-align: left;">
 organizational meeting; tidyverse/GitHub basics
 </td>
-<td align="left">
-Git stuff (<a href="https://beta.rstudioconnect.com/jennybc/happy-git-with-r/">&quot;Happy Git with R&quot;</a>; <a href="https://jcszamosi.github.io/mcmaster_swc_git_gui/">GitHub with GitHub desktop</a>; <a href="https://swcarpentry.github.io/git-novice/">GitHub on the command line</a>); tidyverse stuff (Software Carpentry lessons on <a href="http://swcarpentry.github.io/r-novice-gapminder/13-dplyr/">dplyr</a> and <a href="http://swcarpentry.github.io/r-novice-gapminder/14-tidyr/">tidyr</a>; <a href="https://www.rstudio.com/resources/cheatsheets/">tidyverse cheat sheets</a> (see especially &quot;data import&quot; and &quot;data transformation&quot;));
+<td style="text-align: left;">
+Git stuff (<a href="https://beta.rstudioconnect.com/jennybc/happy-git-with-r/">“Happy Git with R”</a>; <a href="https://jcszamosi.github.io/mcmaster_swc_git_gui/">GitHub with GitHub desktop</a>; <a href="https://swcarpentry.github.io/git-novice/">GitHub on the command line</a>); tidyverse stuff (Software Carpentry lessons on <a href="http://swcarpentry.github.io/r-novice-gapminder/13-dplyr/">dplyr</a> and <a href="http://swcarpentry.github.io/r-novice-gapminder/14-tidyr/">tidyr</a>; <a href="https://www.rstudio.com/resources/cheatsheets/">tidyverse cheat sheets</a> (see especially “data import” and “data transformation”));
 </td>
-<td align="left">
+<td style="text-align: left;">
 <a href="https://mac-theobio.github.io/DataViz/intro.html">intro</a>
 </td>
 </tr>
 <tr class="even">
-<td align="left">
+<td style="text-align: left;">
 10 Sep
 </td>
-<td align="left">
+<td style="text-align: left;">
 principles: Tukey, Cleveland, Tufte
 </td>
-<td align="left">
-<span class="citation">Cleveland and McGill (1984)</span>; <span class="citation">Cleveland and McGill (1987)</span>; John Rauser on <a href="https://www.youtube.com/watch?v=fSgEeI2Xpdc">&quot;How Humans See Data&quot;</a>;
+<td style="text-align: left;">
+<span class="citation" data-cites="cleveland_graphical_1984">Cleveland and McGill (1984)</span>; <span class="citation" data-cites="cleveland_graphical_1987">Cleveland and McGill (1987)</span>; John Rauser on <a href="https://www.youtube.com/watch?v=fSgEeI2Xpdc">“How Humans See Data”</a>;
 </td>
-<td align="left">
-<a href="https://mac-theobio.github.io/DataViz/%5Bscales%20lecture%20(pdf%20notes)%5D(scales.lect.handouts.pdf);%20%5Bprinciples%20lecture%5D(principles.lect.html);%20%5BBMB&#39;s%20%22bananas%22%20code%5D(bananas.R).html"><a href="scales.lect.handouts.pdf">scales lecture (pdf notes)</a>; <a href="principles.lect.html">principles lecture</a>; <a href="bananas.R">BMB's &quot;bananas&quot; code</a></a>
+<td style="text-align: left;">
+<a href="https://mac-theobio.github.io/DataViz/%5Bscales%20lecture%20(pdf%20notes)%5D(scales.lect.handouts.pdf);%20%5Bprinciples%20lecture%5D(principles.lect.html);%20%5BBMB&#39;s%20%22bananas%22%20code%5D(bananas.R).html"><a href="scales.lect.handouts.pdf">scales lecture (pdf notes)</a>; <a href="principles.lect.html">principles lecture</a>; <a href="bananas.R">BMB’s “bananas” code</a></a>
 </td>
 </tr>
 <tr class="odd">
-<td align="left">
+<td style="text-align: left;">
 17 Sep
 </td>
-<td align="left">
+<td style="text-align: left;">
 exploratory graphics
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 <a href="https://mac-theobio.github.io/DataViz/%5Bexploratory%20lecture%20(pdf%20notes)%5D(explore.lect.handouts.pdf).html"><a href="explore.lect.handouts.pdf">exploratory lecture (pdf notes)</a></a>
 </td>
 </tr>
 <tr class="even">
-<td align="left">
+<td style="text-align: left;">
 24 Sep
 </td>
-<td align="left">
+<td style="text-align: left;">
 diagnostic graphics
 </td>
-<td align="left">
-<span class="citation">Peltonen, Venna, and Kaski (2009)</span>;<a href="https://eeecon.uibk.ac.at/~zeileis//news/dorian_rainbow/">Trump and hurricane maps</a>
+<td style="text-align: left;">
+<span class="citation" data-cites="peltonen_visualizations_2009">Peltonen, Venna, and Kaski (2009)</span>;<a href="https://eeecon.uibk.ac.at/~zeileis//news/dorian_rainbow/">Trump and hurricane maps</a>
 </td>
-<td align="left">
+<td style="text-align: left;">
 <a href="https://mac-theobio.github.io/DataViz/%5Bpdf%20notes%5D(diagnostics.pdf);%20%5Bmultiway%20exploration%5D(explore_multiway.html);%20%5Btables%5D(tables.html);%20%5Bmental%20illness%20ex.%5D(kaiser_mentalillness.R).html"><a href="diagnostics.pdf">pdf notes</a>; <a href="explore_multiway.html">multiway exploration</a>; <a href="tables.html">tables</a>; <a href="kaiser_mentalillness.R">mental illness ex.</a></a>
 </td>
 </tr>
 <tr class="odd">
-<td align="left">
+<td style="text-align: left;">
 1 Oct
 </td>
-<td align="left">
+<td style="text-align: left;">
 inferential graphics
 </td>
-<td align="left">
-<span class="citation">Wickham et al. (2010)</span>; <span class="citation">Gelman, Pasarica, and Dodhia (2002)</span>; <span class="citation">Gelman (2011)</span>
+<td style="text-align: left;">
+<span class="citation" data-cites="wickham_graphical_2010">Wickham et al. (2010)</span>; <span class="citation" data-cites="gelman_lets_2002">Gelman, Pasarica, and Dodhia (2002)</span>; <span class="citation" data-cites="gelman_why_2011">Gelman (2011)</span>
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="even">
-<td align="left">
+<td style="text-align: left;">
 8 Oct
 </td>
-<td align="left">
+<td style="text-align: left;">
 infoviz vs data viz; ethics; expository graphics
 </td>
-<td align="left">
-<span class="citation">Su (2008)</span>; <span class="citation">Gelman and Unwin (2013)</span>
+<td style="text-align: left;">
+<span class="citation" data-cites="su_its_2008">Su (2008)</span>; <span class="citation" data-cites="gelman_infovis_2013">Gelman and Unwin (2013)</span>
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="odd">
-<td align="left">
+<td style="text-align: left;">
 15 Oct
 </td>
-<td align="left">
+<td style="text-align: left;">
 <strong>midterm recess</strong>
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="even">
-<td align="left">
+<td style="text-align: left;">
 22 Oct
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="odd">
-<td align="left">
+<td style="text-align: left;">
 29 Oct
 </td>
-<td align="left">
+<td style="text-align: left;">
 TBA
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="even">
-<td align="left">
+<td style="text-align: left;">
 5 Nov
 </td>
-<td align="left">
+<td style="text-align: left;">
 TBA
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="odd">
-<td align="left">
+<td style="text-align: left;">
 12 Nov
 </td>
-<td align="left">
+<td style="text-align: left;">
 TBA
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="even">
-<td align="left">
+<td style="text-align: left;">
 19 Nov
 </td>
-<td align="left">
+<td style="text-align: left;">
 TBA
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="odd">
-<td align="left">
+<td style="text-align: left;">
 26 Nov
 </td>
-<td align="left">
+<td style="text-align: left;">
 presentations
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 <tr class="even">
-<td align="left">
+<td style="text-align: left;">
 3 Dec
 </td>
-<td align="left">
+<td style="text-align: left;">
 presentations
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
-<td align="left">
+<td style="text-align: left;">
 </td>
 </tr>
 </tbody>
@@ -260,14 +268,14 @@ presentations
 ...
 -->
 <h2 id="references">References</h2>
-<p>Cleveland, William S., and Robert McGill. 1984. “Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods.” <em>Journal of the American Statistical Association</em> 79 (387): 531–54. doi:<a href="https://doi.org/10.2307/2288400">10.2307/2288400</a>.</p>
-<p>———. 1987. “Graphical Perception: The Visual Decoding of Quantitative Information on Graphical Displays of Data.” <em>Journal of the Royal Statistical Society. Series A (General)</em> 150 (3): 192–229. doi:<a href="https://doi.org/10.2307/2981473">10.2307/2981473</a>.</p>
-<p>Gelman, Andrew. 2011. “Why Tables Are Really Much Better Than Graphs.” <em>Journal of Computational and Graphical Statistics</em> 20 (1): 3–7. doi:<a href="https://doi.org/10.1198/jcgs.2011.09166">10.1198/jcgs.2011.09166</a>.</p>
-<p>Gelman, Andrew, and Antony Unwin. 2013. “Infovis and Statistical Graphics: Different Goals, Different Looks.” <em>Journal of Computational and Graphical Statistics</em> 22 (1): 2–28. doi:<a href="https://doi.org/10.1080/10618600.2012.761137">10.1080/10618600.2012.761137</a>.</p>
+<p>Cleveland, William S., and Robert McGill. 1984. “Graphical Perception: Theory, Experimentation, and Application to the Development of Graphical Methods.” <em>Journal of the American Statistical Association</em> 79 (387): 531–54. <a href="https://doi.org/10.2307/2288400" class="uri">https://doi.org/10.2307/2288400</a>.</p>
+<p>———. 1987. “Graphical Perception: The Visual Decoding of Quantitative Information on Graphical Displays of Data.” <em>Journal of the Royal Statistical Society. Series A (General)</em> 150 (3): 192–229. <a href="https://doi.org/10.2307/2981473" class="uri">https://doi.org/10.2307/2981473</a>.</p>
+<p>Gelman, Andrew. 2011. “Why Tables Are Really Much Better Than Graphs.” <em>Journal of Computational and Graphical Statistics</em> 20 (1): 3–7. <a href="https://doi.org/10.1198/jcgs.2011.09166" class="uri">https://doi.org/10.1198/jcgs.2011.09166</a>.</p>
 <p>Gelman, Andrew, Cristian Pasarica, and Rahul Dodhia. 2002. “Let’s Practice What We Preach: Turning Tables into Graphs.” <em>The American Statistician</em> 56 (2): 121–30. <a href="http://www.tandfonline.com/doi/abs/10.1198/000313002317572790" class="uri">http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
-<p>Peltonen, Jaakko, Jarkko Venna, and Samuel Kaski. 2009. “Visualizations for Assessing Convergence and Mixing of Markov Chain Monte Carlo Simulations.” <em>Computational Statistics &amp; Data Analysis</em> 53 (12): 4453–70. doi:<a href="https://doi.org/10.1016/j.csda.2009.07.001">10.1016/j.csda.2009.07.001</a>.</p>
-<p>Su, Yu-Sung. 2008. “It’s Easy to Produce Chartjunk Using Microsoft®Excel 2007 but Hard to Make Good Graphs.” <em>Computational Statistics &amp; Data Analysis</em> 52 (10): 4594–4601. doi:<a href="https://doi.org/10.1016/j.csda.2008.03.007">10.1016/j.csda.2008.03.007</a>.</p>
-<p>Wickham, H., D. Cook, H. Hofmann, and Andreas Buja. 2010. “Graphical Inference for Infovis.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 16 (6): 973–79. doi:<a href="https://doi.org/10.1109/TVCG.2010.161">10.1109/TVCG.2010.161</a>.</p>
+<p>Gelman, Andrew, and Antony Unwin. 2013. “Infovis and Statistical Graphics: Different Goals, Different Looks.” <em>Journal of Computational and Graphical Statistics</em> 22 (1): 2–28. <a href="https://doi.org/10.1080/10618600.2012.761137" class="uri">https://doi.org/10.1080/10618600.2012.761137</a>.</p>
+<p>Peltonen, Jaakko, Jarkko Venna, and Samuel Kaski. 2009. “Visualizations for Assessing Convergence and Mixing of Markov Chain Monte Carlo Simulations.” <em>Computational Statistics &amp; Data Analysis</em> 53 (12): 4453–70. <a href="https://doi.org/10.1016/j.csda.2009.07.001" class="uri">https://doi.org/10.1016/j.csda.2009.07.001</a>.</p>
+<p>Su, Yu-Sung. 2008. “It’s Easy to Produce Chartjunk Using Microsoft®Excel 2007 but Hard to Make Good Graphs.” <em>Computational Statistics &amp; Data Analysis</em> 52 (10): 4594–4601. <a href="https://doi.org/10.1016/j.csda.2008.03.007" class="uri">https://doi.org/10.1016/j.csda.2008.03.007</a>.</p>
+<p>Wickham, H., D. Cook, H. Hofmann, and Andreas Buja. 2010. “Graphical Inference for Infovis.” <em>IEEE Transactions on Visualization and Computer Graphics</em> 16 (6): 973–79. <a href="https://doi.org/10.1109/TVCG.2010.161" class="uri">https://doi.org/10.1109/TVCG.2010.161</a>.</p>
 <div id="footer">
 	<div style="text-align:center">
 		<a href="index.html">Course home page</a>
