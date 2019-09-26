@@ -67,6 +67,8 @@ random.html.pagepush:
 ## You may want to set a specific directory for images
 ## ln -s ~/Dropbox/talks images ##
 
+Ignore += images
+
 Sources += $(wildcard *.lect.txt)
 
 ## Scales lecture
