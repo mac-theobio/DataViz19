@@ -81,6 +81,4 @@ The testing part is terrible and is why we should switch to jekyll. Maybe next y
 
 * pages/*.html (automatically when .rmk can be made?)
 
-## 
-
-
+* things that are .lect.<ext> get made into both .lect.html and .io.html
