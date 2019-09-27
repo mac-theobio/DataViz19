@@ -12,6 +12,8 @@ bananas2 <- (bananas
                Country=reorder(Country,Value,FUN=function(x) -x[1]))
 )
 
+## forcats package
+
 ## a reasonable start
 (g1 <- ggplot(bananas2,aes(Year,tval,colour=Country))
     + geom_line()
@@ -46,12 +48,53 @@ direct.label(g1)
     + theme(legend.position="none")
 )
 
-## various attempts to make the bad plot ...
+##
+library(colorspace)
+library(viridis)
+g1 <- ggplot(bananas2,
+      aes(x=Year,y=Country,fill=tval))+
+  geom_tile()+
+  scale_fill_viridis()+
+  scale_x_continuous(breaks=seq(1995,2005,by=3),
+                     expand=c(0,0))
+print(g1)
 
+rayshader::plot_gg(
+  
+  
+  g1+scale_y_discrete(breaks=levels(bananas2$Country),
+        labels=1:10))
+
+bananas3 <- bananas2 %>%
+  mutate(Country=fct_reorder(Country,tval))
+
+bananas3 <- bananas2 %>%
+  mutate_at("Country",~fct_reorder(.,tval))
+
+print(ggplot(bananas3,
+      aes(x=Country,y=tval))
+  + geom_point(aes(colour=Year),
+      ##position=position_jitter(width=0.1,
+      ##                         height=0))
+  position=position_dodge(width=1))
+  + labs(x="",y="bananas (?? units ??)")
+  + coord_flip()
+  + scale_y_sqrt()
+  + scale_colour_viridis(
+    breaks=c(1995,2000,2005))
+  + theme_gray()
+)
+
+
+print(g2)
+## various attempts to make the bad plot ...
+plot_gg(g1)
 library(rayshader)
+
 
 (g2 <- ggplot(bananas2,aes(Year,Country,colour=tval))
     + geom_point()
+    
 )
 plot_gg(g2)
 library(plot3D)
@@ -62,3 +105,7 @@ ghash <- "01c25068df145aa0b97f"
 devtools::source_gist(ghash, filename = "barplot3d.R")
 with(bananas2,
      barplot3d(matrix(tval,nrow=12)))
+
+##
+
+library(plotrix)
