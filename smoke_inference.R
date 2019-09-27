@@ -1,46 +1,51 @@
 library(broom)
 library(dotwhisker)
 
+bs=18
+vls=0.8
+dws=1
+
 library(ggplot2)
-theme_set(theme_bw(base_size=18))
+theme_set(theme_bw(base_size=bs))
 
 library(dplyr)
 
 summary(smoke)
-full <- lm(fev ~ age + height + sex + smoking, data=smoke)
-
+full <- lm(fev ~ age + height + sex + smoking, data=smoke) 
 print(summary(full))
 
 print(
-	dwplot(full)
-	+ geom_vline(xintercept=0,lty=2)
+	dwplot(full, by_2sd=FALSE)
+	+ geom_vline(xintercept=0,lty=2, size=vls)
 	+ ggtitle("Regression coefficients")
 )
 
 stdsmoke <- (smoke
-	%>% transmute(fev = fev/sd(fev)
+	%>% mutate(scap = fev/sd(fev)
 		, age = age/sd(age)
 		, height = height/sd(height)
-		, sex = as.numeric(as.factor(sex))
-		, sex = sex/sd(sex)
+		, male_sex = as.numeric(as.factor(sex))
+		, male_sex = male_sex/sd(male_sex)
 		, smoking = as.numeric(as.factor(smoking))
 		, smoking = smoking/sd(smoking)
 	)
 )
 
-std <- lm(smoke$fev ~ age + height + sex + smoking, data=stdsmoke)
+std <- lm(fev ~ age + height + male_sex + smoking, data=stdsmoke)
+summary(std)
+summary(stdsmoke)
 
 print(
-	dwplot(std)
-	+ geom_vline(xintercept=0,lty=2)
+	dwplot(std, whisker_args=list(size=dws))
+	+ geom_vline(xintercept=0,lty=2, size=vls)
 	+ ggtitle("Standardized effect on lung capacity (L/s)")
 )
 
-partial <- lm(fev ~ age + height + sex + smoking, data=stdsmoke)
+partial <- lm(scap ~ age + height + male_sex + smoking, data=stdsmoke)
 
 print(
-	dwplot(partial)
-	+ geom_vline(xintercept=0,lty=2)
+	dwplot(partial, whisker_args=list(size=dws))
+	+ geom_vline(xintercept=0,lty=2, size=vls)
 	+ ggtitle("Partial correlations with lung capacity")
 )
 
