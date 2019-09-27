@@ -32,6 +32,12 @@ vim_session:
 
 ######################################################################
 
+## Interactive R stuff
+
+bananas.Rout: bananas.R
+
+######################################################################
+
 ## Trying to develop a pipeline 2019 Sep 01 (Sun)
 
 ## Appearance

@@ -20,28 +20,34 @@ print(
 	+ ggtitle("Regression coefficients")
 )
 
+new_plot <- (
+	dwplot(full)
+	+ geom_vline(xintercept=0,lty=2, size=vls)
+	+ ggtitle("Regression coefficients")
+)
+
 stdsmoke <- (smoke
 	%>% mutate(scap = fev/sd(fev)
 		, age = age/sd(age)
 		, height = height/sd(height)
 		, male_sex = as.numeric(as.factor(sex))
 		, male_sex = male_sex/sd(male_sex)
-		, smoking = as.numeric(as.factor(smoking))
-		, smoking = smoking/sd(smoking)
+		, nonsmoking = as.numeric(as.factor(smoking))
+		, nonsmoking = nonsmoking/sd(nonsmoking)
 	)
 )
 
-std <- lm(fev ~ age + height + male_sex + smoking, data=stdsmoke)
+std <- lm(fev ~ age + height + male_sex + nonsmoking, data=stdsmoke)
 summary(std)
 summary(stdsmoke)
 
 print(
 	dwplot(std, whisker_args=list(size=dws))
 	+ geom_vline(xintercept=0,lty=2, size=vls)
-	+ ggtitle("Standardized effect on lung capacity (L/s)")
+	+ ggtitle("Scaled effect on lung capacity (L/s)")
 )
 
-partial <- lm(scap ~ age + height + male_sex + smoking, data=stdsmoke)
+partial <- lm(scap ~ age + height + male_sex + nonsmoking, data=stdsmoke)
 
 print(
 	dwplot(partial, whisker_args=list(size=dws))
