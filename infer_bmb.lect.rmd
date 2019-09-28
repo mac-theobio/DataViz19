@@ -5,6 +5,35 @@ output:
 bibliography: vis.bib
 ---
 
+<!-- 
+apa.csl is a slightly hacked version of APA 
+  (modified for "et al" after 2 authors in text)
+-->
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 530px;     
+  max-width: 800px; 
+}
+</style>
+
 # setup
 
 ## load packages
@@ -22,10 +51,7 @@ library(dotwhisker)
 library(ggstance) ## horizontal geoms
 library(stargazer)
 ## manipulation
-library(tidyr)
-library(dplyr)
-library(purrr)
-library(readr)
+library(tidyverse)
 ```
 
 # coefficient plots
@@ -63,18 +89,19 @@ ss <- stargazer(m3,type="html")
 ```{r stargazer_out,results="asis",echo=FALSE}
 stargazer(m3,type="html")
 ```
-
+Also see `broom`/`broom.mixed` + `huxtable` packages
 
 ## coefficient plot
 
 ```{r dw1}
-dotwhisker::dwplot(m3)
+gg0 <- dotwhisker::dwplot(m3)
+print(gg0)
 ```
 
 ## add reference line
 
 ```{r dw_refline}
-gg0 <- dotwhisker::dwplot(m3)+geom_vline(xintercept=0,lty=2)
+gg1 <- gg0+geom_vline(xintercept=0,lty=2)
 print(gg0)
 ```
 
@@ -88,7 +115,13 @@ print(gg0)
 
 - mixed models: standard deviations have same scale as corresponding parameter
 
-## update with scaled age parameter 
+## dwplot scales by default (`by_2sd`)
+
+```{r unscaled}
+dotwhisker::dwplot(m3,by_2sd=FALSE)
+```
+
+## alternative: update with scaled age parameter 
 
 ```{r update}
 Contraception <- Contraception %>%
@@ -113,13 +146,12 @@ print(cc,digits=3)
 m3_fixed <-  glm(
     use ~ sc_age * ch + I(sc_age^2) + urban,
     data=Contraception, family=binomial)
-dotwhisker::dwplot(list(m3_sc,m3_fixed))+
+dotwhisker::dwplot(list(sc_GLMM=m3_sc,GLM=m3_fixed))+
     geom_vline(xintercept=0,lty=2)+ scale_colour_brewer(palette="Dark2")
 ```
 
 ## dotwhisker limitations
 
-- uses `coord_flip` internally; doesn't interact well with facets
 - might want to post-process output of `tidy()`
 
 ## alternative: data prep
@@ -152,10 +184,16 @@ gg5 %+% m3_res_order
 
 ## other improvements/applications
 
-- useful comparing lots of models
+- useful in comparing lots of models
 - models with many parallel parameters
 - separate parameter types with facets
 - sort by magnitude of estimate
+
+## final thoughts
+
+- can often use a wide aspect ratio (don't need much height)
+- may need to replace/improve coefficient names
+- see `broom`, `broom.mixed` for more tidying options
 
 # turning tables into graphs
 
