@@ -156,7 +156,7 @@ dotwhisker::dwplot(list(sc_GLMM=m3_sc,GLM=m3_fixed))+
 
 ## alternative: data prep
 
-```{r}
+```{r alternative1}
 m3_res <- map(list(with_re=m3_sc,no_re=m3_fixed),tidy,
               conf.int=TRUE) %>%
     bind_rows(.id="model") %>%
@@ -166,7 +166,7 @@ m3_res <- map(list(with_re=m3_sc,no_re=m3_fixed),tidy,
 
 ## alternative: plot {.smaller}
 
-```{r fig.height=3.5}
+```{r altplot,fig.height=3.5}
 pd <- ggstance::position_dodgev(height=0.5)
 (gg5 <- ggplot(m3_res,aes(x=estimate,y=term,colour=model))
     + geom_point(position=pd) + labs(y="")
@@ -177,7 +177,7 @@ pd <- ggstance::position_dodgev(height=0.5)
 
 ## reorder terms
 
-```{r fig.height=3.5}
+```{r alt_reorder,fig.height=3.5}
 m3_res_order <- mutate(m3_res,term=reorder(term,estimate))
 gg5 %+% m3_res_order
 ```
@@ -227,7 +227,7 @@ and predictions
 
 ## rearranged data
 
-```{r get_data,message=FALSE}
+```{r tab1,get_data,message=FALSE}
 ## need read_table2() for 'irregular' data
 dd <- read_table2("data/wei_tab5.5.txt")
 head(dd)
@@ -271,9 +271,9 @@ gg1 <- (ggplot(dd3,aes(factor(r),est,colour=model))
     + scale_colour_brewer(palette="Dark2") + scale_fill_brewer(palette="Dark2"))
 ```
 
-## picture
+---
 
-```{r echo=FALSE,cache=TRUE}
+```{r print_pic,echo=FALSE,cache=TRUE}
 print(gg1)
 ```
 
