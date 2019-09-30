@@ -113,7 +113,7 @@ circulation.Rout: circulation.csv circulation.R
 
 Sources += ClevelandHierarchyR.png steel_production.png
 
-## Much abused; I keep switching between L1 and L2
+## Much abused; I keep switching figure order between L1 and L2
 orchard.Rout: orchard.R
 
 ### explore
@@ -165,10 +165,9 @@ fake.Rout: fake.R
 fake_plots.Rout: fake.Rout fake_plots.R
 
 ## Violins with variable width?
+Ignore += violin_scales.pdf
 scale_violins.Rout: scale_violins.R
-
--include makestuff/wrapR.mk
-
+violin_scales.pdf: scale_violins.Rout ;
 
 ######################################################################
 
@@ -198,6 +197,10 @@ iohack: principles.lect.rmd
 
 clean:
 	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
+
+######################################################################
+
+-include makestuff/wrapR.mk
 
 -include makestuff/rmdweb.mk
 -include makestuff/os.mk
