@@ -32,12 +32,6 @@ vim_session:
 
 ######################################################################
 
-## Interactive R stuff
-
-bananas.Rout: bananas.R
-
-######################################################################
-
 ## Trying to develop a pipeline 2019 Sep 01 (Sun)
 
 ## Appearance
@@ -62,6 +56,11 @@ intro.rwm: sched.csv vis.bib sched.rmd
 ## actually, pagepush might be better for this?
 
 random.html.pagepush:
+
+######################################################################
+## Interactive R stuff
+
+bananas.Rout: bananas.R
 
 ######################################################################
 
@@ -172,7 +171,11 @@ uni.Rout: smoke.Rout uni.R
 fake.Rout: fake.R
 fake_plots.Rout: fake.Rout fake_plots.R
 
-## Violins with variable width?
+## dwplot scaling
+
+dwscale.Rout: dwscale.R
+
+## Violins with variable width
 scale_violins.Rout: scale_violins.R
 
 -include makestuff/wrapR.mk

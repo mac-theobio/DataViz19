@@ -1,4 +1,12 @@
 
+library(broom)
+library(dotwhisker)
+
+bs <- 18
+
+library(ggplot2)
+theme_set(theme_bw(base_size=bs))
+
 seed <- 2147
 pts <- 10
 xwid <- 10
@@ -8,10 +16,17 @@ z <- rnorm(pts)
 x <- xwid*rnorm(pts)
 y <- ywid*rnorm(pts)
 
-summary(std)
-summary(stdsmoke)
+xs <- x/sd(x)
+ys <- y/sd(y)
 
-print(dwplot(lm(z~x+y))
+xt <- xs/2
+yt <- ys/2
 
-print(dwplot(lm(z~x+y,by_2sd=FALSE)))
+## Bad version
+print(dwplot(lm(z~x+y),by_2sd=FALSE))
 
+print(dwplot(lm(z~x+y)))
+
+print(dwplot(lm(z~xt+yt),by_2sd=FALSE))
+
+print(dwplot(lm(z~xs+ys),by_2sd=FALSE))
