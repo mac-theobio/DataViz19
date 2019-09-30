@@ -13,10 +13,19 @@ dd <- (read_csv("data/data-fHPJK.csv")
     %>% mutate(Group=factor(Group,levels=rev(Group)))
 )
 library(ggplot2); theme_set(theme_classic())
+
+ggplot(dd,aes(fill=category,x=Group,y=pct))+
+  geom_bar(stat="identity")+
+  coord_flip()
+
+quartz(width=5,height=7)
 ggplot(dd,aes(colour=category,x=Group,y=pct))+
     scale_x_discrete()+
-    geom_lollipop(size=5) + coord_flip() +
+    ggalt::geom_lollipop(size=5) + 
+    coord_flip() +
     theme(legend.position="none") +
     labs(x="",y="Percent of adults with AMI")+
-    scale_colour_brewer(palette="Dark2")
+    scale_colour_brewer(palette="Dark2")+
+  annotate(geom="vline",xintercept=c(5.5,7.5),
+           linetype=2)
 ## ggsave("kaiser_mentalillness.png")

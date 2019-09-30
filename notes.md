@@ -80,4 +80,5 @@ The testing part is terrible and is why we should switch to jekyll. Maybe next y
 * .rmk for patched, converted markdown; this then becomes a synonym for .mkd
 
 * pages/*.html (automatically when .rmk can be made?)
-* pages/*.ioslides.html (when requested and/or marked by Makefile?) _not implemented_
+
+* things that are .lect.<ext> get made into both .lect.html and .io.html

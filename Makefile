@@ -58,6 +58,11 @@ intro.rwm: sched.csv vis.bib sched.rmd
 random.html.pagepush:
 
 ######################################################################
+## Interactive R stuff
+
+bananas.Rout: bananas.R
+
+######################################################################
 
 ## JD dumb mark-up content
 ## Should this be deprecated? Moved?
@@ -66,6 +71,8 @@ random.html.pagepush:
 
 ## You may want to set a specific directory for images
 ## ln -s ~/Dropbox/talks images ##
+
+Ignore += images
 
 Sources += $(wildcard *.lect.txt)
 
@@ -169,7 +176,13 @@ Ignore += violin_scales.pdf
 scale_violins.Rout: scale_violins.R
 violin_scales.pdf: scale_violins.Rout ;
 
+## dwplot scaling
+
+dwscale.Rout: dwscale.R
+
 ######################################################################
+
+## Bolker 
 
 ### Resource directories
 
