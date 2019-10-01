@@ -50,7 +50,7 @@ Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
-intro.rwm: sched.csv vis.bib sched.rmd
+index.rwm: sched.csv vis.bib index.rmd
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
