@@ -832,6 +832,27 @@ dd3 &lt;- dd2 %&gt;% merge(simtab,by=&quot;dataset&quot;)</pre>
 <li>invert ARI or ERR so rankings are the same?</li>
 </ul>
 
+</article></slide><slide class=""><hgroup><h2>other hints</h2></hgroup><article  id="other-hints">
+
+<ul>
+<li><code>tabulizer</code> package</li>
+</ul>
+
+</article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
+
+<pre class = 'prettyprint lang-r'>nm &lt;- (read_csv(fn,skip=skip,n_max=n_header,col_names=FALSE)
+  %&gt;% t()            ## transpose
+  %&gt;% as_tibble()
+  %&gt;% mutate_all(zoo::na.locf)
+  %&gt;% apply(MARGIN=1,paste,collapse=&quot;_&quot;)
+)
+main &lt;- (read_csv(fn,skip=skip+n_header,
+                  n_max=n_table,
+                  col_names=FALSE, ...)
+  %&gt;% setNames(nm)
+)
+pivot_longer(...) ## automatically separates according to pattern</pre>
+
 </article></slide><slide class=""><hgroup><h2>references</h2></hgroup><article  id="references" class="unnumbered smaller">
 
 <div id="refs" class="references">

@@ -508,6 +508,23 @@ dd3 &lt;- dd2 %&gt;% merge(simtab,by=&quot;dataset&quot;)</code></pre>
 <li>change x-axis to continuous?</li>
 <li>invert ARI or ERR so rankings are the same?</li>
 </ul>
+<h2 id="other-hints">other hints</h2>
+<ul>
+<li><code>tabulizer</code> package</li>
+</ul>
+<hr />
+<pre><code>nm &lt;- (read_csv(fn,skip=skip,n_max=n_header,col_names=FALSE)
+  %&gt;% t()            ## transpose
+  %&gt;% as_tibble()
+  %&gt;% mutate_all(zoo::na.locf)
+  %&gt;% apply(MARGIN=1,paste,collapse=&quot;_&quot;)
+)
+main &lt;- (read_csv(fn,skip=skip+n_header,
+                  n_max=n_table,
+                  col_names=FALSE, ...)
+  %&gt;% setNames(nm)
+)
+pivot_longer(...) ## automatically separates according to pattern</code></pre>
 <h2 id="references">references</h2>
 <p>Gelman, Andrew. 2008. “Scaling Regression Inputs by Dividing by Two Standard Deviations.” <em>Statistics in Medicine</em> 27 (15): 2865–73. doi:<a href="https://doi.org/10.1002/sim.3107">10.1002/sim.3107</a>.</p>
 <p>———. 2011. “Why Tables Are Really Much Better Than Graphs.” <em>Journal of Computational and Graphical Statistics</em> 20 (1): 3–7. doi:<a href="https://doi.org/10.1198/jcgs.2011.09166">10.1198/jcgs.2011.09166</a>.</p>
