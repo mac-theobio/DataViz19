@@ -304,6 +304,8 @@ main <- (read_csv(fn,skip=skip+n_header,
                   col_names=FALSE, ...)
   %>% setNames(nm)
 )
+pivot_longer(...) ## automatically separates according to pattern
+```
 
 
 
