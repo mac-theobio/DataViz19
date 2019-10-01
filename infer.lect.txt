@@ -37,7 +37,7 @@ FIG smoke_ques.Rout-2.pdf
 
 Smoking data
 
-FIG smoke_plots.Rout-0.pdf
+FIG smoke_plots.Rout-8.pdf
 
 ----------------------------------------------------------------------
 

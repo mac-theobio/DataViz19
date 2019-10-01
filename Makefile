@@ -20,7 +20,7 @@ Sources += $(wildcard *.rmd)
 Makefile: makestuff/Makefile pages
 
 vim_session:
-	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
+	bash -cl "vmt README.md notes.md makestuff/rmdweb.mk"
 
 ######################################################################
 
@@ -50,7 +50,7 @@ Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
-intro.rwm: sched.csv vis.bib sched.rmd
+index.rwm: sched.csv vis.bib index.rmd
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
@@ -93,6 +93,7 @@ Sources += infer.lect.txt
 infer.lect.draft.pdf: infer.lect.txt
 infer.lect.final.pdf: infer.lect.txt
 infer.lect.handouts.pdf: infer.lect.txt
+infer.lect.handouts.pdf.pagepush: infer.lect.txt
 
 Sources += copy.tex
 
@@ -154,6 +155,7 @@ smoke.Rout: fev.csv smoke.R
 smoke_ques.Rout: smoke.Rout smoke_ques.R
 
 ## fev vs. age fits
+## This is also going back and forth with inference, refactor
 smoke_plots.Rout: smoke.Rout smoke_plots.R
 
 ## Level plots (a mess)

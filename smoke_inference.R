@@ -39,7 +39,6 @@ stdsmoke <- (smoke
 
 std <- lm(fev ~ age + height + male_sex + nonsmoking, data=stdsmoke)
 summary(std)
-summary(stdsmoke)
 
 print(
 	dwplot(std, whisker_args=list(size=dws))
@@ -50,7 +49,7 @@ print(
 partial <- lm(scap ~ age + height + male_sex + nonsmoking, data=stdsmoke)
 
 print(
-	dwplot(partial, whisker_args=list(size=dws))
+	dwplot(partial, whisker_args=list(size=dws) , by_2sd=FALSE)
 	+ geom_vline(xintercept=0,lty=2, size=vls)
 	+ ggtitle("Partial correlations with lung capacity")
 )
