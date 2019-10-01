@@ -32,12 +32,6 @@ vim_session:
 
 ######################################################################
 
-## Interactive R stuff
-
-bananas.Rout: bananas.R
-
-######################################################################
-
 ## Trying to develop a pipeline 2019 Sep 01 (Sun)
 
 ## Appearance
@@ -62,6 +56,11 @@ intro.rwm: sched.csv vis.bib sched.rmd
 ## actually, pagepush might be better for this?
 
 random.html.pagepush:
+
+######################################################################
+## Interactive R stuff
+
+bananas.Rout: bananas.R
 
 ######################################################################
 
@@ -121,7 +120,7 @@ circulation.Rout: circulation.csv circulation.R
 
 Sources += ClevelandHierarchyR.png steel_production.png
 
-## Much abused; I keep switching between L1 and L2
+## Much abused; I keep switching figure order between L1 and L2
 orchard.Rout: orchard.R
 
 ### explore
@@ -173,9 +172,13 @@ fake.Rout: fake.R
 fake_plots.Rout: fake.Rout fake_plots.R
 
 ## Violins with variable width?
+Ignore += violin_scales.pdf
 scale_violins.Rout: scale_violins.R
+violin_scales.pdf: scale_violins.Rout ;
 
--include makestuff/wrapR.mk
+## dwplot scaling
+
+dwscale.Rout: dwscale.R
 
 ######################################################################
 
@@ -207,6 +210,10 @@ iohack: principles.lect.rmd
 
 clean:
 	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
+
+######################################################################
+
+-include makestuff/wrapR.mk
 
 -include makestuff/rmdweb.mk
 -include makestuff/os.mk
