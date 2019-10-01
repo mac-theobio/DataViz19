@@ -286,4 +286,27 @@ print(gg1)
 - change x-axis to continuous?
 - invert ARI or ERR so rankings are the same?
 
+## other hints
+
+* `tabulizer` package
+
+---
+
+```{r multi_row, eval=FALSE}
+nm <- (read_csv(fn,skip=skip,n_max=n_header,col_names=FALSE)
+  %>% t()            ## transpose
+  %>% as_tibble()
+  %>% mutate_all(zoo::na.locf)
+  %>% apply(MARGIN=1,paste,collapse="_")
+)
+main <- (read_csv(fn,skip=skip+n_header,
+                  n_max=n_table,
+                  col_names=FALSE, ...)
+  %>% setNames(nm)
+)
+pivot_longer(...) ## automatically separates according to pattern
+```
+
+
+
 ## references {.smaller}
