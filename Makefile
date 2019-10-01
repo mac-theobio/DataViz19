@@ -93,6 +93,7 @@ Sources += infer.lect.txt
 infer.lect.draft.pdf: infer.lect.txt
 infer.lect.final.pdf: infer.lect.txt
 infer.lect.handouts.pdf: infer.lect.txt
+infer.lect.handouts.pdf.pagepush: infer.lect.txt
 
 Sources += copy.tex
 
@@ -154,6 +155,7 @@ smoke.Rout: fev.csv smoke.R
 smoke_ques.Rout: smoke.Rout smoke_ques.R
 
 ## fev vs. age fits
+## This is also going back and forth with inference, refactor
 smoke_plots.Rout: smoke.Rout smoke_plots.R
 
 ## Level plots (a mess)
