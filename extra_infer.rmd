@@ -1,0 +1,6 @@
+## prediction plots
+
+```{r}
+emmeans
+effects
+```
