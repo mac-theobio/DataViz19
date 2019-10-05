@@ -102,7 +102,7 @@ print(gg0)
 
 ```{r dw_refline}
 gg1 <- gg0+geom_vline(xintercept=0,lty=2)
-print(gg0)
+print(gg1)
 ```
 
 ## scaling
@@ -117,6 +117,7 @@ print(gg0)
 
 ## dwplot scales by default (`by_2sd`)
 
+Look at results if we turn *off*
 ```{r unscaled}
 dotwhisker::dwplot(m3,by_2sd=FALSE)
 ```
@@ -137,10 +138,15 @@ dotwhisker::dwplot(m3_sc,effects="fixed")+
     geom_vline(xintercept=0,lty=2)
 ```
 
+## manually tidying
+
 ```{r dwplot3}
 cc <- broom.mixed::tidy(m3_sc,effects="fixed")
 print(cc,digits=3)
 ```
+
+## GLM for comparison
+
 
 ```{r m3_glm}
 m3_fixed <-  glm(
@@ -289,6 +295,7 @@ print(gg1)
 ## other hints
 
 * `tabulizer` package
+* use `merge()` or tidyverse `*_join()` (e.g. `full_join`) to combine information
 
 ---
 
