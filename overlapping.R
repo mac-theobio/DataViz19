@@ -1,4 +1,5 @@
 library(grid)
+library(gtable)
 ## https://stackoverflow.com/questions/40732543/seeking-workaround-for-gtable-add-grob-code-broken-by-ggplot-2-2-0
 OverlappingStripLabels = function(plot) {
 
