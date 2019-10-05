@@ -62,6 +62,9 @@ random.html.pagepush:
 
 bananas.Rout: bananas.R
 
+## What is going on with dwplot intercepts, vline?
+dwplot.Rout: dwplot.R
+
 ######################################################################
 
 ## JD dumb mark-up content
