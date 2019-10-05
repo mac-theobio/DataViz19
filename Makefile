@@ -214,7 +214,7 @@ iohack: principles.lect.rmd
 	mv -f principles.lect.html pages/principles.io2.html
 
 clean:
-	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
+	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf  *.Rout
 
 ######################################################################
 
