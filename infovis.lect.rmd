@@ -4,7 +4,7 @@ output:
   ioslides_presentation:
     incremental: true
 date: "`r format(Sys.time(),'%d %b %Y')`"
-bibliography: ../vis.bib
+bibliography: vis.bib
 ---
 
 <!-- 
@@ -185,7 +185,6 @@ they don't distract too much, may be good hooks
 - constraints (grayscale; colour; dynamics; ?)
 
 
-
 ## more Gelman thoughts
 
 [@gelman_infovis_2011]
@@ -200,7 +199,7 @@ they don't distract too much, may be good hooks
 
 ## misc refs
 
-- [flowing data best vis projects of 2017](https://flowingdata.com/2017/12/28/10-best-data-visualization-projects-of-2017/)
+- FlowingData [best of 2018](https://flowingdata.com/2018/12/27/best-data-visualization-projects-of-2018/) (and more: [all posts tagged 'best of'](https://flowingdata.com/tag/best-of/))
 - [wing speed of an unladen swallow](http://style.org/unladenswallow/) (from [Strouhal numbers](http://style.org/strouhalflight/)
 
 <!-- https://stackoverflow.com/questions/38260799/references-page-truncated-in-rmarkdown-ioslides-presentatino -->
