@@ -1,0 +1,30 @@
+---
+title: "graphics rubric/checklist"
+---
+
+- overall
+     - does choice of mappings respect Cleveland hierarchy?
+     - does arrangement put salient comparisons close together?
+     - appropriate aspect ratio?
+     - reasonable font sizes and line widths?
+- scales
+     - sensible choice of breaks (number, location)?
+     - values scaled appropriately (small number of digits)?
+     - appropriate choice of scale (linear/log/logit/sqrt)?
+     - appropriately anchored at zero, or not?
+- categorical variables
+     - sensible ordering? if alphabetical, why?
+- colours
+     - dichromat-friendly?
+     - if default ggplot scale, why?
+     - if continuous, is the low end continuous with zero?
+     - if continuous, are directional/diverging scales chosen appropriately?
+- axis annotation
+     - clear labels?
+     - units?
+- legends
+     - does the ordering of the legend match order on plot?
+     - could you have used direct labeling instead?
+- facets
+     - are strip labels clear and appropriate? (labeller_both?)
+     

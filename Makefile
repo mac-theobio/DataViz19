@@ -20,7 +20,7 @@ Sources += $(wildcard *.rmd)
 Makefile: makestuff/Makefile pages
 
 vim_session:
-	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
+	bash -cl "vmt README.md notes.md makestuff/rmdweb.mk"
 
 ######################################################################
 
@@ -50,7 +50,7 @@ Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
-intro.rwm: sched.csv vis.bib sched.rmd
+index.rwm: sched.csv vis.bib index.rmd
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
@@ -61,6 +61,9 @@ random.html.pagepush:
 ## Interactive R stuff
 
 bananas.Rout: bananas.R
+
+## What is going on with dwplot intercepts, vline?
+dwplot.Rout: dwplot.R
 
 ######################################################################
 
@@ -93,6 +96,7 @@ Sources += infer.lect.txt
 infer.lect.draft.pdf: infer.lect.txt
 infer.lect.final.pdf: infer.lect.txt
 infer.lect.handouts.pdf: infer.lect.txt
+infer.lect.handouts.pdf.pagepush: infer.lect.txt
 
 Sources += copy.tex
 
@@ -120,7 +124,7 @@ circulation.Rout: circulation.csv circulation.R
 
 Sources += ClevelandHierarchyR.png steel_production.png
 
-## Much abused; I keep switching between L1 and L2
+## Much abused; I keep switching figure order between L1 and L2
 orchard.Rout: orchard.R
 
 ### explore
@@ -154,6 +158,7 @@ smoke.Rout: fev.csv smoke.R
 smoke_ques.Rout: smoke.Rout smoke_ques.R
 
 ## fev vs. age fits
+## This is also going back and forth with inference, refactor
 smoke_plots.Rout: smoke.Rout smoke_plots.R
 
 ## Level plots (a mess)
@@ -171,14 +176,14 @@ uni.Rout: smoke.Rout uni.R
 fake.Rout: fake.R
 fake_plots.Rout: fake.Rout fake_plots.R
 
+## Violins with variable width?
+Ignore += violin_scales.pdf
+scale_violins.Rout: scale_violins.R
+violin_scales.pdf: scale_violins.Rout ;
+
 ## dwplot scaling
 
 dwscale.Rout: dwscale.R
-
-## Violins with variable width
-scale_violins.Rout: scale_violins.R
-
--include makestuff/wrapR.mk
 
 ######################################################################
 
@@ -209,7 +214,11 @@ iohack: principles.lect.rmd
 	mv -f principles.lect.html pages/principles.io2.html
 
 clean:
-	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
+	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf  *.Rout
+
+######################################################################
+
+-include makestuff/wrapR.mk
 
 -include makestuff/rmdweb.mk
 -include makestuff/os.mk

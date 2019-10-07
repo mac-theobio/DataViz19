@@ -1,0 +1,6 @@
+## prediction plots
+
+```{r}
+library(emmeans)
+library(effects)
+```
