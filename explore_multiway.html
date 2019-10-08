@@ -1,20 +1,12 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>exploring multivariate data</title>
-  <style>
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
-  </style>
-  <link rel="stylesheet" href="main.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
 <header class="site-header">
@@ -27,9 +19,9 @@
 	</div>
 </div>
 </header>
-<header id="title-block-header">
+<div id="header">
 <h1 class="title">exploring multivariate data</h1>
-</header>
+</div>
 <!-- 
 apa.csl is a slightly hacked version of APA 
   (modified for "et al" after 2 authors in text)
@@ -73,9 +65,9 @@ library(agridat)  ## agricultural data sets</code></pre>
 <ul>
 <li>local polynomial regression (quadratic by default)</li>
 <li>used by default for N&lt;1000</li>
-<li>“Somewhat anecdotally, ‘loess’ gives a better appearance, but is O(N^2) in memory, so does not work for larger datasets”</li>
+<li>&quot;Somewhat anecdotally, 'loess' gives a better appearance, but is O(N^2) in memory, so does not work for larger datasets&quot;</li>
 <li>increase <code>span</code> to get smoother result</li>
-<li>could use <code>method.args = list(degree=1)</code> to get locally linear fit …</li>
+<li>could use <code>method.args = list(degree=1)</code> to get locally linear fit ...</li>
 </ul></li>
 </ul>
 <h2 id="gam">GAM</h2>
@@ -83,18 +75,18 @@ library(agridat)  ## agricultural data sets</code></pre>
 <li>additive model</li>
 <li>penalized regression (decides on smoothness automatically)</li>
 <li>typical results are smoother than loess</li>
-<li>may oversmooth (try adjusting max knots, e.g. <code>formula = y ~ s(x,k=10,bs="cs")</code>)</li>
-<li>can use e.g. <code>method.args = list(family=poisson)</code> to account for data ranges</li>
+<li>may oversmooth (try adjusting max knots, e.g. <code>formula = y ~ s(x,k=10,bs=&quot;cs&quot;)</code>)</li>
+<li>can use e.g. <code>method.args = list(family=poisson)</code> to account for data ranges</li>
 </ul>
 <h2 id="glms">(G)LMs</h2>
 <ul>
 <li>simplest, smoothest</li>
 <li>but also most constraining</li>
-<li>can fit polynomials, e.g. <code>formula= y ~ poly(x,2)</code></li>
+<li>can fit polynomials, e.g. <code>formula= y ~ poly(x,2)</code></li>
 <li>use <code>method.arg=list(family=...)</code> as appropriate</li>
 </ul>
 <h2 id="multiple-continuous-predictors-single-response">multiple continuous predictors, single response</h2>
-<p>“melt” data to long format (<code>gather()</code>, <code>pivot_longer()</code>)</p>
+<p>&quot;melt&quot; data to long format (<code>gather()</code>, <code>pivot_longer()</code>)</p>
 <pre><code>cars_long &lt;- pivot_longer(mtcars,
                           -mpg,  ## DON&#39;T melt mpg
                           names_to=&quot;xvar&quot;,values_to=&quot;xval&quot;)
@@ -107,7 +99,10 @@ g1 &lt;- (ggplot(cars_long,aes(xval,mpg)) +
 <pre><code>print(g1)  
 
 ## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/g1plot-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/g1plot-1.png" />
+
+</div>
 <h2 id="multivariate-data">multivariate data</h2>
 <pre><code>data(olive,package=&quot;pgmm&quot;)
 data(fisher.barley,package=&quot;agridat&quot;)</code></pre>
@@ -132,9 +127,12 @@ help.search(&quot;barley&quot;,agrep=FALSE) ## search in *installed* package</co
 )</code></pre>
 <hr />
 <pre><code>print(gg0)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/barley_print-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/barley_print-1.png" />
+
+</div>
 <hr />
-<p>Hard to see x-axis labels: try rotating? <code>coord_flip()</code> doesn’t interact well with faceting (see also <code>ggstance</code>)</p>
+<p>Hard to see x-axis labels: try rotating? <code>coord_flip()</code> doesn't interact well with faceting (see also <code>ggstance</code>)</p>
 <hr />
 <pre><code>gg0_h &lt;- (ggplot(ff,
                aes(y=env,x=yield,colour=year,group=year))
@@ -147,10 +145,13 @@ help.search(&quot;barley&quot;,agrep=FALSE) ## search in *installed* package</co
 )</code></pre>
 <hr />
 <pre><code>print(gg0_h)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/print2-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/print2-1.png" />
+
+</div>
 <hr />
 <p>maybe use <code>ncol=1, coord_fixed(ratio=1/20)</code>? Then yields would be aligned along the same axis (but a tall skinny plot might not be convenient)</p>
-<p>Could calculate <em>differences</em> …</p>
+<p>Could calculate <em>differences</em> ...</p>
 <h2 id="olives">olives</h2>
 <pre><code>## restore names to data set 
 olive_regions &lt;-
@@ -180,7 +181,10 @@ num_cols &lt;- 3:ncol(olive2)</code></pre>
       cex=0.5,   ## smaller points
       col=colvec[olive2$region],
       diag.panel=panel.density)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/pairs2-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/pairs2-1.png" />
+
+</div>
 <p>This took significant hacking to get the way I wanted it!</p>
 <pre><code>## https://stackoverflow.com/questions/37889222/change-colors-in-ggpairs-now-that-params-is-deprecated
 ggp1 &lt;- ggpairs(olive2,
@@ -206,20 +210,32 @@ ggp1 &lt;- ggpairs(olive2,
 theme_set(theme_bw()+ theme(panel.spacing=grid::unit(0,&quot;lines&quot;)))</code></pre>
 <hr />
 <pre><code>print(ggp1)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/print_ggpairs-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/print_ggpairs-1.png" />
+
+</div>
 <hr />
 <pre><code>car::scatterplotMatrix(olive2[,num_cols],
                        groups=olive2$region,
                        gap=0)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/car-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/car-1.png" />
+
+</div>
 <hr />
-<p>What about just showing correlations? (Probably not “exploratory”.)</p>
+<p>What about just showing correlations? (Probably not &quot;exploratory&quot;.)</p>
 <pre><code>library(corrplot)
 corrplot(cor(olive2[,num_cols]),method=&quot;ellipse&quot;)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/corrplot-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/corrplot-1.png" />
+
+</div>
 <hr />
 <pre><code>corrplot.mixed(cor(olive2[,num_cols]),lower=&quot;number&quot;,upper=&quot;ellipse&quot;)</code></pre>
-<p><img src="explore_multiway_files/figure-markdown_strict/mixed-1.png" /></p>
+<div class="figure">
+<img src="explore_multiway_files/figure-markdown_strict/mixed-1.png" />
+
+</div>
 <div id="footer">
 	<div style="text-align:center">
 		<a href="index.html">Course home page</a>
