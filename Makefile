@@ -42,7 +42,6 @@ main.css: styles/pandoc.css Makefile
 
 ## Content
 
-## pages/index.html: index.rmd
 ## pages/intro.lect.html: intro.lect.rmd
 ## pages/intro.io.html: intro.lect.rmd
 
@@ -50,7 +49,7 @@ Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
-intro.rwm: sched.csv vis.bib sched.rmd
+index.rwm: sched.csv vis.bib
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
