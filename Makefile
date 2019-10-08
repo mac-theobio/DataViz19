@@ -94,6 +94,9 @@ infer.lect.draft.pdf: infer.lect.txt
 infer.lect.final.pdf: infer.lect.txt
 infer.lect.handouts.pdf: infer.lect.txt
 
+Source += infovis.rmd
+infer.lect.handouts.pdf: infovis.rmd
+
 Sources += copy.tex
 
 ## Keeping lecture stuff together, because I kind of want to move it out our else really move beyond it

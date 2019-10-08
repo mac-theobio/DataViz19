@@ -3,7 +3,6 @@ title: infovis "vs." datavis
 output:
   ioslides_presentation:
     incremental: true
-date: "`r format(Sys.time(),'%d %b %Y')`"
 bibliography: vis.bib
 ---
 
@@ -93,7 +92,7 @@ tension between these two
 - @murrell_infovis_2013:
 <div style="font-size: 18px">
     - "We need the infographics community to talk to us in words of one syllable ... If you have a bullet list hidden away somewhere, please put us out of our misery and let us have it"
-    - "Where are the forums that take a boring and ugly statistical graphic and try to point out how to jazz it up a little?  ... Pick some boring statistical graphics and rip them to shreds; tell us what we are doing wrong and how to get better"
+    - "Where are the forums that take a boring and ugly statistical graphic and try to point out how to jazz it up a little?  ... Pick some boring statistical graphics and rip them to shreds; tell us what we are doing wrong and how to get better" (see ["take a sad plot and make it better"](https://apreshill.github.io/ohsu-biodatavis/slides.html#1))
 
 ## terminology
 
@@ -124,13 +123,13 @@ the basis of it.
 ## graphical experiments
 
 - goals
-   - accuracy
-   - memorability
-   - attractiveness
+    - accuracy
+    - memorability
+    - attractiveness
 - metrics
-   - memorability tests
-   - quality scores (qualitative)
-   - eye-tracking info
+    - memorability tests
+    - quality scores (qualitative)
+    - eye-tracking info
 
 ## chartjunk
 
@@ -194,13 +193,14 @@ they don't distract too much, may be good hooks
 ## challenges
 
 - new tools
-- artistry/uniqueness vs. pipelines/automation
+- artistry/uniqueness vs. pipelines/automation  
+(see ["you can replicate almost any plot with R"](https://simplystatistics.org/2019/08/28/you-can-replicate-almost-any-plot-with-ggplot2/))
 - can you show data without an opinion?
 
 ## misc refs
 
 - FlowingData [best of 2018](https://flowingdata.com/2018/12/27/best-data-visualization-projects-of-2018/) (and more: [all posts tagged 'best of'](https://flowingdata.com/tag/best-of/))
-- [wing speed of an unladen swallow](http://style.org/unladenswallow/) (from [Strouhal numbers](http://style.org/strouhalflight/)
+- [wing speed of an unladen swallow](http://style.org/unladenswallow/) (from [Strouhal numbers](http://style.org/strouhalflight/))
 
 <!-- https://stackoverflow.com/questions/38260799/references-page-truncated-in-rmarkdown-ioslides-presentatino -->
 <style>
