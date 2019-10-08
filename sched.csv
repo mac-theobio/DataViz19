@@ -4,7 +4,7 @@ start date,topic,reading/viewing,lecture notes
 17 Sep,exploratory graphics,,[exploratory lecture (pdf notes)](explore.lect.handouts.pdf)
 24 Sep,diagnostic graphics,@peltonen_visualizations_2009;[Trump and hurricane maps](https://eeecon.uibk.ac.at/~zeileis//news/dorian_rainbow/),[pdf notes](diagnostics.pdf); [multiway exploration](explore_multiway.html); [tables](tables.html); [mental illness ex.](kaiser_mentalillness.R)
 1 Oct,inferential graphics,@wickham_graphical_2010; @gelman_lets_2002; @gelman_why_2011, [Tuesday lecture (pdf notes)](infer.lect.handouts.pdf); [Friday](infer_bmb.lect.html); [table PDF](tab.pdf); [tab to fit code](tab_to_fig.R); [overlapping code](overlapping.R)
-8 Oct,infoviz vs data viz; ethics; expository graphics,@su_its_2008; @gelman_infovis_2013
+8 Oct,infoviz vs data viz; ethics; expository graphics,@su_its_2008; @gelman_infovis_2013, [Lecture notes](infovis.lect.html)
 15 Oct,**midterm recess**
 22 Oct, Interactive graphics
 29 Oct, High-dimensional data
