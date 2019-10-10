@@ -10,6 +10,7 @@ Contraception <- Contraception %>%
 m3 <- glmer(use ~ age * ch + I(age^2) + urban + (1 | urban:district),
             data=Contraception, family=binomial)
 
+## effects
 plot(allEffects(m3),partial.residual=TRUE)
 plot(Effect("age",m3),partial.residuals=TRUE)
 plot(predictorEffects(m3,partial.residuals=TRUE),
@@ -23,4 +24,7 @@ ggplot(dd[["age:ch"]],aes(age,fit))+
                        breaks=c(0.01,0.05,0.1,0.2,0.4,0.6))+
     labs(x="centred age",y="probability of contraception use")
 
+## sjPlot
 pp <- plot_model(m3,type="pred",terms="age[all]")
+
+print(pp)

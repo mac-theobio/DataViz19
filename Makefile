@@ -61,6 +61,10 @@ random.html.pagepush:
 
 bananas.Rout: bananas.R
 
+
+healthcare.Rout: healthcare.R
+pred.Rout: pred.R
+
 ######################################################################
 
 ## JD dumb mark-up content
