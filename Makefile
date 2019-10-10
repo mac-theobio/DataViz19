@@ -177,6 +177,8 @@ uni.Rout: smoke.Rout uni.R
 fake.Rout: fake.R
 fake_plots.Rout: fake.Rout fake_plots.R
 
+fake_multi.Rout: fake.Rout fake_multi.R
+
 ## dwplot scaling
 
 dwscale.Rout: dwscale.R

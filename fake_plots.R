@@ -10,7 +10,6 @@ print(scatter <- base
 	+ ylim(c(-2, 12))
 )
 
-uni <- lm(y ~ x, data=fake)
 pointPred <- as_data_frame(predict(uni, interval="confidence"))
 termPred <- predict(uni, interval="confidence", type="terms")
 
