@@ -42,7 +42,6 @@ main.css: styles/pandoc.css Makefile
 
 ## Content
 
-## pages/index.html: index.rmd
 ## pages/intro.lect.html: intro.lect.rmd
 ## pages/intro.io.html: intro.lect.rmd
 
@@ -50,7 +49,7 @@ Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
-intro.rwm: sched.csv vis.bib sched.rmd
+index.rwm: sched.csv vis.bib
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
@@ -61,6 +60,10 @@ random.html.pagepush:
 ## Interactive R stuff
 
 bananas.Rout: bananas.R
+
+
+healthcare.Rout: healthcare.R
+pred.Rout: pred.R
 
 ######################################################################
 
@@ -93,6 +96,9 @@ Sources += infer.lect.txt
 infer.lect.draft.pdf: infer.lect.txt
 infer.lect.final.pdf: infer.lect.txt
 infer.lect.handouts.pdf: infer.lect.txt
+
+Source += infovis.rmd
+infer.lect.handouts.pdf: infovis.rmd
 
 Sources += copy.tex
 
@@ -170,6 +176,8 @@ smoke_inference.Rout: smoke.Rout smoke_inference.R
 uni.Rout: smoke.Rout uni.R
 fake.Rout: fake.R
 fake_plots.Rout: fake.Rout fake_plots.R
+
+fake_multi.Rout: fake.Rout fake_multi.R
 
 ## dwplot scaling
 

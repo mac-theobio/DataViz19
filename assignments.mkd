@@ -1,3 +1,16 @@
+<!--
+
+Bolker to comment
+
+## week 6
+
+1. Find some real data and tell a story with one or two graphics. Your story can be observational, inferential, or both. Explain:
+
+* where and how you got the data
+* what story you think your pictures tell
+* what features of [the rubric](rubric.html) you engaged with and some of your decisions
+
+-->
 
 ## week 5
 

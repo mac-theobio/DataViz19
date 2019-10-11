@@ -9,4 +9,5 @@ x <- 1:len
 y <- x+rnorm(length(x), sd=noise)
  
 fake <- data.frame(x=x, y=y)
+uni <- lm(y ~ x, data=fake)
 
