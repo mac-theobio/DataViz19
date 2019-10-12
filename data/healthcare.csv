@@ -1,0 +1,33 @@
+## scraped from Gelman's blog
+## 2006 data, except Turkey, where healthexpenditure is 2005
+"country","healthexpenditure","lifeexpectancy"
+"Australia",3167,81.1
+"Austria",3608,79.9
+"Belgium",3356,79.5
+"Canada",3696,80.7
+"Czech Republic",1535,76.7
+"Denmark",3357,78.4
+"Finland",2709,79.5
+"France",3423,80.7
+"Germany",3464,79.8
+"Greece",2547,79.6
+"Hungary",1457,73.2
+"Iceland",3207,81.2
+"Ireland",3001,79.8
+"Italy",2673,81.4
+"Japan",2581,82.4
+"Korea",1491,79.1
+"Luxembourg",4162,79.4
+"Mexico",777,74.8
+"Netherlands",3611,79.8
+"New Zealand",2398,80.1
+"Norway",4507,80.5
+"Poland",920,75.3
+"Portugal",2150,78.9
+"Slovak Republic",1322,74.3
+"Spain",2466,81.1
+"Sweden",3124,80.8
+"Switzerland",4165,81.7
+"Turkey",618,73.2
+"United Kingdom",2885,79.5
+"United States",6933,78.1

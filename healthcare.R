@@ -2,16 +2,55 @@ library(cowplot)
 library(ggplot2); theme_set(theme_cowplot())
 library(tidyverse)
 library(MASS)
+library(countrycode)
+library(ggrepel)
+## remotes::install_github("rensa/ggflags") ## circles
+## remotes::install_github("ellisp/ggflags") ## rectangles
+have_flags <- require(ggflags)
 
-#2006 data, except Turkey, where healthexpenditure is 2005
-hea = structure(list(healthexpenditure = c(3167L, 3608L, 3356L, 3696L, 1535L, 3357L, 2709L, 3423L, 3464L, 2547L, 1457L, 3207L, 3001L, 2673L, 2581L, 1491L, 4162L, 777L, 3611L, 2398L, 4507L, 920L, 2150L, 1322L, 2466L, 3124L, 4165L, 618L, 2885L, 6933L), lifeexpectancy= c(81.1, 79.9, 79.5, 80.7, 76.7, 78.4, 79.5, 80.7, 79.8, 79.6, 73.2, 81.2, 79.8, 81.4, 82.4, 79.1, 79.4, 74.8, 79.8, 80.1, 80.5, 75.3, 78.9, 74.3, 81.1, 80.8, 81.7, 73.2, 79.5, 78.1)), .Names = c("healthexpenditure", "lifeexpectancy"), class = "data.frame", row.names = c("Australia", "Austria", "Belgium", "Canada", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Japan", "Korea", "Luxembourg", "Mexico", "Netherlands", "New Zealand", "Norway", "Poland", "Portugal", "Slovak Republic", "Spain", "Sweden", "Switzerland", "Turkey", "United Kingdom", "United States"))
 
-
-hea2 <- (hea
-    %>% rownames_to_column("country")
+hea2 <- (read_csv("data/healthcare.csv",comment="#")
+    %>% mutate(cc=tolower(countrycode(country,"country.name","iso2c")))
 )
-print(ggplot(hea2, aes(healthexpenditure,lifeexpectancy,label=country))
-    + geom_text()
-    + geom_smooth(method="rlm")
-    + geom_smooth(method="lm",lty=2,colour="red")
+
+print(gg1 <- ggplot(hea2, aes(healthexpenditure,lifeexpectancy,
+                       label=country))
+    + geom_point()
+    + geom_text_repel(size=3,vjust=-1.5)
+    + scale_x_continuous(limits=c(0,NA))  ## anchor at zero
+    + labs(y="life expectancy (years)",
+           x="health expenditure (PPP$)")
+    ## + geom_smooth(span=1) ## loess with larger span (less wiggly)
+    + geom_smooth(method="rlm",
+                  formula=y~poly(x,2)  ## make it quadratic
+                  )
+    ## linear model
+    ## + geom_smooth(method="lm",lty=2,colour="red")
 )
+
+log_model <- lm(log10(lifeexpectancy)~log10(healthexpenditure),
+                data=hea2)
+log_pred <- (broom::augment(log_model,
+             newdata=data.frame(healthexpenditure=seq(min(hea2$healthexpenditure),6500,length=51)))
+    %>% mutate(lwr=.fitted-2*.se.fit,upr=.fitted+2*.se.fit)
+    %>% mutate_at(c(".fitted","lwr","upr"),~10^.)
+    %>% rename(lifeexpectancy=".fitted")
+)
+if (have_flags) {
+    print(gg2 <- ggplot(hea2,aes(healthexpenditure,lifeexpectancy))
+        + theme(plot.background=element_rect(fill="ivory1"))
+        + geom_line(data=log_pred,colour="lightblue",size=2)
+        + geom_ribbon(data=log_pred,
+                      aes(ymin=lwr,ymax=upr),fill="lightblue",
+                      colour=NA,
+                      alpha=0.3)
+        + geom_text_repel(size=3,vjust=-1,segment.colour="gray",
+                          aes(label=country))
+        + geom_flag(aes(country=cc))
+        + scale_x_continuous(limits=c(0,NA))  ## anchor at zero
+        + labs(y="life expectancy (years)",
+               x="health expenditure (PPP$)")
+        + scale_y_continuous(breaks=c(74,76,78,80,82))
+        )
+    ggsave(gg2,file="health_flags.pdf")
+}
