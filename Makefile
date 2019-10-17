@@ -184,6 +184,8 @@ fake_multi.Rout: fake.Rout fake_multi.R
 dwscale.Rout: dwscale.R
 
 ## Violins with variable width
+Ignore += violin_scales.pdf
+violin_scales.pdf: scale_violins.Rout ;
 scale_violins.Rout: scale_violins.R
 
 -include makestuff/wrapR.mk
