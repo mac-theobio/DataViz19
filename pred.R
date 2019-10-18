@@ -18,13 +18,21 @@ m3 <- glmer(use ~ age * ch + I(age^2) + urban + (1 | urban:district),
 
 ## effects
 
-zeroInt <- function(m,...) {
-    v <- vcov(m)
-    v["(Intercept)",] <-  v[,"(Intercept)"] <- 0
-    return(v)
+zeroInt <- function(term,...) {
+    ret_fun <- function(m,...) {
+        browser()
+        tt <- terms(m)
+        ## columns or rows?
+        ff <- attr(tt,"factors")[term,]
+        ## ff <- ff[-attr(tt,"response")] ## drop response variable
+        if (attr(tt,"intercept")==1) ff <- c(0,ff)
+        v <- vcov(m)*outer(ff,ff)
+    }
+    return(ret_fun)
 }
 ## doesn't really work
-plot(allEffects(m3,vcov. = zeroInt))
+plot(allEffects(m3,vcov. = zeroInt("age")))
+plot(Effect("age",m3,vcov. = zeroInt("age")))
 
 plot(allEffects(m3))
 
