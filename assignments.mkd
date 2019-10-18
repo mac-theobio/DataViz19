@@ -1,6 +1,10 @@
 <!--
 
-Bolker to comment
+## week 7
+
+Build on one of your existing plots (or make a new plot) and add an interactive component. Discuss the principles of why the interactive component is useful, and what you did to make it clear.  Bear [the rubric](rubric.html) in mind.
+
+-->
 
 ## week 6
 
@@ -9,8 +13,6 @@ Bolker to comment
 * where and how you got the data
 * what story you think your pictures tell
 * what features of [the rubric](rubric.html) you engaged with and some of your decisions
-
--->
 
 ## week 5
 
