@@ -1,0 +1,72 @@
+---
+title: Interactive graphics
+---
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;		
+}
+h3 { 
+ color: #3399ff;		
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+
+```{r setup,echo=FALSE,message=FALSE}
+library("ggplot2"); theme_set(theme_classic())
+library("knitr")
+opts_chunk$set(echo=FALSE,fig.width=4,fig.height=4,out.width=400)
+```
+
+# Overview
+
+## What are interactive graphics?
+
+* Visualizations
+* Combined with ways to click or hover and get more information
+* e.g., the internet
+
+## DataViz interactive goals
+
+* Tell a clear story
+* Allow viewers to see more than would be shown in two static dimensions
+* Or to obtain more detailed information
+* Or to explore things that go beyond the story you're telling
+
+## Some interaction techniques
+
+* Scaling and panning: allow viewers to look at different parts of an image
+* Labelling: attach labels with detailed information
+* Subsetting
+	* Brushing: highlight categories by selecting them
+	* Linking: link selections across several plots
+	* Animation: selections in sequence; ideally can be played automatically or controlled by user
+
+# Tools and resources
+
+## Packages
+
+* ggvis
+* ggplotly
+* googleVis
+
+## Other resources
+
+* [Gap minder and related tools](https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382)
+* [Web book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/)
+* [Lots of cool tools implemented via htmlwidgets package](https://www.htmlwidgets.org/)
+

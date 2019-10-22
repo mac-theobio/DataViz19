@@ -45,6 +45,9 @@ main.css: styles/pandoc.css Makefile
 ## pages/intro.lect.html: intro.lect.rmd
 ## pages/intro.io.html: intro.lect.rmd
 
+## pages/interactive.lect.html: interactive.lect.rmd
+## pages/interactive.io.html: interactive.lect.rmd
+
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
