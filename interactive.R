@@ -25,13 +25,5 @@ ggp <- (ggplotly(an, height = 900, width = 900)
 )
 
 htmlname <- paste0(rtargetname, ".R.html")
-saveWidget(as.widget(ggp), htmlname)
-
-quit()
-
-## id, height, smoking
-
-## Dushoff craziness
-saveWidget(as.widget(ggplotly(
-	af
-)), htmlname)
+## saveWidget(as.widget(ggp), htmlname)
+saveWidget(as.widget(ggplotly( af)), htmlname)
