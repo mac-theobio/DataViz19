@@ -169,6 +169,12 @@ smoke_levels.Rout: smoke.Rout smoke_levels.R
 
 ## pages/interactive_smoke.html: interactive_smoke.rmd
 
+Ignore += *.tangle
+interactive_smoke.tangle: interactive_smoke.rmd
+	$(tangle_r)
+## interactive.html: interactive.R
+interactive.html: interactive.Rout ;
+
 ## sunspots (banking)
 sunspots.Rout: sunspots.R
 
