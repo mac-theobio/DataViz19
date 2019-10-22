@@ -172,8 +172,13 @@ smoke_levels.Rout: smoke.Rout smoke_levels.R
 Ignore += *.tangle
 interactive_smoke.tangle: interactive_smoke.rmd
 	$(tangle_r)
-## interactive.html: interactive.R
-interactive.html: interactive.Rout ;
+
+## Badly named: smoke+plotly
+## interactive.R.html: interactive.R
+Ignore += %.R.html
+%.R.html: %.Rout ;
+
+googleVis.Rout: googleVis.R
 
 ## sunspots (banking)
 sunspots.Rout: sunspots.R
