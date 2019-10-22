@@ -175,7 +175,7 @@ interactive_smoke.tangle: interactive_smoke.rmd
 
 ## Badly named: smoke+plotly
 ## interactive.R.html: interactive.R
-Ignore += %.R.html
+Ignore += *.R.html
 %.R.html: %.Rout ;
 
 googleVis.Rout: googleVis.R
