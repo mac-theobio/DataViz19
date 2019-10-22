@@ -168,6 +168,8 @@ smoke_plots.Rout: smoke.Rout smoke_plots.R
 ## Level plots (a mess)
 smoke_levels.Rout: smoke.Rout smoke_levels.R
 
+interactive_smoke.html: interactive_smoke.rmd
+
 ## sunspots (banking)
 sunspots.Rout: sunspots.R
 
