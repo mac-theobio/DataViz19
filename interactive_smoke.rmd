@@ -1,0 +1,30 @@
+---
+title: Interactive graphics
+always_allow_html: yes
+---
+
+```{r setup,echo=FALSE,message=FALSE}
+library("ggplot2"); theme_set(theme_bw(base_size=18))
+library("plotly")
+library("knitr")
+library(readr)
+library(dplyr)
+opts_chunk$set(echo=FALSE,fig.width=4,fig.height=4,out.width=400)
+```
+
+```{r read}
+smoke <- read_csv("fev.csv") %>% rename(smoking=smoke)
+```
+
+```{r fever_age}
+af <- (ggplot(smoke, aes(x=age, y=fev))
+	+ ylab("Lung capacity")
+	+ geom_point() 
+)
+
+ggplotly(af)
+```
+
+```{r fever_both}
+ggplotly(af + aes(color=sex))
+```

@@ -20,7 +20,7 @@ Sources += $(wildcard *.rmd)
 Makefile: makestuff/Makefile pages
 
 vim_session:
-	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
+	bash -cl "vmt README.md notes.md makestuff/rmdweb.mk"
 
 ######################################################################
 
@@ -45,6 +45,9 @@ main.css: styles/pandoc.css Makefile
 ## pages/intro.lect.html: intro.lect.rmd
 ## pages/intro.io.html: intro.lect.rmd
 
+## pages/interactive.lect.html: interactive.lect.rmd
+## pages/interactive.io.html: interactive.lect.rmd
+
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
@@ -57,10 +60,9 @@ index.rwm: sched.csv vis.bib
 random.html.pagepush:
 
 ######################################################################
-## Interactive R stuff
+## Live R stuff
 
 bananas.Rout: bananas.R
-
 
 healthcare.Rout: healthcare.R
 pred.Rout: pred.R
@@ -164,6 +166,19 @@ smoke_plots.Rout: smoke.Rout smoke_plots.R
 
 ## Level plots (a mess)
 smoke_levels.Rout: smoke.Rout smoke_levels.R
+
+## pages/interactive_smoke.html: interactive_smoke.rmd
+
+Ignore += *.tangle
+interactive_smoke.tangle: interactive_smoke.rmd
+	$(tangle_r)
+
+## Badly named: smoke+plotly
+## interactive.R.html: interactive.R
+Ignore += *.R.html
+%.R.html: %.Rout ;
+
+googleVis.Rout: googleVis.R
 
 ## sunspots (banking)
 sunspots.Rout: sunspots.R
