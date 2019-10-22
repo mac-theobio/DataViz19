@@ -58,15 +58,29 @@ opts_chunk$set(echo=FALSE,fig.width=4,fig.height=4,out.width=400)
 
 # Tools and resources
 
+## Resources
+
+* [Gap minder](https://www.gapminder.org/tools/)
+* [Gap minder and plotly](https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382)
+* [Web book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/)
+* [htmlwidgets examples](https://www.htmlwidgets.org/)
+
 ## Packages
 
 * ggvis
+	* Conceptually exciting (reworking of ggplot); dormant ☹
 * ggplotly
+	* Straightforward and popular
 * googleVis
+	* R interface to google charts
+* leaflet
 
-## Other resources
+# More philosophy
 
-* [Gap minder and related tools](https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382)
-* [Web book: Interactive web-based data visualization with R, plotly, and shiny](https://plotly-r.com/)
-* [Lots of cool tools implemented via htmlwidgets package](https://www.htmlwidgets.org/)
+## Acceptance
 
+* Why don't people do this more?
+
+* In what contexts can you reach an audience with interactive graphics?
+
+* How can interactive graphics help you with your research?
