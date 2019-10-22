@@ -1,4 +1,3 @@
-## ----setup,echo=FALSE,message=FALSE--------------------------------------
 library(ggplot2); theme_set(theme_bw(base_size=18))
 library(plotly)
 library(htmlwidgets)
