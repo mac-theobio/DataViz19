@@ -7,10 +7,13 @@ library(dplyr)
 smoke <- read_csv("fev.csv") %>% rename(smoking=smoke)
 summary(smoke)
 
-af <- (ggplot(smoke, aes(label1=id, label2=height))
+af <- (ggplot(smoke, aes(x=age, y=fev, label1=id, label2=height))
 	+ ylab("Lung capacity")
-	+ geom_point(aes(x=age, y=fev)) 
-)
+	+ geom_point() 
+) %>% ggplotly(tooltip=c("id", "height"))
+
+htmlname <- paste0(rtargetname, ".R.html")
+## saveWidget(as_widget(( af)), htmlname)
 
 an <- (ggplot(smoke, aes(label1=id, label2=height, frame=age))
 	+ ylab("Lung capacity")
@@ -18,12 +21,7 @@ an <- (ggplot(smoke, aes(label1=id, label2=height, frame=age))
 )
 
 ggp <- (ggplotly(an, height = 900, width = 900)
-	%>% animation_opts(
-		## frame = 100
-		## , easing = "linear", redraw = FALSE
-	)
+	%>% animation_opts()
 )
 
-htmlname <- paste0(rtargetname, ".R.html")
-## saveWidget(as.widget(ggp), htmlname)
-saveWidget(as.widget(ggplotly( af)), htmlname)
+saveWidget(as.widget(ggp), htmlname)
