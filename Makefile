@@ -48,6 +48,10 @@ main.css: styles/pandoc.css Makefile
 ## pages/interactive.lect.html: interactive.lect.rmd
 ## pages/interactive.io.html: interactive.lect.rmd
 
+pages/interactive_braindump.html: interactive_braindump.rmd
+
+crosstalk.Rout: crosstalk.R
+
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
