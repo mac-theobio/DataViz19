@@ -1,0 +1,17 @@
+
+
+- show googleVis motion charts
+- plotly gapminder example?
+- installation stuff?
+- platforms/output (JavaScript vs GIF vs MP4 vs ...)
+- Shiny example?
+  - wealth/tax example (@dlmiller?)
+
+- Canada ridings animation (wait for maps?)
+  https://fishandwhistle.net/post/2019/canada-ridings-hex/
+
+https://gist.github.com/thomasp85/05169ad44ddcc8ed56da6ff7bf7fbe36
+https://www.r-graph-gallery.com/271-ggplot2-animated-gif-chart-with-gganimate.html
+
+https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382
+https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3
