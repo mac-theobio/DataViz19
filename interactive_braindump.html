@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>interactivity brain dump</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">interactivity brain dump</h1>
+</div>
+<h2 id="topics">topics</h2>
+<h2 id="animation">animation</h2>
+<ul>
+<li><a href="https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3">overview of animation</a> (<code>animate</code>, <code>gganimate</code>, <code>plotly</code>, <code>googleVis</code>)</li>
+<li>googleVis
+<ul>
+<li>cool but not actively developed
+<ul>
+<li><a href="https://github.com/jcheng5/googleCharts">Shiny bindings (old!)</a></li>
+<li><a href="https://github.com/mages/googleVis">googleVis</a> (<a href="https://github.com/mages/googleVis/commits/master">GitHub commit log</a> shows it’s not actively developed)</li>
+<li>some stuff is Flash-dependent (motion charts) (mostly problematic for linux users)</li>
+</ul></li>
+</ul></li>
+<li>many different GapMinder examples
+<ul>
+<li><code>gapminder</code> package or <code>wbstats</code> (World Bank API)</li>
+<li><a href="https://gist.github.com/thomasp85/05169ad44ddcc8ed56da6ff7bf7fbe36" class="uri">https://gist.github.com/thomasp85/05169ad44ddcc8ed56da6ff7bf7fbe36</a></li>
+<li><a href="https://www.r-graph-gallery.com/271-ggplot2-animated-gif-chart-with-gganimate.html" class="uri">https://www.r-graph-gallery.com/271-ggplot2-animated-gif-chart-with-gganimate.html</a></li>
+<li><a href="https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382" class="uri">https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382</a></li>
+<li><a href="https://github.com/keithmcnulty/hans_rosling_bubble/blob/master/rosling.R">maybe my favourite</a> (short and sweet, uses world bank examples)</li>
+</ul></li>
+</ul>
+<h2 id="other">other</h2>
+<ul>
+<li>installation stuff: ImageMagick? gifski/rust?</li>
+<li>platforms/output (JavaScript vs GIF vs MP4 vs …): see Levine et al. (2010)</li>
+<li>Shiny example?</li>
+<li><a href="https://rstudio.github.io/crosstalk/using.html">Brushing with crosstalk</a></li>
+<li>wealth/tax example: Leonhardt (2019), <a href="https://gist.github.com/dill/508532714cd58398aaf90a0723efd2fd">code from David L. Miller</a></li>
+<li>3D controls: e.g. <code>?rgl::rglwidget</code></li>
+</ul>
+<hr />
+<ul>
+<li><a href="https://fishandwhistle.net/post/2019/canada-ridings-hex/">Canada ridings animation</a> (wait until next week/maps)</li>
+</ul>
+<h2 id="references">references</h2>
+<p>Leonhardt, David. 2019. “The Rich Really Do Pay Lower Taxes Than You.” <em>The New York Times</em>, October. <a href="https://www.nytimes.com/interactive/2019/10/06/opinion/income-tax-rate-wealthy.html" class="uri">https://www.nytimes.com/interactive/2019/10/06/opinion/income-tax-rate-wealthy.html</a>.</p>
+<p>Levine, Richard A., Luke Tierney, Hadley Wickham, Eric Sampson, Dianne Cook, and David A. van Dyk. 2010. “Editorial: Publishing Animations, 3D Visualizations, and Movies in JCGS.” <em>Journal of Computational and Graphical Statistics</em> 19 (1): 1–2. <a href="https://doi.org/10.1198/jcgs.2010.191ed" class="uri">https://doi.org/10.1198/jcgs.2010.191ed</a>.</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
