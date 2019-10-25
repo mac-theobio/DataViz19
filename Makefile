@@ -51,6 +51,7 @@ main.css: styles/pandoc.css Makefile
 pages/interactive_braindump.html: interactive_braindump.rmd
 
 crosstalk.Rout: crosstalk.R
+gapminder.Rout: gapminder.R
 
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)

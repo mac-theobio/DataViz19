@@ -43,8 +43,9 @@ gg0 <- (ggplot(wbdata,
            y = "Life expectancy at birth")
     + theme_classic()
     + geom_text(aes(x = 7.5, y = 60, label = date),
-                size = 14, color = 'lightgrey', family = 'Oswald')
+                size = 14, color = 'lightgrey')
 )
+print(gg0)
 
 if (require("gifski")) {
     ## animate it over years
