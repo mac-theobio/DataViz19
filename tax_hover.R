@@ -10,8 +10,9 @@ xbr <- seq(0, 14, 2)
 theme_set(theme_bw())
 gg0 <- (tax
     %>% highlight_key(~year)
-    %>% ggplot(aes(income_group,total_tax_rate,group=year))
-    + geom_line()
+    %>% ggplot(aes(income_group,total_tax_rate,
+                   colour=year,group=year))
+    + geom_line(size=2)
     + labs(x="Income group", y="Total tax rate")
     + scale_x_continuous(labels=xlabs, breaks=xbr)
 )

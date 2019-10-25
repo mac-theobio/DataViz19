@@ -8,7 +8,7 @@ library(gganimate)
 library(wbstats)
 ## need gifski *or* magick package, *or* something ...
 
-# rosling chart in one command
+# Rosling gapminder chart: previously in one command ...
 
 # pull the country data down from the World Bank - three indicators
 wbdata <- wbstats::wb(indicator = c("SP.DYN.LE00.IN", "NY.GDP.PCAP.CD", "SP.POP.TOTL"), 
@@ -49,10 +49,14 @@ print(gg0)
 
 if (require("gifski")) {
     ## animate it over years
-    gg0 + gganimate::transition_states(date,
+    gg1 <- gg0 + gganimate::transition_states(date,
                            transition_length = 1, state_length = 1) +
         gganimate::ease_aes('cubic-in-out')
-    anim_save("tmp.gif")
+    animate(gg1,renderer=ffmpeg_renderer())
+    
+    anim_save("gapminder1.gif")
+    ## anim_save("gapminder1.mp4",renderer=av_renderer())
+    
 }
 ## gifski needs Rust installed!
 ## rendering takes about 30 seconds
