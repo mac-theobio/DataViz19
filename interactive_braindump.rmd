@@ -1,24 +1,25 @@
 ---
 title: "interactivity brain dump"
+bibliography: vis.bib
 ---
-
-
 
 ## topics
 
+## animation
+
 - googleVis
-    - cool but not actively produced?
+    - cool but not actively developed
 	  - [Shiny bindings (old!)](https://github.com/jcheng5/googleCharts)
 	  - [googleVis](https://github.com/mages/googleVis) ([GitHub commit log](https://github.com/mages/googleVis/commits/master) shows it's not actively developed)
 	  - some stuff is Flash-dependent (motion charts) (mostly problematic for linux users)
 - many different GapMinder examples
-      - `gapminder` package or `worldbank` (World Bank API)
-      - https://gist.github.com/thomasp85/05169ad44ddcc8ed56da6ff7bf7fbe36
-	  - https://www.r-graph-gallery.com/271-ggplot2-animated-gif-chart-with-gganimate.html
-	  - https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382
-      - [maybe my favourite](https://github.com/keithmcnulty/hans_rosling_bubble/blob/master/rosling.R)
-- installation stuff: 
-- platforms/output (JavaScript vs GIF vs MP4 vs ...)
+    - `gapminder` package or `worldbank` (World Bank API)
+    - https://gist.github.com/thomasp85/05169ad44ddcc8ed56da6ff7bf7fbe36
+    - https://www.r-graph-gallery.com/271-ggplot2-animated-gif-chart-with-gganimate.html
+    - https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382
+    - [maybe my favourite](https://github.com/keithmcnulty/hans_rosling_bubble/blob/master/rosling.R) (short and sweet, uses world bank examples)
+- installation stuff: ImageMagick? gifski/rust?
+- platforms/output (JavaScript vs GIF vs MP4 vs ...): see @levine_editorial_2010
 - Shiny example?
 - [Brushing with crosstalk](https://rstudio.github.io/crosstalk/using.html)
 - wealth/tax example (@dlmiller?)
