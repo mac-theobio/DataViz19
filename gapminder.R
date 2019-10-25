@@ -54,9 +54,7 @@ if (require("gifski")) {
         gganimate::ease_aes('cubic-in-out')
     animate(gg1,renderer=ffmpeg_renderer())
     
-    anim_save("gapminder1.gif")
-    ## anim_save("gapminder1.mp4",renderer=av_renderer())
-    
+    anim_save("gapminder1.mp4")
 }
 ## gifski needs Rust installed!
 ## rendering takes about 30 seconds
