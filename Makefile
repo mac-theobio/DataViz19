@@ -180,6 +180,7 @@ interactive_smoke.tangle: interactive_smoke.rmd
 
 ## Badly named: smoke+plotly
 ## interactive.R.html: interactive.R
+## tax_hover.R.html: tax_hover.R
 Ignore += *.R.html
 %.R.html: %.Rout ;
 
