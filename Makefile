@@ -182,6 +182,8 @@ interactive_smoke.tangle: interactive_smoke.rmd
 Ignore += *.R.html
 %.R.html: %.Rout ;
 
+tax_hover.Rout: tax_hover.R
+
 googleVis.Rout: googleVis.R
 
 ## sunspots (banking)
