@@ -1,0 +1,24 @@
+load("taxdata.RData")
+library(dplyr)
+library(ggplot2)
+library(plotly)
+
+xlabs <- c("0-10th", "20th-30th", "40th-50th", "60th-70th",
+           "80th-90th", "95th-99th", "99.99th", "Top 400")
+xbr <- seq(0, 14, 2)
+
+gg0 <- (tax
+    %>% highlight_key(~year)
+    %>% ggplot(aes(income_group,total_tax_rate,group=year))
+    + geom_line()
+    + labs(x="Income group", y="Total tax rate")
+    + scale_x_continuous(labels=xlabs, breaks=xbr)
+)
+
+(gg0
+    %>% ggplotly(tooltip="group")
+    %>% highlight(on="plotly_hover",
+                  off=NULL,
+                  color="gold",
+                  dynamic=TRUE)
+)

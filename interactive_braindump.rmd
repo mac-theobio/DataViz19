@@ -22,7 +22,10 @@ bibliography: vis.bib
 - platforms/output (JavaScript vs GIF vs MP4 vs ...): see @levine_editorial_2010
 - Shiny example?
 - [Brushing with crosstalk](https://rstudio.github.io/crosstalk/using.html)
-- wealth/tax example (@dlmiller?)
+- wealth/tax example: @leonhardt_rich_2019, [code from David L. Miller](https://gist.github.com/dill/508532714cd58398aaf90a0723efd2fd)
+
+---
+
 - [Canada ridings animation](https://fishandwhistle.net/post/2019/canada-ridings-hex/) (wait until next week/maps)
 - misc
    - https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3
