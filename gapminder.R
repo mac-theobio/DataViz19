@@ -24,9 +24,9 @@ wbdata <- (wbdata
     %>% tidyr::pivot_wider(id_cols = c("date", "country", "region"),
                            names_from = indicator, values_from = value)
 )
-save("wbdata",file="wbdata.rda")
+save("wbdata",file="data/wbdata.rda")
 
-load("wbdata.rda")
+load("data/wbdata.rda")
 ## plot the data
 gg0 <- (ggplot(wbdata,
                aes(x = log(`GDP per capita (current US$)`),

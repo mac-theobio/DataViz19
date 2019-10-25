@@ -7,26 +7,31 @@ bibliography: vis.bib
 
 ## animation
 
+- [overview of animation](https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3) (`animate`, `gganimate`, `plotly`, `googleVis`)
 - googleVis
     - cool but not actively developed
 	  - [Shiny bindings (old!)](https://github.com/jcheng5/googleCharts)
 	  - [googleVis](https://github.com/mages/googleVis) ([GitHub commit log](https://github.com/mages/googleVis/commits/master) shows it's not actively developed)
 	  - some stuff is Flash-dependent (motion charts) (mostly problematic for linux users)
 - many different GapMinder examples
-    - `gapminder` package or `worldbank` (World Bank API)
+    - `gapminder` package or `wbstats` (World Bank API)
     - https://gist.github.com/thomasp85/05169ad44ddcc8ed56da6ff7bf7fbe36
     - https://www.r-graph-gallery.com/271-ggplot2-animated-gif-chart-with-gganimate.html
     - https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382
     - [maybe my favourite](https://github.com/keithmcnulty/hans_rosling_bubble/blob/master/rosling.R) (short and sweet, uses world bank examples)
+
+## other
+
 - installation stuff: ImageMagick? gifski/rust?
 - platforms/output (JavaScript vs GIF vs MP4 vs ...): see @levine_editorial_2010
 - Shiny example?
 - [Brushing with crosstalk](https://rstudio.github.io/crosstalk/using.html)
 - wealth/tax example: @leonhardt_rich_2019, [code from David L. Miller](https://gist.github.com/dill/508532714cd58398aaf90a0723efd2fd)
+- 3D controls: e.g. `?rgl::rglwidget`
 
 ---
 
 - [Canada ridings animation](https://fishandwhistle.net/post/2019/canada-ridings-hex/) (wait until next week/maps)
-- misc
-   - https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3
 
+
+## references

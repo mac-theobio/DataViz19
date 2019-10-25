@@ -50,7 +50,7 @@ taxy$total_tax_rate <- taxy$total_tax_rate*scale + 10
 tax <- taxy
 
 # done save RData
-save(tax, file="taxdata.RData")
+save(tax, file="data/taxdata.RData")
 
 
 # duplicate to get the "background" lines
