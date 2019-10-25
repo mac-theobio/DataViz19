@@ -1,5 +1,13 @@
 <!--
 
+## Final project ##
+
+I think what happened is that we consensed before and in class about what the final project should be, and thought we would write it down that weekend sheer, but didn't. I'm going to claim that this was probably my fault, since I usually volunteer for the weekend transcriptions and emails.
+
+Your final project will _probably_ be done with a partner. The profs will help you pair up (and check with us if you really think you want to go alone).
+
+The project should consist of an exploration of some data. There should be a consistent topic but you needn't use only a single data file.
+
 ## week 7
 
 Build on one of your existing plots (or make a new plot) and add an interactive component. Discuss the principles of why the interactive component is useful, and what you did to make it clear.  Bear [the rubric](rubric.html) in mind.
