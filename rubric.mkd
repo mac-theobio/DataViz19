@@ -28,6 +28,6 @@ title: "graphics rubric/checklist"
 - facets
 	- are strip labels clear and appropriate? (labeller_both?)
 - dynamic graphics
-  	- are hovertext labels appropriate? 
+  	- are hovertext labels (tooltips) appropriate? 
 	- smooth transitions?
 	- choice of platform (Javascript, flash, shiny, GIF ...)
