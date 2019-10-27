@@ -1,0 +1,7 @@
+library(dplyr)
+library(ggplot2)
+library(plotly)
+library(gganimate)
+dd <- read.csv("fev.csv")
+g <- ggplot(dd,aes(x=height,y=fev,colour=smoker)) + geom_point()
+ggplotly(g,tooltip=c("age"))
