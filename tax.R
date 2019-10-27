@@ -3,7 +3,7 @@
 ## data scraped from https://www.nytimes.com/interactive/2019/10/06/opinion/income-tax-rate-wealthy.html
 ## https://gist.github.com/dill/508532714cd58398aaf90a0723efd2fd
 # load data scraped from SVG
-tax <- readLines("taxdat.dat")
+tax <- readLines("data/taxdat.dat")
 
 
 taxy <- c()
