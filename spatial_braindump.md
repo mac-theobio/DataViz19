@@ -2,9 +2,8 @@
 
 ## types of spatial data
 
-features: points, polygons, lines (and collections thereof)
-
-continuous or categorical values associated with points/polygons/lines
+* features: points, polygons, lines (and collections thereof); rasters
+* continuous or categorical values *associated* with features
 
 ## transformations/summarization
 
@@ -21,11 +20,6 @@ e.g.
 * contour plots on maps
 * **choropleth** maps (filled polygons)
 
-
-## spatial data types
-
-- 
-
 ## spatial data challenges
 
 * projections (*datums*) (see Bivand et al) [xkcd maps]()
@@ -38,18 +32,18 @@ e.g.
 * linking?
 * insets
 * map decoration
-* representing uncertainties
-* adjusting for area (e.g. cartograms)
+* representing uncertainties: @correll_value-suppressing_2018, @maceachren_visualizing_2005, @koo_geovisualizing_2018
+* not misrepresenting areas (e.g. cartograms: @perrier_topogram_2019, @hohle_cartograms_2016)
 
-## packages
+## primary packages
 
-* `maps`
-* `leaflet`
-* `ggmap`
-
+* `maps` (base-R maps, some basic spatial data sets)
+* `ggmap` (maps in ggplot, including downloading data from google maps etc.)
+* `leaflet` (map widget)
 
 
 ## to do
 
-- see how Wilke plots are done
-- 
+- update Bushby/Jovic examples
+
+
