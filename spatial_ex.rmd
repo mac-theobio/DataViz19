@@ -1,5 +1,5 @@
 ---
-title: "spatial examples
+title: "spatial examples"
 author: "Alex Bushby, Aleks Jovic, Ben Bolker"
 ---
 
