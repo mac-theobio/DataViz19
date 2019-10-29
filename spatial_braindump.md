@@ -45,5 +45,6 @@ e.g.
 ## to do
 
 - update Bushby/Jovic examples
-
-
+- link to https://r-spatial.github.io/sf/
+- [Canada ridings animation](https://fishandwhistle.net/post/2019/canada-ridings-hex/); data etc. [here](https://github.com/paleolimbot/blogdown-site/tree/master/content/post/2019-10-21-ridings)
+- `mapcan` package?

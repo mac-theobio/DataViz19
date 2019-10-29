@@ -1,5 +1,6 @@
 ---
 title: "graphics rubric/checklist"
+bibliography: vis.bib
 ---
 
 - overall
@@ -27,7 +28,13 @@ title: "graphics rubric/checklist"
 	- could you have used direct labeling instead?
 - facets
 	- are strip labels clear and appropriate? (labeller_both?)
+- misc
+        - are areas filled appropriately?
 - dynamic graphics
   	- are hovertext labels (tooltips) appropriate? 
 	- smooth transitions?
 	- choice of platform (Javascript, flash, shiny, GIF ...)
+
+**See also**: @annkemery_data_2014
+
+## references
