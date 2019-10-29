@@ -1,0 +1,76 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Alex Bushby, Aleks Jovic, Ben Bolker" />
+  <title>get maps</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">get maps</h1>
+<h2 class="author">Alex Bushby, Aleks Jovic, Ben Bolker</h2>
+</div>
+<pre><code>library(ggplot2)
+library(tidyverse)
+library(labeling)
+library(ggmap)</code></pre>
+<h2 id="ggmap-package">ggmap package</h2>
+<p>ggmap</p>
+<ul>
+<li>get raster map tiles from online sources</li>
+<li>e.g. digital aerial photographs, satellite imagery, digital pictures, or even scanned maps</li>
+<li>plotting via <code>ggplot</code> extensions</li>
+<li>also has functions for geolocation and routing.</li>
+</ul>
+<h2 id="getting-maps">getting maps</h2>
+<ul>
+<li>first retrieve an underlying <em>map layer</em> (raster)</li>
+<li>various functions to get maps from popular sources:
+<ul>
+<li>Google Maps</li>
+<li><a href="https://www.openstreetmap.org/#map=17/43.26435/-79.91770">OpenStreetMap</a></li>
+<li><a href="http://maps.stamen.com/#watercolor/12/37.7706/-122.3782">Stamen Maps</a></li>
+</ul></li>
+</ul>
+<h2 id="stamenmap">StamenMap</h2>
+<pre><code>## specify lat/long bounding box
+mapzone &lt;- c(left = -135, bottom = 25.75, right = -62, top = 75)
+s_map &lt;- get_stamenmap(mapzone, zoom = 5, maptype = &quot;toner-lite&quot;)
+## maptype: &quot;terrain&quot;, &quot;terrain-background&quot;, &quot;terrain-labels&quot;, &quot;terrain-lines&quot;,
+##  &quot;toner&quot; + etc., &quot;watercolor&quot;, ...</code></pre>
+<h2 id="plot">Plot</h2>
+<pre><code>ggmap(s_map)</code></pre>
+<p><img src="spatial1_files/figure-markdown_strict/sm2-1.png" /></p>
+<h2 id="google-maps">Google maps</h2>
+<p>Need to sign up for an API key and enable Static Maps: go <a href="https://cloud.google.com/maps-platform/">here</a> and follow <em>all</em> the instructions (get an API key, enable maps services, give them credit card info</p>
+<pre><code>register_google(key=Sys.getenv(&quot;GOOGLEMAPS_KEY&quot;))
+g_map &lt;- get_googlemap(center=c(lon=-79.91, lat=43.26),
+                       zoom=13, size=c(640,640),
+                       scale=2,maptype=&#39;terrain&#39;)
+## maptype: &#39;satellite&#39;,&#39;roadmap&#39;,&#39;hybrid&#39;</code></pre>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>

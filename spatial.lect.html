@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>spatial data viz</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">spatial data viz</h1>
+</div>
+<h1 id="spatial-data">spatial data</h1>
+<h2 id="types-of-spatial-data">types of spatial data</h2>
+<ul>
+<li>“space” is generally 2D (ℝ<sup>2</sup>; could be surface of a sphere)</li>
+<li>also: networks, trees, lattices, …</li>
+<li><strong>features</strong>: points, polygons, lines (and collections thereof); <strong>rasters</strong></li>
+<li>also: continuous or categorical values <em>associated</em> with features
+<ul>
+<li>counts (disease incidence) or continuous values (GDP) associated with polygons (countries/provinces/counties)</li>
+<li>values associated with grid cells (digital elevation models)</li>
+<li>points (locations of murders)</li>
+</ul></li>
+</ul>
+<h2 id="transformationssummarization">transformations/summarization</h2>
+<p>e.g. </p>
+<ul>
+<li>points to density fields (2D kernel density estimation)</li>
+<li>points to polygon values (square or hex binning)</li>
+<li>fields to polygons (contouring)</li>
+<li>point values to fields (interpolation; <code>akima</code> does bicubic/bilinear)</li>
+</ul>
+<h2 id="typical-plots">typical plots</h2>
+<ul>
+<li>points on maps</li>
+<li>contour plots on maps</li>
+<li><strong>choropleth</strong> maps (filled polygons)</li>
+</ul>
+<p><a href="https://edzer.github.io/sp/">spatial graph gallery</a></p>
+<h2 id="spatial-data-challenges">spatial data challenges</h2>
+<ul>
+<li>data are often big (especially rasters)</li>
+<li>projections (<em>datums</em>) (see Bivand et al) <a href="">xkcd maps</a></li>
+<li>shapefile formats</li>
+<li>geocoding</li>
+<li>see <a href="https://cran.r-project.org/web/views/Spatial.html">R Spatial task view</a></li>
+<li><a href="https://cran.r-project.org/doc/contrib/intro-spatial-rl.pdf">intro to visualizing spatial data in R</a></li>
+</ul>
+<h2 id="primary-packages-for-spatial-data-manipulation">primary packages for spatial data manipulation</h2>
+<ul>
+<li><code>sf</code> (“simple features”): tidy spatial data (<a href="https://r-spatial.github.io/sf/">web page</a>)</li>
+<li><code>maptools</code></li>
+</ul>
+<h2 id="spatial-plotting-challenges">spatial plotting challenges</h2>
+<ul>
+<li>top of Cleveland hierarchy (x,y coordinates) are used up</li>
+<li>linking?</li>
+<li>insets</li>
+<li>map decoration</li>
+<li>representing uncertainties: <span class="citation">@correll</span>_value-suppressing_2018, <span class="citation">@maceachren</span>_visualizing_2005, <span class="citation">@koo</span>_geovisualizing_2018</li>
+<li>not misrepresenting areas (e.g. cartograms: <span class="citation">@perrier</span>_topogram_2019, <span class="citation">@hohle</span>_cartograms_2016)
+<ul>
+<li><a href="https://www.core77.com/posts/90771/A-Great-Example-of-Better-Data-Visualization-This-Voting-Map-GIF">red/blue maps</a></li>
+<li><a href="https://medium.com/matter/the-trouble-with-the-purple-election-map-31e6cb9f1827">red/blue/purple maps</a></li>
+</ul></li>
+</ul>
+<h2 id="primary-packages">primary packages</h2>
+<ul>
+<li><code>maps</code> (base-R maps, some basic spatial data sets)</li>
+<li><code>ggmap</code> (maps in ggplot, including downloading data from google maps etc.)</li>
+<li><code>leaflet</code> (map widget)</li>
+</ul>
+<h2 id="to-do">to do</h2>
+<ul>
+<li>update Bushby/Jovic examples</li>
+<li>link to <a href="https://r-spatial.github.io/sf/" class="uri">https://r-spatial.github.io/sf/</a></li>
+<li><a href="https://fishandwhistle.net/post/2019/canada-ridings-hex/">Canada ridings animation</a>; data etc. <a href="https://github.com/paleolimbot/blogdown-site/tree/master/content/post/2019-10-21-ridings">here</a></li>
+<li><code>mapcan</code> package?</li>
+</ul>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
