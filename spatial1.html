@@ -34,7 +34,6 @@ library(tidyverse)
 library(labeling)
 library(ggmap)</code></pre>
 <h2 id="ggmap-package">ggmap package</h2>
-<p>ggmap</p>
 <ul>
 <li>get raster map tiles from online sources</li>
 <li>e.g. digital aerial photographs, satellite imagery, digital pictures, or even scanned maps</li>
@@ -56,7 +55,10 @@ library(ggmap)</code></pre>
 mapzone &lt;- c(left = -135, bottom = 25.75, right = -62, top = 75)
 s_map &lt;- get_stamenmap(mapzone, zoom = 5, maptype = &quot;toner-lite&quot;)
 ## maptype: &quot;terrain&quot;, &quot;terrain-background&quot;, &quot;terrain-labels&quot;, &quot;terrain-lines&quot;,
-##  &quot;toner&quot; + etc., &quot;watercolor&quot;, ...</code></pre>
+##  &quot;toner&quot; + etc., &quot;watercolor&quot;, ...
+class(s_map)
+
+## [1] &quot;ggmap&quot;  &quot;raster&quot;</code></pre>
 <h2 id="plot">Plot</h2>
 <pre><code>ggmap(s_map)</code></pre>
 <p><img src="spatial1_files/figure-markdown_strict/sm2-1.png" /></p>
@@ -66,7 +68,13 @@ s_map &lt;- get_stamenmap(mapzone, zoom = 5, maptype = &quot;toner-lite&quot;)
 g_map &lt;- get_googlemap(center=c(lon=-79.91, lat=43.26),
                        zoom=13, size=c(640,640),
                        scale=2,maptype=&#39;terrain&#39;)
-## maptype: &#39;satellite&#39;,&#39;roadmap&#39;,&#39;hybrid&#39;</code></pre>
+## maptype: &#39;satellite&#39;,&#39;roadmap&#39;,&#39;hybrid&#39;
+class(g_map)
+
+## [1] &quot;ggmap&quot;  &quot;raster&quot;</code></pre>
+<h2 id="plot-1">plot</h2>
+<pre><code>ggmap(g_map)</code></pre>
+<p><img src="spatial1_files/figure-markdown_strict/plot_gmap-1.png" /></p>
 <div id="footer">
 	<div style="text-align:center">
 		<a href="index.html">Course home page</a>
