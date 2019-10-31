@@ -10,8 +10,12 @@ library(viridis)
 library(sf)
 library(geogrid)
 library(gganimate)
-## remotes::install_github("thomasp85/transformr")
-library(transformr)
+)
+if (!require(transformr,quietly=TRUE)) {
+  warning("animation example might not work; ",
+          "consider running ",
+          "'remotes::install_github(\"thomasp85/transformr'\")")
+}
 library(leaflet)
 load("data/googlemaps.rda")
 ```
