@@ -1,0 +1,213 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Alex Bushby, Aleks Jovic, Ben Bolker" />
+  <title>spatial examples</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">spatial examples</h1>
+<h2 class="author">Alex Bushby, Aleks Jovic, Ben Bolker</h2>
+</div>
+<pre><code>library(ggmap)
+library(tidyverse)
+library(viridis)
+load(&quot;data/googlemaps.rda&quot;)</code></pre>
+<h1 id="crime">crime</h1>
+<p>The <code>crime</code> dataset contains crime reports for Houston from January-August 2010, geocoded with Google Maps.</p>
+<pre><code>tibble(crime)</code></pre>
+<p>Lots of useful info: dates, types of crimes, locations by type of place, locations by street, locations by longitude/latitude …</p>
+<p>First, let’s get an overview of the crimes on the map. Using qmplot, we put in longitude and latitude for the x, and y parameters, and specify the data as the crime dataset. This plots the crimes indiscriminantly.</p>
+<p><a href="https://github.com/tidyverse/ggplot2/wiki/crime-in-downtown-houston,-texas-:-combining-ggplot2-and-google-maps">original code</a></p>
+<pre><code>q1 &lt;- qmplot(lon, lat, data = crime,
+       maptype = &quot;toner-lite&quot;, colour = I(&quot;red&quot;), size = I(0.9),alpha=I(.3))</code></pre>
+<p>Or</p>
+<pre><code>get_mapzone &lt;- function(data, latcol=&quot;lat&quot;, loncol=&quot;lon&quot;) {
+  lon &lt;- na.omit(data[[loncol]])
+  lat &lt;- na.omit(data[[latcol]])
+  return(c(left=min(lon),right=max(lon),bottom=min(lat),top=max(lat)))
+}
+houston_mz &lt;- get_mapzone(crime)
+houston_map1 &lt;- get_stamenmap(houston_mz,zoom=7, maptype=&quot;toner-lite&quot;)
+
+## Source : http://tile.stamen.com/toner-lite/7/28/49.png
+
+## Source : http://tile.stamen.com/toner-lite/7/29/49.png
+
+## Source : http://tile.stamen.com/toner-lite/7/30/49.png
+
+## Source : http://tile.stamen.com/toner-lite/7/31/49.png
+
+## Source : http://tile.stamen.com/toner-lite/7/28/50.png
+
+## Source : http://tile.stamen.com/toner-lite/7/29/50.png
+
+## Source : http://tile.stamen.com/toner-lite/7/30/50.png
+
+## Source : http://tile.stamen.com/toner-lite/7/31/50.png
+
+## Source : http://tile.stamen.com/toner-lite/7/28/51.png
+
+## Source : http://tile.stamen.com/toner-lite/7/29/51.png
+
+## Source : http://tile.stamen.com/toner-lite/7/30/51.png
+
+## Source : http://tile.stamen.com/toner-lite/7/31/51.png
+
+## Source : http://tile.stamen.com/toner-lite/7/28/52.png
+
+## Source : http://tile.stamen.com/toner-lite/7/29/52.png
+
+## Source : http://tile.stamen.com/toner-lite/7/30/52.png
+
+## Source : http://tile.stamen.com/toner-lite/7/31/52.png
+
+## Source : http://tile.stamen.com/toner-lite/7/28/53.png
+
+## Source : http://tile.stamen.com/toner-lite/7/29/53.png
+
+## Source : http://tile.stamen.com/toner-lite/7/30/53.png
+
+## Source : http://tile.stamen.com/toner-lite/7/31/53.png
+
+(ggmap(houston_map1)
+  + geom_point(data=crime,colour=&quot;red&quot;,size=0.9,alpha=0.3)
+)
+
+## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-3-1.png" /></p>
+<p>Reduce crime to violent crimes in downtown Houston:</p>
+<pre><code>violent_crime &lt;-
+  (crime
+    %&gt;% filter(
+          !offense %in% c(&quot;auto theft&quot;, &quot;theft&quot;, &quot;burglary&quot;),
+          -95.39681 &lt;= lon &amp; lon &lt;= -95.34188,
+          29.73631 &lt;= lat &amp; lat &lt;=  29.78400
+        )
+    %&gt;% mutate(
+          ## drops unused levels, mitigates downstream errors
+          offense = fct_drop(offense), 
+          offense = fct_relevel(offense,
+               c(&quot;robbery&quot;, &quot;aggravated assault&quot;, &quot;rape&quot;, &quot;murder&quot;)
+               )
+        )
+  )
+
+houston_map2 &lt;- get_stamenmap(get_mapzone(violent_crime), maptype=&quot;toner-lite&quot;,
+                              zoom=14)
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6770.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6770.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6770.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6771.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6771.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6771.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6772.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6772.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6772.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6773.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6773.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6773.png
+
+(ggmap(houston_map2)
+  + geom_point(data = violent_crime, colour = &quot;red&quot;,size = 0.9, alpha=.3)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-5-1.png" /></p>
+<pre><code>(ggmap(houston_map2)
+  + geom_density2d(data = violent_crime, aes(x=lon,y=lat), col=&quot;red&quot;)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-6-1.png" /></p>
+<pre><code>(ggmap(houston_map2)
+  + geom_bin2d(data = violent_crime, alpha=0.5)
+  + scale_fill_gradient(low=&quot;#F0F0FF&quot;, high=&quot;#131393&quot;,
+                        trans=scales::log10_trans())
+)
+
+## Warning: Removed 7 rows containing missing values (geom_tile).</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-7-1.png" /></p>
+<h2 id="heatmap">Heatmap</h2>
+<p>To make the contour map more useful, we can assign a gradient. Let’s look at the robberies:</p>
+<pre><code>houston_map3 &lt;- get_stamenmap(get_mapzone(violent_crime),
+                              maptype=&quot;toner-background&quot;,
+                              zoom=14)
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6770.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6770.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6770.png
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6771.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6771.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6771.png
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6772.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6772.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6772.png
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6773.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6773.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6773.png
+
+robbery &lt;- violent_crime %&gt;% filter(offense==&#39;robbery&#39;)
+(ggmap(houston_map3)
+  + stat_density_2d(data=robbery,
+                    aes(fill = ..level..), geom = &quot;polygon&quot;,
+                    alpha = .35, colour = NA)
+  + scale_fill_gradient2(&quot;Robbery\nHeatmap&quot;,
+                         low = &quot;white&quot;, mid = &quot;yellow&quot;,
+                         high = &quot;red&quot;, midpoint = 650)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-9-1.png" /></p>
+<pre><code>(ggmap(houston_map3,darken=c(0.9,&quot;white&quot;))
+  + geom_point(data = violent_crime, aes(colour = offense, size=offense)) + 
+  facet_wrap(~ offense)+
+  scale_colour_brewer(palette=&quot;Dark2&quot;)+
+  scale_size_manual(values=c(1,1,2,3))+
+  theme(legend.position=&quot;none&quot;)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-10-1.png" /></p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
