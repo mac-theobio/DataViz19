@@ -196,7 +196,7 @@ robbery &lt;- violent_crime %&gt;% filter(offense==&#39;robbery&#39;)
                          high = &quot;red&quot;, midpoint = 650)
 )</code></pre>
 <p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-9-1.png" /></p>
-<pre><code>(ggmap(houston_map3,darken=c(0.9,&quot;white&quot;))
+<pre><code>(ggmap(houston_map3,darken=c(0.9,&quot;white&quot;)) ## fade map layer
   + geom_point(data = violent_crime, aes(colour = offense, size=offense)) + 
   facet_wrap(~ offense)+
   scale_colour_brewer(palette=&quot;Dark2&quot;)+
