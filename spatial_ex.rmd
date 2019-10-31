@@ -109,7 +109,7 @@ robbery <- violent_crime %>% filter(offense=='robbery')
 ```
 
 ```{r}
-(ggmap(houston_map3,darken=c(0.9,"white"))
+(ggmap(houston_map3,darken=c(0.9,"white")) ## fade map layer
   + geom_point(data = violent_crime, aes(colour = offense, size=offense)) + 
   facet_wrap(~ offense)+
   scale_colour_brewer(palette="Dark2")+
