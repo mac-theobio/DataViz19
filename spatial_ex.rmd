@@ -272,4 +272,4 @@ z_dogs  <- full_join(z_rottie,zc,by=c("zipcode"="ZIPCODE"))
 
 * super-easy to generate maps
 * adding points etc. 
-
+* choropleth example: https://rstudio.github.io/leaflet/choropleths.html
