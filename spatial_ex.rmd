@@ -8,6 +8,11 @@ library(ggmap)
 library(tidyverse)
 library(viridis)
 library(sf)
+library(geogrid)
+library(gganimate)
+## remotes::install_github("thomasp85/transformr")
+library(transformr)
+library(leaflet)
 load("data/googlemaps.rda")
 ```
 
@@ -35,7 +40,7 @@ q1 <- qmplot(lon, lat, data = crime,
 
 A slightly slower but safer method is to get the map first, then combine it with the data. This way we can retrieve the map and store it; this is both more efficient if we're going to make a bunch of plots with the same map (almost inevitable if we're polishing a data visualization), and safer (in case the server goes down/network connection is lost/etc.).
 
-```{r houston1}
+```{r houston1,message=FALSE}
 ## utility function: extract appropriate components for retrieving a Stamen/OSM map
 get_mapzone <- function(data, latcol="lat", loncol="lon") {
   lon <- na.omit(data[[loncol]])
@@ -177,8 +182,94 @@ From [this github site](https://github.com/paleolimbot/blogdown-site/tree/master
 The riding boundaries come in shapefile format, which is handled by a one-liner to `read_sf()`. I'm going to simplify the boundaries a bit to speed up the plotting time. The `dTolderance` argument is in map units, and it took some experimenting to settle on the number 100.
 
 ```{r}
-ridings <- (read_sf("boundaries_2015_shp_en/FED_CA_2_2_ENG.shp")
+ridings <- (read_sf("data/boundaries_2015_shp_en/FED_CA_2_2_ENG.shp")
   %>% st_simplify(dTolerance = 100)
 )
-ridings
+```
+
+```{r}
+(ggplot(ridings)
+  + geom_sf(aes(fill = PROVCODE))
+  + theme_void()
+)
+fn <- "data/ridings_hex.rds"
+if (file.exists(fn)) {
+  ridings_hex <- read_rds(fn)
+} else {
+  cat("SLOW computation coming up!\n")
+  print(system.time({
+    ridings_grid <- ridings %>%
+      calculate_grid(grid_type = "hexagonal", seed = 1938)
+    ridings_hex <- assign_polygons(ridings, ridings_grid)
+    write_rds(ridings_hex, fn)
+  }))
+}
+```
+
+```{r}
+fix_fun <- function(x,label) {
+  (x
+    %>% st_set_crs(NA)
+    %>% dplyr::select(PROVCODE,geometry)
+    %>% mutate(type=label)
+  )
+}
+ridings_list <- list(geographic=ridings,hex=ridings_hex)
+purrr:::map(ridings_list,st_crs)
+ridings_combined <- purrr::map2(ridings_list, names(ridings_list), fix_fun)
+## dplyr::bind_rows doesn't work: https://github.com/tidyverse/dplyr/issues/2457
+ridings_combined <- do.call(rbind,ridings_combined)
+```
+
+```{r make_anim}
+rplot <- ggplot(ridings_combined) +
+  geom_sf(aes(fill = PROVCODE)) +
+  theme_void()
+rplot+ facet_wrap(~type)
+rplot_anim <- (rplot
+  + transition_states(type, transition_length = 1, state_length = 5)
+)
+```
+
+```{r anim,eval=FALSE}
+animate(rplot_anim, width = 700, height = 700, res = 96)
+anim_save("pix/ridings.gif")
+```
+
+![](pix/ridings.gif)
+
+## dog licenses
+
+NYC zip codes [here](https://data.cityofnewyork.us/widgets/i8iw-xf4u)
+
+```{r}
+zc <- read_sf("data/nyc_zipcodes")
+dogs <- (read_csv("data/NYC_dogs.csv")
+  %>% rename(zipcode="Owner Zip Code",name="Animal Name",
+             gender="Animal Gender",breed_1="Primary Breed",
+             color="Animal Dominant Color")
+  %>% mutate(zipcode=sprintf("%05d",zipcode))
+  %>% select(zipcode,name,gender,breed_1,color)
+)
+z_rottie <- (dogs
+  %>% group_by(zipcode)
+  %>% summarise(tot=sum(stringr::str_detect(breed_1,"[Rr]ott")),
+                tot_dogs=n(),
+                frac=tot/n())
+)
+z_dogs  <- full_join(z_rottie,zc,by=c("zipcode"="ZIPCODE"))
+(ggplot(z_dogs)
+  + geom_sf(aes(fill = frac,alpha=tot_dogs, geometry=geometry))
+  + theme_void()
+  + scale_fill_gradient(low="white",high="brown",
+                        trans=scales::logit_trans())
+)
+```
+
+* superimpose on a map, possibly clipped?
+
+## leaflet
+
+* super-easy to generate maps
+* adding points etc. 
 
