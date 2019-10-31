@@ -7,6 +7,7 @@ author: "Alex Bushby, Aleks Jovic, Ben Bolker"
 library(ggmap)
 library(tidyverse)
 library(viridis)
+library(sf)
 load("data/googlemaps.rda")
 ```
 
@@ -14,38 +15,52 @@ load("data/googlemaps.rda")
 
 The `crime` dataset contains crime reports for Houston from January-August 2010, geocoded with Google Maps.
 
-```{showcrime}
+```{r showcrime}
 tibble(crime)
 ```
 Lots of useful info: dates, types of crimes, locations by type of place, locations by street, locations by longitude/latitude ...
 
-First, let’s get an overview of the crimes on the map. Using qmplot, we put in longitude and latitude for the x, and y parameters, and specify the data as the crime dataset. This plots the crimes indiscriminantly.
+First, let's get an overview of the crimes on the map. The `qmplot` is often recommended as a quick way to do mapping (but we will switch to another approach shortly). We put in longitude (`lon`) and latitude (`lat`) for the `x` and `y` parameters and specify `crime` as the data set. This plots all of the crimes in the database.
 
-[original code](https://github.com/tidyverse/ggplot2/wiki/crime-in-downtown-houston,-texas-:-combining-ggplot2-and-google-maps)
-```{r message=FALSE}
+(Example adapted from [here](https://github.com/tidyverse/ggplot2/wiki/crime-in-downtown-houston,-texas-:-combining-ggplot2-and-google-maps).)
+
+```{r qmplot,message=FALSE}
 q1 <- qmplot(lon, lat, data = crime,
-       maptype = "toner-lite", colour = I("red"), size = I(0.9),alpha=I(.3))
+             maptype = "toner-lite",
+             ## for q* plots need to use I() for direct specifications
+             colour = I("red"),
+             size = I(0.9),
+             alpha=I(.3))
 ```
 
-Or
+A slightly slower but safer method is to get the map first, then combine it with the data. This way we can retrieve the map and store it; this is both more efficient if we're going to make a bunch of plots with the same map (almost inevitable if we're polishing a data visualization), and safer (in case the server goes down/network connection is lost/etc.).
 
-```{r}
+```{r houston1}
+## utility function: extract appropriate components for retrieving a Stamen/OSM map
 get_mapzone <- function(data, latcol="lat", loncol="lon") {
   lon <- na.omit(data[[loncol]])
   lat <- na.omit(data[[latcol]])
   return(c(left=min(lon),right=max(lon),bottom=min(lat),top=max(lat)))
 }
-houston_mz <- get_mapzone(crime)
+houston_mz <- get_mapzone(crime) ## find boundaries
+## retrieve map
 houston_map1 <- get_stamenmap(houston_mz,zoom=7, maptype="toner-lite")
+```
+
+Now we can combine the map with the data set:
+
+```{r houston2}
 (ggmap(houston_map1)
   + geom_point(data=crime,colour="red",size=0.9,alpha=0.3)
 )
 ```
 
+This graph is not very good, in particular because of the 
+
 
 Reduce crime to violent crimes in downtown Houston:
 
-```{r}
+```{r violent_crime}
 violent_crime <-
   (crime
     %>% filter(
@@ -64,7 +79,7 @@ violent_crime <-
 ```
 
 
-```{r}
+```{r vc1}
 houston_map2 <- get_stamenmap(get_mapzone(violent_crime), maptype="toner-lite",
                               zoom=14)
 (ggmap(houston_map2)
@@ -72,13 +87,17 @@ houston_map2 <- get_stamenmap(get_mapzone(violent_crime), maptype="toner-lite",
 )
 ```
 
-```{r}
+Re-use the map, plotting as density contours instead (i.e., transform the points to a density field, then summarize the density field as a set of contours)
+
+```{r vc2}
 (ggmap(houston_map2)
   + geom_density2d(data = violent_crime, aes(x=lon,y=lat), col="red")
 )
 ```
 
-```{r}
+Or do 2-D (square) binning, with a custom gradient (and log-scaled breaks):
+
+```{r vc3}
 (ggmap(houston_map2)
   + geom_bin2d(data = violent_crime, alpha=0.5)
   + scale_fill_gradient(low="#F0F0FF", high="#131393",
@@ -86,34 +105,80 @@ houston_map2 <- get_stamenmap(get_mapzone(violent_crime), maptype="toner-lite",
 )
 ```
 
+The high-density square on Smith Street is messing up our ability to see much else.
+
 ## Heatmap
 
-To make the contour map more useful, we can assign a gradient. Let’s look at the robberies:
+To make the contour map more useful, we can assign a gradient (using a "polygon" rather than a "density_2d" geom with `stat_density_2d`) . Let’s look at the robberies:
 
-```{r}
+```{r vc4}
+## "background" rather than "lite" map
 houston_map3 <- get_stamenmap(get_mapzone(violent_crime),
                               maptype="toner-background",
                               zoom=14)
 ```
 
-```{r}
+```{r vc5}
 robbery <- violent_crime %>% filter(offense=='robbery')
 (ggmap(houston_map3)
   + stat_density_2d(data=robbery,
                     aes(fill = ..level..), geom = "polygon",
                     alpha = .35, colour = NA)
-  + scale_fill_gradient2("Robbery\nHeatmap",
+  + scale_fill_gradient2("Robbery\nheatmap",
                          low = "white", mid = "yellow",
                          high = "red", midpoint = 650)
 )
 ```
 
-```{r}
+We can do all the other `ggplot` stuff, like faceting:
+
+```{r facet1}
 (ggmap(houston_map3,darken=c(0.9,"white")) ## fade map layer
-  + geom_point(data = violent_crime, aes(colour = offense, size=offense)) + 
-  facet_wrap(~ offense)+
-  scale_colour_brewer(palette="Dark2")+
-  scale_size_manual(values=c(1,1,2,3))+
-  theme(legend.position="none")
+  + geom_point(data = violent_crime, aes(colour = offense, size=offense))
+  + facet_wrap(~ offense)
+  + scale_colour_brewer(palette="Dark2")
+  + scale_size_manual(values=c(1,1,2,3)) ## adjust point sizes for visibility
+  + theme(legend.position="none")
 )
 ```
+
+```{r weekday_facets}
+hm <- ggmap(houston_map3, base_layer = ggplot(aes(x = lon, y = lat),
+                                              data = violent_crime),
+            darken=c(0.9,"white"))
+(hm
+  + stat_density2d(aes(fill = ..level.., alpha = ..level..),
+                bins = 5, geom = "polygon")
+  + scale_fill_gradient(low = "black", high = "red")
+  + facet_wrap(~ day)
+  + theme(legend.position="none")
+)
+```
+
+(there are some contouring artifacts here I don't understand ...)
+
+This is pretty but maybe not useful ...
+
+```{r crime_density}
+(hm
+  + stat_density2d(aes(x = lon, y = lat, fill = offense, alpha = ..level..),
+                   bins = 5, geom = "polygon")
+  + scale_fill_brewer(palette="Dark2")
+  
+)
+```
+
+There is not a super-easy way to code scales (we'd like 29.75 to be $29^\circ 45' N$, e.g. see [here](https://stackoverflow.com/questions/33302424/format-latitude-and-longitude-axis-labels-in-ggplot) for a partial solution), but maybe we don't even need them on a map?
+
+# Canadian electoral ridins
+
+From [this github site](https://github.com/paleolimbot/blogdown-site/tree/master/content/post/2019-10-21-ridings):
+
+The riding boundaries come in shapefile format, which is handled by a one-liner to `read_sf()`. I'm going to simplify the boundaries a bit to speed up the plotting time. The `dTolderance` argument is in map units, and it took some experimenting to settle on the number 100.
+
+```{r}
+ridings <- (read_sf("boundaries_2015_shp_en/FED_CA_2_2_ENG.shp")
+  %>% st_simplify(dTolerance = 100)
+)
+ridings
+
