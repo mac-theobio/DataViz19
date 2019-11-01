@@ -114,15 +114,26 @@ img {
 <ul>
 <li>Conceptually exciting (reworking of ggplot); dormant ☹</li>
 </ul></li>
-<li>ggplotly
-<ul>
-<li>Straightforward and popular</li>
-</ul></li>
 <li>googleVis
 <ul>
-<li>R interface to google charts</li>
+<li>R interface to google charts: also fairly dormant</li>
 </ul></li>
-<li>leaflet</li>
+<li>plotly
+<ul>
+<li>Straightforward and popular (esp. via <code>ggplotly</code>)</li>
+</ul></li>
+<li>gganimate
+<ul>
+<li>very “gg” (grammar of graphics)-ish; not so interactive</li>
+</ul></li>
+<li>crosstalk
+<ul>
+<li>for letting different html widgets talk to each other (linking)</li>
+</ul></li>
+<li>leaflet
+<ul>
+<li>maps (more next week)</li>
+</ul></li>
 </ul>
 <h1 id="more-philosophy">More philosophy</h1>
 <h2 id="acceptance">Acceptance</h2>
@@ -130,6 +141,23 @@ img {
 <li><p>Why don’t people do this more?</p></li>
 <li><p>In what contexts can you reach an audience with interactive graphics?</p></li>
 <li><p>How can interactive graphics help you with your research?</p></li>
+</ul>
+<h1 id="more">More</h1>
+<ul>
+<li><a href="https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3">overview of animation</a> (<code>animate</code>, <code>gganimate</code>, <code>plotly</code>, <code>googleVis</code>)</li>
+<li>gapminder examples (especially <a href="https://github.com/keithmcnulty/hans_rosling_bubble/blob/master/rosling.R">this version</a>, somewhat modified by us <a href="gapminder.R">here</a></li>
+<li>wealth/tax/hovering example: <span class="citation">@leonhardt</span>_rich_2019, <a href="https://gist.github.com/dill/508532714cd58398aaf90a0723efd2fd">code from David L. Miller</a>, <a href="hover_tax.R">our modifications</a></li>
+</ul>
+<h1 id="software-support">Software support</h1>
+<ul>
+<li>different formats:
+<ul>
+<li>JavaScript (underlies plotly, D3, Vega, highchartr, leaflet, …)</li>
+<li>GIF (old but supports animation)</li>
+<li>MP4 (video format)</li>
+<li>Flash (officially deprecated in favour of HTML5)</li>
+</ul></li>
+<li>be aware that you may need to install various extra software to render animations, or to play them</li>
 </ul>
 <div id="footer">
 	<div style="text-align:center">

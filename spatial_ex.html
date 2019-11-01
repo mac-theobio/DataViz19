@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <meta name="author" content="Alex Bushby, Aleks Jovic, Ben Bolker" />
+  <title>spatial examples</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">spatial examples</h1>
+<h2 class="author">Alex Bushby, Aleks Jovic, Ben Bolker</h2>
+</div>
+<pre><code>library(ggmap)
+library(tidyverse)
+library(viridis)
+library(sf)
+library(geogrid)
+
+## Warning in fun(libname, pkgname): rgeos: versions of GEOS runtime 3.5.1-CAPI-1.9.1
+## and GEOS at installation 3.5.0-CAPI-1.9.0differ
+
+library(gganimate)
+if (!require(transformr,quietly=TRUE)) {
+  warning(&quot;animation example might not work; &quot;,
+          &quot;consider running &quot;,
+          &quot;&#39;remotes::install_github(\&quot;thomasp85/transformr&#39;\&quot;)&quot;)
+}
+library(leaflet)
+load(&quot;data/googlemaps.rda&quot;)</code></pre>
+<h1 id="crime">crime</h1>
+<p>The <code>crime</code> dataset contains crime reports for Houston from January-August 2010, geocoded with Google Maps.</p>
+<pre><code>tibble(crime)
+
+## # A tibble: 86,314 x 1
+##    crime$time          $date $hour $premise $offense $beat $block $street
+##    &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt; &lt;chr&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
+##  1 2010-01-01 01:00:00 1/1/…     0 18A      murder   15E30 9600-… marlive
+##  2 2010-01-01 01:00:00 1/1/…     0 13R      robbery  13D10 4700-… teleph…
+##  3 2010-01-01 01:00:00 1/1/…     0 20R      aggrava… 16E20 5000-… wickvi…
+##  4 2010-01-01 01:00:00 1/1/…     0 20R      aggrava… 2A30  1000-… ashland
+##  5 2010-01-01 01:00:00 1/1/…     0 20A      aggrava… 14D20 8300-… canyon 
+##  6 2010-01-01 01:00:00 1/1/…     0 20R      burglary 18F60 9300-… rowan  
+##  7 2010-01-01 01:00:00 1/1/…     0 20A      burglary 10H60 2500-… southm…
+##  8 2010-01-01 01:00:00 1/1/…     0 20R      burglary 13D10 6300-… rupley 
+##  9 2010-01-01 01:00:00 1/1/…     0 20A      burglary 3B10  5000-… georgi 
+## 10 2010-01-01 01:00:00 1/1/…     0 20P      burglary 20G20 10700… briar …
+## # … with 86,304 more rows, and 9 more variables: $type &lt;chr&gt;,
+## #   $suffix &lt;chr&gt;, $number &lt;int&gt;, $month &lt;ord&gt;, $day &lt;ord&gt;,
+## #   $location &lt;chr&gt;, $address &lt;chr&gt;, $lon &lt;dbl&gt;, $lat &lt;dbl&gt;</code></pre>
+<p>Lots of useful info: dates, types of crimes, locations by type of place, locations by street, locations by longitude/latitude …</p>
+<p>First, let’s get an overview of the crimes on the map. The <code>qmplot</code> is often recommended as a quick way to do mapping (but we will switch to another approach shortly). We put in longitude (<code>lon</code>) and latitude (<code>lat</code>) for the <code>x</code> and <code>y</code> parameters and specify <code>crime</code> as the data set. This plots all of the crimes in the database.</p>
+<p>(Example adapted from <a href="https://github.com/tidyverse/ggplot2/wiki/crime-in-downtown-houston,-texas-:-combining-ggplot2-and-google-maps">here</a>.)</p>
+<pre><code>q1 &lt;- qmplot(lon, lat, data = crime,
+             maptype = &quot;toner-lite&quot;,
+             ## for q* plots need to use I() for direct specifications
+             colour = I(&quot;red&quot;),
+             size = I(0.9),
+             alpha=I(.3))</code></pre>
+<p>A slightly slower but safer method is to get the map first, then combine it with the data. This way we can retrieve the map and store it; this is both more efficient if we’re going to make a bunch of plots with the same map (almost inevitable if we’re polishing a data visualization), and safer (in case the server goes down/network connection is lost/etc.).</p>
+<pre><code>## utility function: extract appropriate components for retrieving a Stamen/OSM map
+get_mapzone &lt;- function(data, latcol=&quot;lat&quot;, loncol=&quot;lon&quot;) {
+  lon &lt;- na.omit(data[[loncol]])
+  lat &lt;- na.omit(data[[latcol]])
+  return(c(left=min(lon),right=max(lon),bottom=min(lat),top=max(lat)))
+}
+houston_mz &lt;- get_mapzone(crime) ## find boundaries
+## retrieve map
+houston_map1 &lt;- get_stamenmap(houston_mz,zoom=7, maptype=&quot;toner-lite&quot;,
+                              messaging=FALSE)</code></pre>
+<p>Now we can combine the map with the data set:</p>
+<pre><code>(ggmap(houston_map1)
+  + geom_point(data=crime,colour=&quot;red&quot;,size=0.9,alpha=0.3)
+)
+
+## Warning: Removed 5 rows containing missing values (geom_point).</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/houston2-1.png" /></p>
+<p>This graph is not very good, in particular because of the few crimes that are reported far away from the city but still end up in the database.</p>
+<p>Reduce crime to violent crimes in downtown Houston:</p>
+<pre><code>violent_crime &lt;-
+  (crime
+    %&gt;% filter(
+          !offense %in% c(&quot;auto theft&quot;, &quot;theft&quot;, &quot;burglary&quot;),
+          -95.39681 &lt;= lon &amp; lon &lt;= -95.34188,
+          29.73631 &lt;= lat &amp; lat &lt;=  29.78400
+        )
+    %&gt;% mutate(
+          ## drops unused levels, mitigates downstream errors
+          offense = fct_drop(offense), 
+          offense = fct_relevel(offense,
+               c(&quot;robbery&quot;, &quot;aggravated assault&quot;, &quot;rape&quot;, &quot;murder&quot;)
+               )
+        )
+  )
+
+houston_map2 &lt;- get_stamenmap(get_mapzone(violent_crime), maptype=&quot;toner-lite&quot;,
+                              zoom=14,messaging=FALSE)
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6770.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6770.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6770.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6771.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6771.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6771.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6772.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6772.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6772.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3850/6773.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3851/6773.png
+
+## Source : http://tile.stamen.com/toner-lite/14/3852/6773.png
+
+(ggmap(houston_map2)
+  + geom_point(data = violent_crime, colour = &quot;red&quot;,size = 0.9, alpha=.3)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/vc1-1.png" /></p>
+<p>Re-use the map, plotting as density contours instead (i.e., transform the points to a density field, then summarize the density field as a set of contours)</p>
+<pre><code>(ggmap(houston_map2)
+  + geom_density2d(data = violent_crime, aes(x=lon,y=lat), col=&quot;red&quot;)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/vc2-1.png" /></p>
+<p>Or do 2-D (square) binning, with a custom gradient (and log-scaled breaks):</p>
+<pre><code>(ggmap(houston_map2)
+  + geom_bin2d(data = violent_crime, alpha=0.5)
+  + scale_fill_gradient(low=&quot;#F0F0FF&quot;, high=&quot;#131393&quot;,
+                        trans=scales::log10_trans())
+)
+
+## Warning: Removed 7 rows containing missing values (geom_tile).</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/vc3-1.png" /></p>
+<p>The high-density square on Smith Street is messing up our ability to see much else.</p>
+<h2 id="heatmap">Heatmap</h2>
+<p>To make the contour map more useful, we can assign a gradient (using a “polygon” rather than a “density_2d” geom with <code>stat_density_2d</code>) . Let’s look at the robberies:</p>
+<pre><code>## &quot;background&quot; rather than &quot;lite&quot; map
+houston_map3 &lt;- get_stamenmap(get_mapzone(violent_crime),
+                              maptype=&quot;toner-background&quot;,
+                              zoom=14)
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6770.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6770.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6770.png
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6771.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6771.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6771.png
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6772.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6772.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6772.png
+
+## Source : http://tile.stamen.com/toner-background/14/3850/6773.png
+
+## Source : http://tile.stamen.com/toner-background/14/3851/6773.png
+
+## Source : http://tile.stamen.com/toner-background/14/3852/6773.png
+
+robbery &lt;- violent_crime %&gt;% filter(offense==&#39;robbery&#39;)
+(ggmap(houston_map3)
+  + stat_density_2d(data=robbery,
+                    aes(fill = ..level..), geom = &quot;polygon&quot;,
+                    alpha = .35, colour = NA)
+  + scale_fill_gradient2(&quot;Robbery\nheatmap&quot;,
+                         low = &quot;white&quot;, mid = &quot;yellow&quot;,
+                         high = &quot;red&quot;, midpoint = 650)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/vc5-1.png" /></p>
+<p>We can do all the other <code>ggplot</code> stuff, like faceting:</p>
+<pre><code>(ggmap(houston_map3,darken=c(0.9,&quot;white&quot;)) ## fade map layer
+  + geom_point(data = violent_crime, aes(colour = offense, size=offense))
+  + facet_wrap(~ offense)
+  + scale_colour_brewer(palette=&quot;Dark2&quot;)
+  + scale_size_manual(values=c(1,1,2,3)) ## adjust point sizes for visibility
+  + theme(legend.position=&quot;none&quot;)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/facet1-1.png" /></p>
+<pre><code>hm &lt;- ggmap(houston_map3, base_layer = ggplot(aes(x = lon, y = lat),
+                                              data = violent_crime),
+            darken=c(0.9,&quot;white&quot;))
+(hm
+  + stat_density2d(aes(fill = ..level.., alpha = ..level..),
+                bins = 5, geom = &quot;polygon&quot;)
+  + scale_fill_gradient(low = &quot;black&quot;, high = &quot;red&quot;)
+  + facet_wrap(~ day)
+  + theme(legend.position=&quot;none&quot;)
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/weekday_facets-1.png" /></p>
+<p>(there are some contouring artifacts here I don’t understand …)</p>
+<p>This is pretty but maybe not useful …</p>
+<pre><code>(hm
+  + stat_density2d(aes(x = lon, y = lat, fill = offense, alpha = ..level..),
+                   bins = 5, geom = &quot;polygon&quot;)
+  + scale_fill_brewer(palette=&quot;Dark2&quot;)
+  
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/crime_density-1.png" /></p>
+<p>There is not a super-easy way to code scales (we’d like 29.75 to be 29<sup>∘</sup>45′<em>N</em>, e.g. see <a href="https://stackoverflow.com/questions/33302424/format-latitude-and-longitude-axis-labels-in-ggplot">here</a> for a partial solution), but maybe we don’t even need them on a map?</p>
+<h1 id="canadian-electoral-ridins">Canadian electoral ridins</h1>
+<p>From <a href="https://github.com/paleolimbot/blogdown-site/tree/master/content/post/2019-10-21-ridings">this github site</a>:</p>
+<p>The riding boundaries come in shapefile format, which is handled by a one-liner to <code>read_sf()</code>. I’m going to simplify the boundaries a bit to speed up the plotting time. The <code>dTolderance</code> argument is in map units, and it took some experimenting to settle on the number 100.</p>
+<pre><code>ridings &lt;- (read_sf(&quot;data/boundaries_2015_shp_en/FED_CA_2_2_ENG.shp&quot;)
+  %&gt;% st_simplify(dTolerance = 100)
+)
+
+(ggplot(ridings)
+  + geom_sf(aes(fill = PROVCODE))
+  + theme_void()
+)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-2-1.png" /></p>
+<pre><code>fn &lt;- &quot;data/ridings_hex.rds&quot;
+if (file.exists(fn)) {
+  ridings_hex &lt;- read_rds(fn)
+} else {
+  cat(&quot;SLOW computation coming up!\n&quot;)
+  print(system.time({
+    ridings_grid &lt;- ridings %&gt;%
+      calculate_grid(grid_type = &quot;hexagonal&quot;, seed = 1938)
+    ridings_hex &lt;- assign_polygons(ridings, ridings_grid)
+    write_rds(ridings_hex, fn)
+  }))
+}
+
+fix_fun &lt;- function(x,label) {
+  (x
+    %&gt;% st_set_crs(NA)
+    %&gt;% dplyr::select(PROVCODE,geometry)
+    %&gt;% mutate(type=label)
+  )
+}
+ridings_list &lt;- list(geographic=ridings,hex=ridings_hex)
+purrr:::map(ridings_list,st_crs)
+
+## $geographic
+## Coordinate Reference System:
+##   No EPSG code
+##   proj4string: &quot;+proj=lcc +lat_1=49 +lat_2=77 +lat_0=63.390675 +lon_0=-91.86666666666666 +x_0=6200000 +y_0=3000000 +datum=NAD83 +units=m +no_defs&quot;
+## 
+## $hex
+## Coordinate Reference System:
+##   No EPSG code
+##   proj4string: &quot;+proj=lcc +lat_1=49 +lat_2=77 +lat_0=63.390675 +lon_0=-91.86666666666666 +x_0=6200000 +y_0=3000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;
+
+ridings_combined &lt;- purrr::map2(ridings_list, names(ridings_list), fix_fun)
+## dplyr::bind_rows doesn&#39;t work: https://github.com/tidyverse/dplyr/issues/2457
+ridings_combined &lt;- do.call(rbind,ridings_combined)
+
+rplot &lt;- ggplot(ridings_combined) +
+  geom_sf(aes(fill = PROVCODE)) +
+  theme_void()
+rplot+ facet_wrap(~type)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/make_anim-1.png" /></p>
+<pre><code>rplot_anim &lt;- (rplot
+  + transition_states(type, transition_length = 1, state_length = 5)
+)
+
+animate(rplot_anim, width = 700, height = 700, res = 96)
+anim_save(&quot;pix/ridings.gif&quot;)</code></pre>
+<p><img src="pix/ridings.gif" /></p>
+<h2 id="dog-licenses">dog licenses</h2>
+<p>NYC zip codes <a href="https://data.cityofnewyork.us/widgets/i8iw-xf4u">here</a></p>
+<pre><code>zc &lt;- read_sf(&quot;data/nyc_zipcodes&quot;)
+dogs &lt;- (read_csv(&quot;data/NYC_dogs.csv&quot;)
+  %&gt;% rename(zipcode=&quot;Owner Zip Code&quot;,name=&quot;Animal Name&quot;,
+             gender=&quot;Animal Gender&quot;,breed_1=&quot;Primary Breed&quot;,
+             color=&quot;Animal Dominant Color&quot;)
+  %&gt;% mutate(zipcode=sprintf(&quot;%05d&quot;,zipcode))
+  %&gt;% select(zipcode,name,gender,breed_1,color)
+)
+
+## Parsed with column specification:
+## cols(
+##   `Owner Zip Code` = col_double(),
+##   `Animal Name` = col_character(),
+##   `Animal Gender` = col_character(),
+##   `Primary Breed` = col_character(),
+##   `Secondary Breed` = col_character(),
+##   `Animal Dominant Color` = col_character(),
+##   `Animal Secondary Color` = col_character(),
+##   `Animal Third Color` = col_character(),
+##   `Animal Birth` = col_character(),
+##   `Spayed or Neut` = col_character(),
+##   `Guard or Trained` = col_character(),
+##   Vaccinated = col_character(),
+##   `Application Date` = col_character(),
+##   `License Issued Date` = col_character(),
+##   `License Expired Date` = col_character()
+## )
+
+z_rottie &lt;- (dogs
+  %&gt;% group_by(zipcode)
+  %&gt;% summarise(tot=sum(stringr::str_detect(breed_1,&quot;[Rr]ott&quot;)),
+                tot_dogs=n(),
+                frac=tot/n())
+)
+z_dogs  &lt;- full_join(z_rottie,zc,by=c(&quot;zipcode&quot;=&quot;ZIPCODE&quot;))
+(ggplot(z_dogs)
+  + geom_sf(aes(fill = frac,alpha=tot_dogs, geometry=geometry))
+  + theme_void()
+  + scale_fill_gradient(low=&quot;white&quot;,high=&quot;brown&quot;,
+                        trans=scales::logit_trans())
+)
+
+## Warning: Transformation introduced infinite values in discrete y-axis</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-4-1.png" /></p>
+<ul>
+<li>superimpose on a map, possibly clipped?</li>
+</ul>
+<h2 id="leaflet">leaflet</h2>
+<ul>
+<li>super-easy to generate maps</li>
+<li>adding points etc.</li>
+<li>choropleth example: <a href="https://rstudio.github.io/leaflet/choropleths.html" class="uri">https://rstudio.github.io/leaflet/choropleths.html</a></li>
+</ul>
+<p>Quick Houston-crime example:</p>
+<pre><code>leaflet(st_as_sf(violent_crime,coords=c(&quot;lon&quot;,&quot;lat&quot;))) %&gt;%
+  setView(-95.35,29.75,zoom=13) %&gt;%
+  addTiles() %&gt;%
+  addCircleMarkers(radius=5)</code></pre>
+<p><img src="spatial_ex_files/figure-markdown_strict/houston_leaflet-1.png" /></p>
+<h2 id="additional-challenges">additional challenges</h2>
+<ul>
+<li>ggplot is to ggplotly as ggmap is to (???) + leaflet</li>
+<li>syncing various layers (lat/lon to ????)</li>
+<li>transforming <em>irregular</em> points with continuous values
+<ul>
+<li><code>akima</code></li>
+<li>kriging? Gaussian processes?</li>
+<li>fit surface with <code>mgcv</code> package then overlay?</li>
+</ul></li>
+<li>multivariate/compositional responses: <code>scatterpie</code> package. (Mini-bars?)</li>
+</ul>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
