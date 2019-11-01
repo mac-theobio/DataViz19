@@ -10,7 +10,6 @@ library(viridis)
 library(sf)
 library(geogrid)
 library(gganimate)
-)
 if (!require(transformr,quietly=TRUE)) {
   warning("animation example might not work; ",
           "consider running ",
