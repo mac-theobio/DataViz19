@@ -53,7 +53,8 @@ get_mapzone <- function(data, latcol="lat", loncol="lon") {
 }
 houston_mz <- get_mapzone(crime) ## find boundaries
 ## retrieve map
-houston_map1 <- get_stamenmap(houston_mz,zoom=7, maptype="toner-lite")
+houston_map1 <- get_stamenmap(houston_mz,zoom=7, maptype="toner-lite",
+                              messaging=FALSE)
 ```
 
 Now we can combine the map with the data set:
@@ -64,7 +65,7 @@ Now we can combine the map with the data set:
 )
 ```
 
-This graph is not very good, in particular because of the 
+This graph is not very good, in particular because of the few crimes that are reported far away from the city but still end up in the database.
 
 
 Reduce crime to violent crimes in downtown Houston:
@@ -88,9 +89,9 @@ violent_crime <-
 ```
 
 
-```{r vc1}
+```{r vc1,warning=FALSE}
 houston_map2 <- get_stamenmap(get_mapzone(violent_crime), maptype="toner-lite",
-                              zoom=14)
+                              zoom=14,messaging=FALSE)
 (ggmap(houston_map2)
   + geom_point(data = violent_crime, colour = "red",size = 0.9, alpha=.3)
 )
@@ -277,3 +278,22 @@ z_dogs  <- full_join(z_rottie,zc,by=c("zipcode"="ZIPCODE"))
 * super-easy to generate maps
 * adding points etc. 
 * choropleth example: https://rstudio.github.io/leaflet/choropleths.html
+
+Quick Houston-crime example:
+
+```{r houston_leaflet}
+leaflet(st_as_sf(violent_crime,coords=c("lon","lat"))) %>%
+  setView(-95.35,29.75,zoom=13) %>%
+  addTiles() %>%
+  addCircleMarkers(radius=5)
+```
+
+## additional challenges
+
+- ggplot is to ggplotly as ggmap is to (???) + leaflet
+- syncing various layers (lat/lon to ????)
+- transforming *irregular* points with continuous values 
+    - `akima`
+	- kriging? Gaussian processes?
+	- fit surface with `mgcv` package then overlay?
+- multivariate/compositional responses: `scatterpie` package. (Mini-bars?)
