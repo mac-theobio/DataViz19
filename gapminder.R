@@ -11,8 +11,11 @@ library(wbstats)
 # Rosling gapminder chart: previously in one command ...
 
 # pull the country data down from the World Bank - three indicators
-wbdata <- wbstats::wb(indicator = c("SP.DYN.LE00.IN", "NY.GDP.PCAP.CD", "SP.POP.TOTL"), 
-                      country = "countries_only", startdate = 1960, enddate = 2018)
+wbdata <- wbstats::wb(indicator = c("SP.DYN.LE00.IN", 
+                                    "NY.GDP.PCAP.CD", 
+                                    "SP.POP.TOTL"), 
+                      country = "countries_only", 
+                      startdate = 1960, enddate = 2018)
 
 
 wbdata <- (wbdata
@@ -43,7 +46,9 @@ gg0 <- (ggplot(wbdata,
            y = "Life expectancy at birth")
     + theme_classic()
     + geom_text(aes(x = 7.5, y = 60, label = date),
-                size = 14, color = 'lightgrey')
+                size = 14, color = 'lightgrey'
+                ## , family = 'Oswald' ## not available everywhere
+                )
 )
 print(gg0)
 
@@ -52,9 +57,15 @@ if (require("gifski")) {
     gg1 <- gg0 + gganimate::transition_states(date,
                            transition_length = 1, state_length = 1) +
         gganimate::ease_aes('cubic-in-out')
-    animate(gg1,renderer=ffmpeg_renderer())
     
-    anim_save("gapminder1.mp4")
+
+    gg1A <- animate(gg1,renderer=ffmpeg_renderer())
+    ## anim_save("gapminder1.mp4")
+
+    ## OR
+    gg1B <- animate(gg1)
+    ## anim_save("gapminder1.gif")
+
 }
 ## gifski needs Rust installed!
 ## rendering takes about 30 seconds

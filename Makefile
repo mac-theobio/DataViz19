@@ -244,7 +244,7 @@ iohack: principles.lect.rmd
 pages/rubric.html: rubric.mkd
 
 clean:
-	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
+	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf \#*
 
 -include makestuff/rmdweb.mk
 -include makestuff/os.mk
