@@ -113,38 +113,8 @@ houston_map1 &lt;- get_stamenmap(houston_mz,zoom=7, maptype=&quot;toner-lite&quo
         )
   )
 
-## capture.output() to force get_stamenmap to shut up ...
-capture.output(
-  houston_map2 &lt;- get_stamenmap(get_mapzone(violent_crime), maptype=&quot;toner-lite&quot;,
+houston_map2 &lt;- get_stamenmap(get_mapzone(violent_crime), maptype=&quot;toner-lite&quot;,
                                 zoom=14,messaging=FALSE)
-)
-
-## Source : http://tile.stamen.com/toner-lite/14/3850/6770.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3851/6770.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3852/6770.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3850/6771.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3851/6771.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3852/6771.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3850/6772.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3851/6772.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3852/6772.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3850/6773.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3851/6773.png
-
-## Source : http://tile.stamen.com/toner-lite/14/3852/6773.png
-
-## character(0)
-
 (ggmap(houston_map2)
   + geom_point(data = violent_crime, colour = &quot;red&quot;,size = 0.9, alpha=.3)
 )</code></pre>
@@ -166,39 +136,9 @@ capture.output(
 <p>The high-density square on Smith Street is messing up our ability to see much else.</p>
 <h2 id="heatmap">Heatmap</h2>
 <p>To make the contour map more useful, we can assign a gradient (using a “polygon” rather than a “density_2d” geom with <code>stat_density_2d</code>) . Let’s look at the robberies:</p>
-<pre><code>## &quot;background&quot; rather than &quot;lite&quot; map
-## capture.output() to force get_stamenmap to shut up ...
-capture.output(
-houston_map3 &lt;- get_stamenmap(get_mapzone(violent_crime),
+<pre><code>houston_map3 &lt;- get_stamenmap(get_mapzone(violent_crime),
                               maptype=&quot;toner-background&quot;,
                               zoom=14, messaging=FALSE)
-)
-
-## Source : http://tile.stamen.com/toner-background/14/3850/6770.png
-
-## Source : http://tile.stamen.com/toner-background/14/3851/6770.png
-
-## Source : http://tile.stamen.com/toner-background/14/3852/6770.png
-
-## Source : http://tile.stamen.com/toner-background/14/3850/6771.png
-
-## Source : http://tile.stamen.com/toner-background/14/3851/6771.png
-
-## Source : http://tile.stamen.com/toner-background/14/3852/6771.png
-
-## Source : http://tile.stamen.com/toner-background/14/3850/6772.png
-
-## Source : http://tile.stamen.com/toner-background/14/3851/6772.png
-
-## Source : http://tile.stamen.com/toner-background/14/3852/6772.png
-
-## Source : http://tile.stamen.com/toner-background/14/3850/6773.png
-
-## Source : http://tile.stamen.com/toner-background/14/3851/6773.png
-
-## Source : http://tile.stamen.com/toner-background/14/3852/6773.png
-
-## character(0)
 
 robbery &lt;- violent_crime %&gt;% filter(offense==&#39;robbery&#39;)
 (vc5 &lt;- ggmap(houston_map3)
