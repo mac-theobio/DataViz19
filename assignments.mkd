@@ -1,10 +1,3 @@
-<!--
-
-## week 7
-
-Build on one of your existing plots (or make a new plot) and add an interactive component. Discuss the principles of why the interactive component is useful, and what you did to make it clear.  Bear [the rubric](rubric.html) in mind.
-
--->
 
 ## week 6
 
