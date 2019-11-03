@@ -39,6 +39,8 @@ library(geogrid)
 ## and GEOS at installation 3.5.0-CAPI-1.9.0differ
 
 library(gganimate)
+library(RColorBrewer)
+library(htmlwidgets)
 if (!require(transformr,quietly=TRUE)) {
   warning(&quot;animation example might not work; &quot;,
           &quot;consider running &quot;,
@@ -189,7 +191,7 @@ houston_map3 &lt;- get_stamenmap(get_mapzone(violent_crime),
 ## Source : http://tile.stamen.com/toner-background/14/3852/6773.png
 
 robbery &lt;- violent_crime %&gt;% filter(offense==&#39;robbery&#39;)
-(ggmap(houston_map3)
+(vc5 &lt;- ggmap(houston_map3)
   + stat_density_2d(data=robbery,
                     aes(fill = ..level..), geom = &quot;polygon&quot;,
                     alpha = .35, colour = NA)
@@ -228,7 +230,7 @@ robbery &lt;- violent_crime %&gt;% filter(offense==&#39;robbery&#39;)
 )</code></pre>
 <p><img src="spatial_ex_files/figure-markdown_strict/crime_density-1.png" /></p>
 <p>There is not a super-easy way to code scales (we’d like 29.75 to be 29<sup>∘</sup>45′<em>N</em>, e.g. see <a href="https://stackoverflow.com/questions/33302424/format-latitude-and-longitude-axis-labels-in-ggplot">here</a> for a partial solution), but maybe we don’t even need them on a map?</p>
-<h1 id="canadian-electoral-ridins">Canadian electoral ridins</h1>
+<h1 id="canadian-electoral-ridings">Canadian electoral ridings</h1>
 <p>From <a href="https://github.com/paleolimbot/blogdown-site/tree/master/content/post/2019-10-21-ridings">this github site</a>:</p>
 <p>The riding boundaries come in shapefile format, which is handled by a one-liner to <code>read_sf()</code>. I’m going to simplify the boundaries a bit to speed up the plotting time. The <code>dTolderance</code> argument is in map units, and it took some experimenting to settle on the number 100.</p>
 <pre><code>ridings &lt;- (read_sf(&quot;data/boundaries_2015_shp_en/FED_CA_2_2_ENG.shp&quot;)
@@ -343,16 +345,26 @@ z_dogs  &lt;- full_join(z_rottie,zc,by=c(&quot;zipcode&quot;=&quot;ZIPCODE&quot;
 <li>super-easy to generate maps</li>
 <li>adding points etc.</li>
 <li>choropleth example: <a href="https://rstudio.github.io/leaflet/choropleths.html" class="uri">https://rstudio.github.io/leaflet/choropleths.html</a></li>
+<li>John Snow cholera example: <a href="https://freakonometrics.hypotheses.org/19473" class="uri">https://freakonometrics.hypotheses.org/19473</a></li>
 </ul>
 <p>Quick Houston-crime example:</p>
-<pre><code>leaflet(st_as_sf(violent_crime,coords=c(&quot;lon&quot;,&quot;lat&quot;))) %&gt;%
+<pre><code>## predefine colour palette
+bp &lt;- brewer.pal(name=&quot;Dark2&quot;,n=length(levels(violent_crime$offense)))
+L1 &lt;- leaflet(data=st_as_sf(violent_crime,coords=c(&quot;lon&quot;,&quot;lat&quot;))) %&gt;%
   setView(-95.35,29.75,zoom=13) %&gt;%
-  addTiles() %&gt;%
-  addCircleMarkers(radius=5)</code></pre>
-<p><img src="spatial_ex_files/figure-markdown_strict/houston_leaflet-1.png" /></p>
+  ## use Stamen/toner rather than default Open Street Maps tiles
+  addProviderTiles(providers$Stamen.Toner,
+                   options = providerTileOptions(opacity = 0.35)) %&gt;%
+  addCircleMarkers(radius=5,weight=2,
+                   color=~bp[offense],
+                   popup=~date)
+saveWidget(L1,file=&quot;houston_leaflet.html&quot;)</code></pre>
+<p>embedding info <a href="https://stackoverflow.com/questions/42008179/embed-r-leaflet-map-in-wordpress">here</a>:</p>
+<iframe seamless src="houston_leaflet.html" width="100%" height="500">
+</iframe>
 <h2 id="additional-challenges">additional challenges</h2>
 <ul>
-<li>ggplot is to ggplotly as ggmap is to (???) + leaflet</li>
+<li>ggplot is to ggplotly as ggmap is to (???) + leaflet (see cholera example)</li>
 <li>syncing various layers (lat/lon to ????)</li>
 <li>transforming <em>irregular</em> points with continuous values
 <ul>
