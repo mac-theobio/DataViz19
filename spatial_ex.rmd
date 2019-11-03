@@ -10,6 +10,8 @@ library(viridis)
 library(sf)
 library(geogrid)
 library(gganimate)
+library(RColorBrewer)
+library(htmlwidgets)
 if (!require(transformr,quietly=TRUE)) {
   warning("animation example might not work; ",
           "consider running ",
@@ -88,9 +90,9 @@ violent_crime <-
 ```
 
 
-```{r vc1,warning=FALSE}
+```{r vc1,warning=FALSE,message=FALSE}
 houston_map2 <- get_stamenmap(get_mapzone(violent_crime), maptype="toner-lite",
-                              zoom=14,messaging=FALSE)
+                                zoom=14,messaging=FALSE)
 (ggmap(houston_map2)
   + geom_point(data = violent_crime, colour = "red",size = 0.9, alpha=.3)
 )
@@ -120,16 +122,15 @@ The high-density square on Smith Street is messing up our ability to see much el
 
 To make the contour map more useful, we can assign a gradient (using a "polygon" rather than a "density_2d" geom with `stat_density_2d`) . Let’s look at the robberies:
 
-```{r vc4}
-## "background" rather than "lite" map
+```{r vc4,message=FALSE}
 houston_map3 <- get_stamenmap(get_mapzone(violent_crime),
                               maptype="toner-background",
-                              zoom=14)
+                              zoom=14, messaging=FALSE)
 ```
 
 ```{r vc5}
 robbery <- violent_crime %>% filter(offense=='robbery')
-(ggmap(houston_map3)
+(vc5 <- ggmap(houston_map3)
   + stat_density_2d(data=robbery,
                     aes(fill = ..level..), geom = "polygon",
                     alpha = .35, colour = NA)
@@ -185,13 +186,13 @@ From [this github site](https://github.com/paleolimbot/blogdown-site/tree/master
 
 The riding boundaries come in shapefile format, which is handled by a one-liner to `read_sf()`. I'm going to simplify the boundaries a bit to speed up the plotting time. The `dTolderance` argument is in map units, and it took some experimenting to settle on the number 100.
 
-```{r}
+```{r get_ridings}
 ridings <- (read_sf("data/boundaries_2015_shp_en/FED_CA_2_2_ENG.shp")
   %>% st_simplify(dTolerance = 100)
 )
 ```
 
-```{r}
+```{r plot_ridings}
 (ggplot(ridings)
   + geom_sf(aes(fill = PROVCODE))
   + theme_void()
@@ -210,7 +211,7 @@ if (file.exists(fn)) {
 }
 ```
 
-```{r}
+```{r process_ridings}
 fix_fun <- function(x,label) {
   (x
     %>% st_set_crs(NA)
@@ -246,7 +247,7 @@ anim_save("pix/ridings.gif")
 
 NYC zip codes [here](https://data.cityofnewyork.us/widgets/i8iw-xf4u)
 
-```{r}
+```{r get_dogs,message=FALSE}
 zc <- read_sf("data/nyc_zipcodes")
 dogs <- (read_csv("data/NYC_dogs.csv")
   %>% rename(zipcode="Owner Zip Code",name="Animal Name",
@@ -277,19 +278,31 @@ z_dogs  <- full_join(z_rottie,zc,by=c("zipcode"="ZIPCODE"))
 * super-easy to generate maps
 * adding points etc. 
 * choropleth example: https://rstudio.github.io/leaflet/choropleths.html
+* John Snow cholera example: https://freakonometrics.hypotheses.org/19473
 
 Quick Houston-crime example:
 
 ```{r houston_leaflet}
-leaflet(st_as_sf(violent_crime,coords=c("lon","lat"))) %>%
+## predefine colour palette
+bp <- brewer.pal(name="Dark2",n=length(levels(violent_crime$offense)))
+L1 <- leaflet(data=st_as_sf(violent_crime,coords=c("lon","lat"))) %>%
   setView(-95.35,29.75,zoom=13) %>%
-  addTiles() %>%
-  addCircleMarkers(radius=5)
+  ## use Stamen/toner rather than default Open Street Maps tiles
+  addProviderTiles(providers$Stamen.Toner,
+                   options = providerTileOptions(opacity = 0.35)) %>%
+  addCircleMarkers(radius=5,weight=2,
+                   color=~bp[offense],
+                   popup=~date)
+saveWidget(L1,file="houston_leaflet.html")
 ```
+
+embedding info [here](https://stackoverflow.com/questions/42008179/embed-r-leaflet-map-in-wordpress):
+
+<iframe seamless src="houston_leaflet.html" width="100%" height="500"></iframe>
 
 ## additional challenges
 
-- ggplot is to ggplotly as ggmap is to (???) + leaflet
+- ggplot is to ggplotly as ggmap is to (???) + leaflet (see cholera example)
 - syncing various layers (lat/lon to ????)
 - transforming *irregular* points with continuous values 
     - `akima`
