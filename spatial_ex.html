@@ -164,7 +164,7 @@ houston_map2 &lt;- get_stamenmap(get_mapzone(violent_crime), maptype=&quot;toner
 <pre><code>## &quot;background&quot; rather than &quot;lite&quot; map
 houston_map3 &lt;- get_stamenmap(get_mapzone(violent_crime),
                               maptype=&quot;toner-background&quot;,
-                              zoom=14)
+                              zoom=14, messaging=FALSE)
 
 ## Source : http://tile.stamen.com/toner-background/14/3850/6770.png
 
@@ -301,26 +301,6 @@ dogs &lt;- (read_csv(&quot;data/NYC_dogs.csv&quot;)
   %&gt;% mutate(zipcode=sprintf(&quot;%05d&quot;,zipcode))
   %&gt;% select(zipcode,name,gender,breed_1,color)
 )
-
-## Parsed with column specification:
-## cols(
-##   `Owner Zip Code` = col_double(),
-##   `Animal Name` = col_character(),
-##   `Animal Gender` = col_character(),
-##   `Primary Breed` = col_character(),
-##   `Secondary Breed` = col_character(),
-##   `Animal Dominant Color` = col_character(),
-##   `Animal Secondary Color` = col_character(),
-##   `Animal Third Color` = col_character(),
-##   `Animal Birth` = col_character(),
-##   `Spayed or Neut` = col_character(),
-##   `Guard or Trained` = col_character(),
-##   Vaccinated = col_character(),
-##   `Application Date` = col_character(),
-##   `License Issued Date` = col_character(),
-##   `License Expired Date` = col_character()
-## )
-
 z_rottie &lt;- (dogs
   %&gt;% group_by(zipcode)
   %&gt;% summarise(tot=sum(stringr::str_detect(breed_1,&quot;[Rr]ott&quot;)),
@@ -336,7 +316,7 @@ z_dogs  &lt;- full_join(z_rottie,zc,by=c(&quot;zipcode&quot;=&quot;ZIPCODE&quot;
 )
 
 ## Warning: Transformation introduced infinite values in discrete y-axis</code></pre>
-<p><img src="spatial_ex_files/figure-markdown_strict/unnamed-chunk-4-1.png" /></p>
+<p><img src="spatial_ex_files/figure-markdown_strict/get_dogs-1.png" /></p>
 <ul>
 <li>superimpose on a map, possibly clipped?</li>
 </ul>
