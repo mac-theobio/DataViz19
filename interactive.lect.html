@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Interactive graphics</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">Interactive graphics</h1>
+</div>
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+<h1 id="overview">Overview</h1>
+<h2 id="what-are-interactive-graphics">What are interactive graphics?</h2>
+<ul>
+<li>Visualizations</li>
+<li>Combined with ways to click or hover and get more information</li>
+<li>e.g., the internet</li>
+</ul>
+<h2 id="dataviz-interactive-goals">DataViz interactive goals</h2>
+<ul>
+<li>Tell a clear story</li>
+<li>Allow viewers to see more than would be shown in two static dimensions</li>
+<li>Or to obtain more detailed information</li>
+<li>Or to explore things that go beyond the story you’re telling</li>
+</ul>
+<h2 id="some-interaction-techniques">Some interaction techniques</h2>
+<ul>
+<li>Scaling and panning: allow viewers to look at different parts of an image</li>
+<li>Labelling: attach labels with detailed information</li>
+<li>Subsetting
+<ul>
+<li>Brushing: highlight categories by selecting them</li>
+<li>Linking: link selections across several plots</li>
+<li>Animation: selections in sequence; ideally can be played automatically or controlled by user</li>
+</ul></li>
+</ul>
+<h1 id="tools-and-resources">Tools and resources</h1>
+<h2 id="resources">Resources</h2>
+<ul>
+<li><a href="https://www.gapminder.org/tools/">Gap minder</a></li>
+<li><a href="https://towardsdatascience.com/how-to-build-animated-charts-like-hans-rosling-doing-it-all-in-r-570efc6ba382">Gap minder and plotly</a></li>
+<li><a href="https://plotly-r.com/">Web book: Interactive web-based data visualization with R, plotly, and shiny</a></li>
+<li><a href="https://www.htmlwidgets.org/">htmlwidgets examples</a></li>
+</ul>
+<h2 id="packages">Packages</h2>
+<ul>
+<li>ggvis
+<ul>
+<li>Conceptually exciting (reworking of ggplot); dormant ☹</li>
+</ul></li>
+<li>googleVis
+<ul>
+<li>R interface to google charts: also fairly dormant</li>
+</ul></li>
+<li>plotly
+<ul>
+<li>Straightforward and popular (esp. via <code>ggplotly</code>)</li>
+</ul></li>
+<li>gganimate
+<ul>
+<li>very “gg” (grammar of graphics)-ish; not so interactive</li>
+</ul></li>
+<li>crosstalk
+<ul>
+<li>for letting different html widgets talk to each other (linking)</li>
+</ul></li>
+<li>leaflet
+<ul>
+<li>maps (more next week)</li>
+</ul></li>
+</ul>
+<h1 id="more-philosophy">More philosophy</h1>
+<h2 id="acceptance">Acceptance</h2>
+<ul>
+<li><p>Why don’t people do this more?</p></li>
+<li><p>In what contexts can you reach an audience with interactive graphics?</p></li>
+<li><p>How can interactive graphics help you with your research?</p></li>
+</ul>
+<h1 id="more">More</h1>
+<ul>
+<li><a href="https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3">overview of animation</a> (<code>animate</code>, <code>gganimate</code>, <code>plotly</code>, <code>googleVis</code>)</li>
+<li>gapminder examples (especially <a href="https://github.com/keithmcnulty/hans_rosling_bubble/blob/master/rosling.R">this version</a>, somewhat modified by us <a href="gapminder.R">here</a></li>
+<li>wealth/tax/hovering example: <span class="citation">@leonhardt</span>_rich_2019, <a href="https://gist.github.com/dill/508532714cd58398aaf90a0723efd2fd">code from David L. Miller</a>, <a href="hover_tax.R">our modifications</a></li>
+</ul>
+<h1 id="software-support">Software support</h1>
+<ul>
+<li>different formats:
+<ul>
+<li>JavaScript (underlies plotly, D3, Vega, highchartr, leaflet, …)</li>
+<li>GIF (old but supports animation)</li>
+<li>MP4 (video format)</li>
+<li>Flash (officially deprecated in favour of HTML5)</li>
+</ul></li>
+<li>be aware that you may need to install various extra software to render animations, or to play them</li>
+</ul>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>

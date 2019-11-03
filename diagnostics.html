@@ -1,21 +1,18 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>diagnostic graphics</title>
-  <style>
+  <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="main.css" />
+  <link rel="stylesheet" href="main.css" type="text/css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
 </head>
 <body>
 <header class="site-header">
@@ -28,9 +25,9 @@
 	</div>
 </div>
 </header>
-<header id="title-block-header">
+<div id="header">
 <h1 class="title">diagnostic graphics</h1>
-</header>
+</div>
 <!-- 
 apa.csl is a slightly hacked version of APA 
   (modified for "et al" after 2 authors in text)
@@ -160,8 +157,8 @@ ggplot(a1,aes(.fitted,.resid)) +
 </ul>
 <h2 id="heteroscedasticity-diagnostics">heteroscedasticity diagnostics</h2>
 <ul>
-<li>scale-location plot</li>
-<li>use <span class="math inline">\(\\sqrt{|r\_i|}\)</span>:
+<li><p>scale-location plot</p></li>
+<li><p>use <span class="math inline">\(\\sqrt{|r\_i|}\)</span>:</p>
 <ul>
 <li>absolute value shows trend</li>
 <li>square root decreases skewness</li>
@@ -195,7 +192,7 @@ e.g. generalized least squares, GLMs</li>
 <p><img src="diagnostics_files/figure-markdown_strict/qq-1.png" /></p>
 <h2 id="distributional-solutions">distributional solutions</h2>
 <ul>
-<li>transformation (<code>avas</code>, Box-Cox (<code>MASS:boxcox</code>), Yeo-Johnson etc. [<code>?car::bcPower</code>])</li>
+<li>transformation (<code>avas</code>, Box-Cox (<code>MASS:boxcox</code>), Yeo-Johnson etc. <span class="math display">\[`?car::bcPower`\]</span>)</li>
 <li>GLMs</li>
 <li>maximum likelihood estimation</li>
 </ul>

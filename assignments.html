@@ -1,20 +1,17 @@
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" lang="" xml:lang="">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="utf-8" />
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes" />
   <title>assignments</title>
-  <style>
+  <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
       span.underline{text-decoration: underline;}
       div.column{display: inline-block; vertical-align: top; width: 50%;}
   </style>
-  <link rel="stylesheet" href="main.css" />
-  <!--[if lt IE 9]>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv-printshiv.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
 <body>
 <header class="site-header">
@@ -27,6 +24,11 @@
 	</div>
 </div>
 </header>
+<h2 id="final-project">Final project</h2>
+<p>Your final project will <em>probably</em> be done with a partner. The profs will help you pair up (and check with us if you really think you want to go alone).</p>
+<p>The project should consist of an exploration of some data. There should be a consistent topic but you needn’t use only a single data file.</p>
+<p>Your project should consist roughly of a brief description of the data set, and three or four well-thought-out visualizations (this is a guide, you could have a few as one really fancy one, or as many as ten simple ones that work really well together).</p>
+<p>You should have a two-part writeup: the main text will be just the text necessary to support the story that you’re trying to tell, and there should be a methods part explaining briefly some of the visualization choices that you made, and if necessary briefly explaining decisions or cleanup things you had to do about the data.</p>
 <!--
 
 ## week 7
@@ -35,7 +37,7 @@ Build on one of your existing plots (or make a new plot) and add an interactive 
 
 -->
 <h2 id="week-6">week 6</h2>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li>Find some real data and tell a story with one or two graphics. Your story can be observational, inferential, or both. Explain:</li>
 </ol>
 <ul>
@@ -44,14 +46,14 @@ Build on one of your existing plots (or make a new plot) and add an interactive 
 <li>what features of <a href="rubric.html">the rubric</a> you engaged with and some of your decisions</li>
 </ul>
 <h2 id="week-5">week 5</h2>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li><p>Fit a model to real data, or find a table of model results, and one or two plots illustrating a statistical inference. Let us know if you need help finding a data set, or a plausible scientific question to attack with a model.</p></li>
 <li><p>Read Sections 17-20 of <a href="https://serialmentor.com/dataviz/">Wilke’s <em>Fundamentals of Data Visualization</em></a></p></li>
 </ol>
 <h2 id="week-4">week 4</h2>
 <p>No written assignment. Please read Sections 12-16 of <a href="https://serialmentor.com/dataviz/">Wilke’s <em>Fundamentals of Data Visualization</em></a></p>
 <h2 id="week-3">week 3</h2>
-<ol type="1">
+<ol style="list-style-type: decimal">
 <li>Find a table that you find hard to read and turn it into one, two or three graphs. Explain what features of the data you are trying to draw attention to, and what story you think your figures tell (or fail to tell).</li>
 </ol>
 <p>If you have trouble finding a Table you could consider these:</p>
@@ -59,17 +61,17 @@ Build on one of your existing plots (or make a new plot) and add an interactive 
 <li>Table 3 of <a href="http://www.sciencedirect.com/science/article/pii/S0166445X16303757">McCallum et al. 2017</a></li>
 <li>Table 3 of <a href="https://academic.oup.com/aje/article/163/2/181/95820">Dushoff et al. 2005</a></li>
 </ul>
-<ol start="2" type="1">
+<ol start="2" style="list-style-type: decimal">
 <li>read Sections 8-11 of <a href="https://serialmentor.com/dataviz/">Wilke’s <em>Fundamentals of Data Visualization</em></a></li>
 </ol>
 <h2 id="week-2">week 2</h2>
 <ul>
-<li>take a look at Jia You’s online graphic about vaccine <a href="http://www.sciencemag.org/news/2017/04/here-s-visual-proof-why-vaccines-do-more-good-harm">here</a></li>
+<li><p>take a look at Jia You’s online graphic about vaccine <a href="http://www.sciencemag.org/news/2017/04/here-s-visual-proof-why-vaccines-do-more-good-harm">here</a></p></li>
 <li><p>to get the data, you can use <code>{r eval=FALSE} readr::read_csv("https://bbolker.github.io/stat744/data/vaccine_data_online.csv")</code> or download the data directly from <a href="http://sciencestatic.aws.aaas.org.s3.amazonaws.com/article-resources/vaccine-war/vaccine_data_online.csv">here</a></p></li>
-<li>write a short statement (a few sentences) that explains what question you think the graphic is trying to answer, or what pattern it’s trying to display</li>
-<li>based on these data, create 2 ggplots that display the data in a different way from the original; use the 2 plots to illustrate tradeoffs between different graphical principles. (If you’re feeling truly uncreative, one of your plots can replicate the original graphical design.) You do <strong>not</strong> need to worry about the dynamic-graphics aspect or the historical events shown in the original display</li>
-<li>explain (in a few sentences) why your graph or graphs answer the question better than the original graph</li>
-<li>Put the code in the main repository directory
+<li><p>write a short statement (a few sentences) that explains what question you think the graphic is trying to answer, or what pattern it’s trying to display</p></li>
+<li><p>based on these data, create 2 ggplots that display the data in a different way from the original; use the 2 plots to illustrate tradeoffs between different graphical principles. (If you’re feeling truly uncreative, one of your plots can replicate the original graphical design.) You do <strong>not</strong> need to worry about the dynamic-graphics aspect or the historical events shown in the original display</p></li>
+<li><p>explain (in a few sentences) why your graph or graphs answer the question better than the original graph</p></li>
+<li><p>Put the code in the main repository directory</p>
 <ul>
 <li>use either <code>hw2.R</code> (with comments as comments or in <code>hw2.txt</code>) or else <code>hw2.rmd</code> for the code</li>
 <li>put the output graphs (or rmarkdown output) in a directory called <code>HW2</code></li>
