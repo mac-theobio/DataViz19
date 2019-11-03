@@ -6,9 +6,9 @@ start date,topic,reading/viewing,lecture notes
 1 Oct,inferential graphics,@wickham_graphical_2010; @gelman_lets_2002; @gelman_why_2011, [Tuesday lecture (pdf notes)](infer.lect.handouts.pdf); [Friday](infer_bmb.lect.html); [table PDF](tab.pdf); [tab to fit code](tab_to_fig.R); [overlapping code](overlapping.R)
 8 Oct,infoviz vs data viz; ethics; expository graphics,@su_its_2008; @gelman_infovis_2013, [Tuesday lecture](infovis.lect.html)
 15 Oct,**midterm recess**
-22 Oct, Interactive graphics
-29 Oct, High-dimensional data
-5 Nov, Spatial data
+22 Oct, Interactive graphics,, [Tuesday lecture](interactive.lect.html)
+29 Oct, Spatial data,, [Tuesday lecture](spatial.lect.html); [getting maps](get_maps.html); [spatial examples 1](spatial_ex.html)
+5 Nov, High-dimensional data
 12 Nov, Networks
 19 Nov, Continued group work
 26 Nov, Continued group work
