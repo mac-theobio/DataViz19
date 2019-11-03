@@ -179,7 +179,7 @@ This is pretty but maybe not useful ...
 
 There is not a super-easy way to code scales (we'd like 29.75 to be $29^\circ 45' N$, e.g. see [here](https://stackoverflow.com/questions/33302424/format-latitude-and-longitude-axis-labels-in-ggplot) for a partial solution), but maybe we don't even need them on a map?
 
-# Canadian electoral ridins
+# Canadian electoral ridings
 
 From [this github site](https://github.com/paleolimbot/blogdown-site/tree/master/content/post/2019-10-21-ridings):
 
