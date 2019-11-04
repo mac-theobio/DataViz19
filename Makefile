@@ -171,6 +171,8 @@ smoke_levels.Rout: smoke.Rout smoke_levels.R
 
 ## pages/interactive_smoke.html: interactive_smoke.rmd
 
+Ignore += houston_leaflet.html interactive_smoke.html
+
 ## sunspots (banking)
 sunspots.Rout: sunspots.R
 
