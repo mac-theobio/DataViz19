@@ -238,10 +238,10 @@ rplot_anim <- (rplot
 
 ```{r anim,eval=FALSE}
 animate(rplot_anim, width = 700, height = 700, res = 96)
-anim_save("pix/ridings.gif")
+anim_save("spatial_ex_files/ridings.gif")
 ```
 
-![](pix/ridings.gif)
+![](spatial_ex_files/ridings.gif)
 
 ## dog licenses
 
