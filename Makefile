@@ -20,7 +20,7 @@ Sources += $(wildcard *.rmd)
 Makefile: makestuff/Makefile pages
 
 vim_session:
-	bash -cl "vmt README.md notes.md makestuff/rmdweb.mk"
+	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
 
 ######################################################################
 
@@ -48,16 +48,13 @@ main.css: styles/pandoc.css Makefile
 ## pages/interactive.lect.html: interactive.lect.rmd
 ## pages/interactive.io.html: interactive.lect.rmd
 
-pages/interactive_braindump.html: interactive_braindump.rmd
-
-crosstalk.Rout: crosstalk.R
-gapminder.Rout: gapminder.R
-
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
 index.rwm: sched.csv vis.bib
+
+pages/spatial_ex.html: houston_leaflet.html.pagepush pix.pagepush
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
@@ -174,20 +171,6 @@ smoke_levels.Rout: smoke.Rout smoke_levels.R
 
 ## pages/interactive_smoke.html: interactive_smoke.rmd
 
-Ignore += *.tangle
-interactive_smoke.tangle: interactive_smoke.rmd
-	$(tangle_r)
-
-## Badly named: smoke+plotly
-## interactive.R.html: interactive.R
-## tax_hover.R.html: tax_hover.R
-Ignore += *.R.html
-%.R.html: %.Rout ;
-
-tax_hover.Rout: tax_hover.R
-
-googleVis.Rout: googleVis.R
-
 ## sunspots (banking)
 sunspots.Rout: sunspots.R
 
@@ -242,7 +225,7 @@ iohack: principles.lect.rmd
 	mv -f principles.lect.html pages/principles.io2.html
 
 clean:
-	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf \#*
+	rm -f *.toc *.aux *.log *.snm *.out *.wrapR.r *.Rout-*.pdf *.nav *.bak *~ *.blg  .*.RData .*.Rlog *.Rout.pdf 
 
 -include makestuff/rmdweb.mk
 -include makestuff/os.mk
