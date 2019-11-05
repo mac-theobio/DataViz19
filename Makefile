@@ -18,6 +18,7 @@ Sources += $(wildcard *.md)
 Sources += $(wildcard *.rmd)
 
 Makefile: makestuff/Makefile pages
+Ignore += pages
 
 vim_session:
 	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
