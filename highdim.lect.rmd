@@ -42,7 +42,7 @@ library(tidyverse)
 
 ## radar chart
 
-![](531px-Star_Plot_of_16_cars.jpg)
+![](pix/531px-Star_Plot_of_16_cars.jpg)
 
 ## tasks
 
