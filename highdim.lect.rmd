@@ -1,5 +1,6 @@
 ---
 title: "high-dimensional data"
+bibliography: vis.bib
 ---
 
 ## packages
@@ -9,7 +10,6 @@ Some may be harder to install than others.
 ```{r pkgs, message=FALSE}
 library(tourr)
 library(rggobi)
-## remotes::install(...)
 library(factoextra)
 library(pheatmap)
 library(tidyverse)
@@ -133,7 +133,7 @@ load("data/wine.RData")
 load("data/wineClass.RData")
 
 winePCAd = prcomp(wine,scale=TRUE)
-fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
+f0 <- fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
    col.var = "violet", addEllipses = TRUE, ellipse.level = 0.69) +
   ggtitle("") + coord_fixed() +
   scale_colour_brewer(palette="Dark2") +
@@ -144,19 +144,31 @@ aug_data <- (get_pca_ind(winePCAd)$coord
 )
 ```
 
+---
+
+```{r}
+print(f0)
+```
+
 ## improve
 
-f0 <- fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
+```{r}
+f1 <- fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
    col.var = "violet") + ggtitle("") + coord_fixed() +
   scale_colour_brewer(palette="Dark2") +
   scale_fill_brewer(palette="Dark2")
-names(ggplot_build(f0)$data[[1]])
-f0 + ggalt::geom_encircle(data=aug_data,
+names(ggplot_build(f1)$data[[1]])
+f2 <- f1 + ggalt::geom_encircle(data=aug_data,
                           aes(x=Dim.1,y=Dim.2,group=class,
                               colour=class,
                               fill=class),alpha=0.2,
                           show.legend=FALSE)
 
+```
+
+--- 
+```{r}
+print(f2)
 ```
 
 ## different projection methods
