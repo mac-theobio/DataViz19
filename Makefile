@@ -55,7 +55,7 @@ Sources += $(wildcard *.csv)
 ## Manual dependencies 
 index.rwm: sched.csv vis.bib
 
-pages/spatial_ex.html: houston_leaflet.html.pagepush pix.pagepush
+## pages/spatial_ex.html: houston_leaflet.html.pagepush pix.pagepush
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
