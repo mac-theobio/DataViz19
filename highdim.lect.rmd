@@ -5,7 +5,7 @@ bibliography: vis.bib
 
 ## packages
 
-Some may be harder to install than others.
+Some may be harder to install than others (especially `rggobi`).
 
 ```{r pkgs, message=FALSE}
 library(tourr)
