@@ -34,10 +34,6 @@ library(tidyverse)
 library(viridis)
 library(sf)
 library(geogrid)
-
-## Warning in fun(libname, pkgname): rgeos: versions of GEOS runtime 3.5.1-CAPI-1.9.1
-## and GEOS at installation 3.5.0-CAPI-1.9.0differ
-
 library(gganimate)
 library(RColorBrewer)
 library(htmlwidgets)
@@ -288,9 +284,9 @@ L1 &lt;- leaflet(data=st_as_sf(violent_crime,coords=c(&quot;lon&quot;,&quot;lat&
   addCircleMarkers(radius=5,weight=2,
                    color=~bp[offense],
                    popup=~date)
-saveWidget(L1,file=&quot;houston_leaflet.html&quot;)</code></pre>
+saveWidget(L1,file=&quot;./houston_leaflet.html&quot;)</code></pre>
 <p>embedding info <a href="https://stackoverflow.com/questions/42008179/embed-r-leaflet-map-in-wordpress">here</a>:</p>
-<iframe seamless src="houston_leaflet.html" width="100%" height="500">
+<iframe seamless src="./houston_leaflet.html" width="100%" height="500">
 </iframe>
 <h2 id="additional-challenges">additional challenges</h2>
 <ul>
