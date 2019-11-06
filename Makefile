@@ -49,13 +49,16 @@ main.css: styles/pandoc.css Makefile
 ## pages/interactive.lect.html: interactive.lect.rmd
 ## pages/interactive.io.html: interactive.lect.rmd
 
+houston_leaflet.html: pages/spatial_ex.html ;
+pageProductsLocal += houston_leaflet.html
+
 Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
 index.rwm: sched.csv vis.bib
 
-## pages/spatial_ex.html: houston_leaflet.html.pagepush pix.pagepush
+## pages/spatial_ex.html: spatial_ex.rmd
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
