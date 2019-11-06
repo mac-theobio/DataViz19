@@ -3125,7 +3125,12 @@ library(tidyverse)</pre>
 <ul>
 <li>&ldquo;dimension&rdquo; = &ldquo;number of variables&rdquo;</li>
 <li><strong>may</strong> be divided into predictors and (1+) responses</li>
-<li>typically looking for <em>low-dimensional</em> structure - clusters - surfaces/manifolds</li>
+<li>typically looking for <em>low-dimensional</em> structure
+
+<ul>
+<li>clusters</li>
+<li>surfaces/manifolds</li>
+</ul></li>
 <li>exploratory? diagnostic? expository?</li>
 <li>often requires more machinery</li>
 </ul>
@@ -3195,7 +3200,7 @@ library(tidyverse)</pre>
 
 <pre class = 'prettyprint lang-r'>animate_xy(laser)</pre>
 
-</article></slide><slide class=""><hgroup><h2>options</h2></hgroup><article  id="options">
+</article></slide><slide class=""><hgroup><h2>available display methods</h2></hgroup><article  id="available-display-methods">
 
 <pre class = 'prettyprint lang-r'>apropos(&quot;animate_&quot;)</pre>
 
@@ -3289,14 +3294,6 @@ names(ggplot_build(f1)$data[[1]])</pre>
                               colour=class,
                               fill=class),alpha=0.2,
                           show.legend=FALSE)</pre>
-
-<pre >## Registered S3 methods overwritten by &#39;ggalt&#39;:
-##   method                  from   
-##   grid.draw.absoluteGrob  ggplot2
-##   grobHeight.absoluteGrob ggplot2
-##   grobWidth.absoluteGrob  ggplot2
-##   grobX.absoluteGrob      ggplot2
-##   grobY.absoluteGrob      ggplot2</pre>
 
 </article></slide><slide class=""><hgroup><h2></h2></hgroup><article >
 
