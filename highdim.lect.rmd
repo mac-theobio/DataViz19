@@ -58,7 +58,7 @@ library(tidyverse)
 
 ## interactive example
 
-```{r eval=FALSE}
+```{r ggobi_laser,eval=FALSE}
 ggobi(laser)
 ```
 
@@ -74,7 +74,7 @@ Goal: allow automated, systematic search through **entire** space of projections
 
 ---
 
-```{r eval=FALSE}
+```{r tour_laser,eval=FALSE}
 animate_xy(laser)
 ```
 
@@ -88,17 +88,18 @@ apropos("animate_")
 
 Alternative: try to find some machinery 
 
-```{r}
-## athletes = data.frame(olympic$tab)
+```{r heatmap}
 dec_mat <- as.matrix(scale(decathlon2[1:10]))
 heatmap(dec_mat)
 ```
 
 ---
 
-```{r}
+```{r corr_heatmap}
 pheatmap(cor(dec_mat), cell.width = 10, cell.height = 10)
 ```
+
+(see also the `corrplot` package)
 
 ## PCA
 
@@ -113,7 +114,7 @@ Examples/data from @holmes_modern_2019
 
 View loadings:
 
-```{r}
+```{r fviz_loadings}
 pca_ath <- prcomp(dec_mat, scale=TRUE)
 fviz_pca_var(pca_ath, col.circle = "black") + ggtitle("")
 ```
@@ -122,37 +123,38 @@ fviz_pca_var(pca_ath, col.circle = "black") + ggtitle("")
 
 View scores and loadings:
 
-```{r}
+```{r fviz_biplot}
 fviz_pca_biplot(pca_ath)
 ```
 
 ## wine example
 
-```{r}
+```{r wine1}
 load("data/wine.RData")
 load("data/wineClass.RData")
 
-winePCAd = prcomp(wine,scale=TRUE)
+winePCAd = prcomp(wine,scale=TRUE) ## compute PCA
 f0 <- fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
-   col.var = "violet", addEllipses = TRUE, ellipse.level = 0.69) +
+                      col.var = "violet", addEllipses = TRUE, ellipse.level = 0.69) +
   ggtitle("") + coord_fixed() +
   scale_colour_brewer(palette="Dark2") +
   scale_fill_brewer(palette="Dark2")
+## make augmented data we can use
 aug_data <- (get_pca_ind(winePCAd)$coord
   %>% as_tibble()
   %>% mutate(class=wine.class)
 )
 ```
 
----
+## plot
 
-```{r}
+```{r plot_wine1}
 print(f0)
 ```
 
-## improve
+## improved plot
 
-```{r}
+```{r plot_wine2}
 f1 <- fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
    col.var = "violet") + ggtitle("") + coord_fixed() +
   scale_colour_brewer(palette="Dark2") +
@@ -167,7 +169,8 @@ f2 <- f1 + ggalt::geom_encircle(data=aug_data,
 ```
 
 --- 
-```{r}
+
+```{r print_wineplot2}
 print(f2)
 ```
 
@@ -180,8 +183,7 @@ print(f2)
 - non-metric multidimensional scaling (NMDS)
 - non-negative matrix factorization 
 - ... ???
-
-## [example](http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/118-principal-component-analysis-in-r-prcomp-vs-princomp/)
+- PCA [example](http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/118-principal-component-analysis-in-r-prcomp-vs-princomp/)
 
 ## challenges
 
