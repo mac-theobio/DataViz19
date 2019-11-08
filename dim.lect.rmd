@@ -1,10 +1,8 @@
 ---
-title: "high-dimensional data"
-bibliography: vis.bib
+title: "high-dimensional examples"
 ---
 
 ```{r pkgs, message=FALSE}
-library(tourr)
 library(factoextra)
 library(pheatmap)
 library(tidyverse)
@@ -51,77 +49,102 @@ But we can also do the opposite!
 - non-Euclidean distances
     - e.g. species diversity
 
-----------------------------------------------------------------------
+## Decathlon events
 
-
-## @buja_interactive_1996
-
-- traces (functions: parallel coordinates, [Andrews plots](https://en.wikipedia.org/wiki/Andrews_plot))
-- glyphs (stars/radar charts/faces/etc.)
-
-## radar chart
-
-![](pix/531px-Star_Plot_of_16_cars.jpg)
-
-
-## tours
-
-three components:
-
-- data matrix ($n \times p$)
-- **tour path** that produces a smooth sequence of projection matrices ($p \times d$)
-- **display method** that renders the projected data.
-
-Goal: allow automated, systematic search through **entire** space of projections
-
----
-
-```{r tour_laser,eval=FALSE}
-animate_xy(laser)
+```{r events}
+print(names(decathlon2))
 ```
 
-## available display methods
+## Decathlon frame
 
-```{r}
-apropos("animate_")
+```{r decathlon}
+dec_frame <- (decathlon2[1:10]
+	%>% rename_all(sub, pattern="^X", replacement="Run_")
+	%>% mutate_at(vars(contains('Run_')), funs(-.))
+	%>% rename_all(sub, pattern="110m.", replacement="")
+	%>% mutate_all(scale)
+)
 ```
 
-## projections
+## Pairs plot
 
-Alternative: try to find some machinery 
+![Iris pairs plot (iris.R)](iris.Rout.png)
+* Slow, and not very good for more than 5 or 6 variables
+* Base R may be faster for quick viz
 
-```{r heatmap}
-dec_mat <- as.matrix(scale(decathlon2[1:10]))
+## Heatmap
+
+```{r dec_heatmap}
+dec_mat <- as.matrix(dec_frame)
 heatmap(dec_mat)
 ```
 
----
+## Heatmap again
+
+```{r dec_t_heatmap}
+heatmap(t(dec_mat))
+```
+
+## Correlation heatmap
 
 ```{r corr_heatmap}
 pheatmap(cor(dec_mat), cell.width = 10, cell.height = 10)
 ```
 
-(see also the `corrplot` package)
+Better for visualizing groups of  events
+
+## Athelete correlations
+
+```{r corr_athlete}
+pheatmap(cor(t(dec_mat)), cell.width = 4, cell.height = 4)
+```
+
+Better for visualizing groups of  events
 
 ## PCA
 
-Examples/data from @holmes_modern_2019
+A beautiful decomposition based on the idea that data points are points in a Euclidean space
 
-- `prcomp` (SVD): preferred (also `princomp` ??)
-- same data; projects in a way that (hopefully) focuses on interesting angles in the data
-- assumes linear features
-- normality not necessary, but better-behaved with normal data
+* Need to think about scaling
 
----
+We can think about the PCA as a decomposition (making observed points from idealized points)
+
+* And relax it by requiring _non-negative_ combinations of _non-negative_ components (NMF)
+
+Or we can think about it as minimizing distances:
+
+* And relax it with non-Euclidean distances (PCoA)
+* … or a rank-based approach (NMDS)
+
+## PCA decomposition
 
 View loadings:
 
-```{r fviz_loadings}
+```{r pca}
 pca_ath <- prcomp(dec_mat, scale=TRUE)
-fviz_pca_var(pca_ath, col.circle = "black") + ggtitle("")
+fviz_screeplot(pca_ath)
 ```
 
---- 
+## Individuals
+
+```{r fviz_ind}
+fviz_pca_ind(pca_ath)
+```
+
+## Components
+
+```{r fviz_loadings}
+fviz_pca_var(pca_ath)
+```
+
+
+--------------------
+
+```{r fviz_altloadings}
+fviz_pca_var(pca_ath, axes=c(2, 3))
+```
+
+## Biplot
 
 View scores and loadings:
 
@@ -129,67 +152,17 @@ View scores and loadings:
 fviz_pca_biplot(pca_ath)
 ```
 
-## wine example
+## Non-metric dimensional scaling
 
-```{r wine1}
-load("data/wine.RData")
-load("data/wineClass.RData")
-
-winePCAd = prcomp(wine,scale=TRUE) ## compute PCA
-f0 <- fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
-                      col.var = "violet", addEllipses = TRUE, ellipse.level = 0.69) +
-  ggtitle("") + coord_fixed() +
-  scale_colour_brewer(palette="Dark2") +
-  scale_fill_brewer(palette="Dark2")
-## make augmented data we can use
-aug_data <- (get_pca_ind(winePCAd)$coord
-  %>% as_tibble()
-  %>% mutate(class=wine.class)
-)
+```{r nmds}
+library(vegan)
+mds <- metaMDS(dec_mat, distance="euclidean")
 ```
 
-## plot
+## Nmds plot
 
-```{r plot_wine1}
-print(f0)
+```{r nmds}
+plot(mds)
 ```
 
-## improved plot
-
-```{r plot_wine2,message=FALSE}
-f1 <- fviz_pca_biplot(winePCAd, geom = "point", habillage = wine.class,
-   col.var = "violet") + ggtitle("") + coord_fixed() +
-  scale_colour_brewer(palette="Dark2") +
-  scale_fill_brewer(palette="Dark2")
-names(ggplot_build(f1)$data[[1]])
-f2 <- f1 + ggalt::geom_encircle(data=aug_data,
-                          aes(x=Dim.1,y=Dim.2,group=class,
-                              colour=class,
-                              fill=class),alpha=0.2,
-                          show.legend=FALSE)
-
-```
-
---- 
-
-```{r print_wineplot2}
-print(f2)
-```
-
-## different projection methods
-
-- Principal coordinates (PCoA: start from a *distance matrix*)
-    - e.g. species diversity
-	- text samples
-    - PCoA + Euclidean distance = PCA
-- non-metric multidimensional scaling (NMDS)
-- non-negative matrix factorization 
-- ... ???
-- PCA [example](http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/118-principal-component-analysis-in-r-prcomp-vs-princomp/)
-
-## challenges
-
-- categorical/compositional data
-- random forest viz?
-
-## references
+The biplot is hard (but we can help you if you want to do it)

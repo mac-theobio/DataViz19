@@ -59,6 +59,7 @@ Sources += $(wildcard *.csv)
 index.rwm: sched.csv vis.bib
 
 ## pages/dim.lect.html: dim.lect.rmd
+nmds.Rout: nmds.R
 
 ## Push a page from outside the paradigm
 ## actually, pagepush might be better for this?
