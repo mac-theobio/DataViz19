@@ -27,9 +27,11 @@
 <div id="header">
 <h1 class="title">high-dimensional examples</h1>
 </div>
+<h2 id="packages">Packages</h2>
 <pre><code>library(factoextra)
 library(pheatmap)
-library(tidyverse)</code></pre>
+library(tidyverse)
+theme_set(theme_bw())</code></pre>
 <h2 id="data">Data</h2>
 <p>We usually think of high-dimensional data as consisting of multiple <em>measures</em> on a group of samples:</p>
 <ul>
@@ -59,20 +61,10 @@ library(tidyverse)</code></pre>
 <p>But we can also do the opposite!</p>
 <ul>
 <li>What do measurements across soil samples tell us about the functional relationships between proteins?</li>
-<li><p>What does differential success of athletes tell us about the relationship between events?</p></li>
-<li>easiest: matrix of numeric values/Euclidean distances OK/MVN</li>
-<li>categorical
-<ul>
-<li>few values: can colour/split</li>
-<li>many values: convert to dummy variables? (random forest viz?)</li>
-</ul></li>
-<li>non-Euclidean distances
-<ul>
-<li>e.g. species diversity</li>
-</ul></li>
+<li>What does differential success of athletes tell us about the relationship between events?</li>
 </ul>
 <h2 id="decathlon-events">Decathlon events</h2>
-<pre><code>print(names(decathlon2))
+<pre><code>print(names(decathlon2))  ## from factoextra pkg
 
 ##  [1] &quot;X100m&quot;        &quot;Long.jump&quot;    &quot;Shot.put&quot;     &quot;High.jump&quot;   
 ##  [5] &quot;X400m&quot;        &quot;X110m.hurdle&quot; &quot;Discus&quot;       &quot;Pole.vault&quot;  
@@ -80,26 +72,22 @@ library(tidyverse)</code></pre>
 ## [13] &quot;Competition&quot;</code></pre>
 <h2 id="decathlon-frame">Decathlon frame</h2>
 <pre><code>dec_frame &lt;- (decathlon2[1:10]
+        %&gt;% as_tibble()
     %&gt;% rename_all(sub, pattern=&quot;^X&quot;, replacement=&quot;Run_&quot;)
-    %&gt;% mutate_at(vars(contains(&#39;Run_&#39;)), funs(-.))
+    %&gt;% mutate_at(vars(contains(&#39;Run_&#39;)), ~(-1*.))
     %&gt;% rename_all(sub, pattern=&quot;110m.&quot;, replacement=&quot;&quot;)
-    %&gt;% mutate_all(scale)
-)
-
-## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.</code></pre>
+    %&gt;% mutate_all(~c(drop(scale(.))))
+)</code></pre>
 <h2 id="pairs-plot">Pairs plot</h2>
-<p><img src="iris.Rout.png" alt="Iris pairs plot (iris.R)" /> * Slow, and not very good for more than 5 or 6 variables * Base R may be faster for quick viz</p>
+<div class="figure">
+<img src="iris.Rout.png" alt="" />
+<p class="caption">Iris pairs plot (iris.R)</p>
+</div>
+<hr />
+<ul>
+<li>Slow, and not very good for more than 5 or 6 variables</li>
+<li>Base R may be faster for quick viz</li>
+</ul>
 <h2 id="heatmap">Heatmap</h2>
 <pre><code>dec_mat &lt;- as.matrix(dec_frame)
 heatmap(dec_mat)</code></pre>
@@ -130,7 +118,6 @@ heatmap(dec_mat)</code></pre>
 <li>… or a rank-based approach (NMDS)</li>
 </ul>
 <h2 id="pca-decomposition">PCA decomposition</h2>
-<p>View loadings:</p>
 <pre><code>pca_ath &lt;- prcomp(dec_mat, scale=TRUE)
 fviz_screeplot(pca_ath)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/pca-1.png" /></p>
@@ -139,14 +126,19 @@ fviz_screeplot(pca_ath)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/fviz_ind-1.png" /></p>
 <h2 id="components">Components</h2>
 <pre><code>fviz_pca_var(pca_ath)</code></pre>
-<p><img src="dim.lect_files/figure-markdown_strict/fviz_loadings-1.png" /></p>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_components-1.png" /></p>
 <hr />
 <pre><code>fviz_pca_var(pca_ath, axes=c(2, 3))</code></pre>
-<p><img src="dim.lect_files/figure-markdown_strict/fviz_altloadings-1.png" /></p>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_altcomponents-1.png" /></p>
 <h2 id="biplot">Biplot</h2>
-<p>View scores and loadings:</p>
+<p>View scores and components:</p>
 <pre><code>fviz_pca_biplot(pca_ath)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/fviz_biplot-1.png" /></p>
+<h2 id="loadings">Loadings</h2>
+<pre><code>load &lt;- pca_ath$sdev * pca_ath$rotation
+pheatmap(load, cluster_cols=FALSE)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_loadplot-1.png" /></p>
+<p>WRONG!!!!</p>
 <h2 id="non-metric-dimensional-scaling">Non-metric dimensional scaling</h2>
 <pre><code>library(vegan)
 
@@ -161,34 +153,32 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 ## &#39;comm&#39; has negative data: &#39;autotransform&#39;, &#39;noshare&#39; and &#39;wascores&#39; set to FALSE
 
 ## Run 0 stress 0.175356 
-## Run 1 stress 0.2014758 
-## Run 2 stress 0.1788115 
-## Run 3 stress 0.1754596 
-## ... Procrustes: rmse 0.0222536  max resid 0.07992613 
-## Run 4 stress 0.17546 
-## ... Procrustes: rmse 0.02233978  max resid 0.08038077 
-## Run 5 stress 0.2028354 
-## Run 6 stress 0.2045589 
-## Run 7 stress 0.1783895 
-## Run 8 stress 0.2011002 
-## Run 9 stress 0.1788124 
-## Run 10 stress 0.2014766 
-## Run 11 stress 0.1783896 
-## Run 12 stress 0.175356 
-## ... Procrustes: rmse 1.832385e-05  max resid 5.118146e-05 
+## Run 1 stress 0.1783895 
+## Run 2 stress 0.175356 
+## ... Procrustes: rmse 1.893988e-05  max resid 6.399532e-05 
 ## ... Similar to previous best
-## Run 13 stress 0.1783895 
-## Run 14 stress 0.1950851 
-## Run 15 stress 0.1788121 
-## Run 16 stress 0.2043002 
-## Run 17 stress 0.1754599 
-## ... Procrustes: rmse 0.02233506  max resid 0.08035612 
-## Run 18 stress 0.2043722 
-## Run 19 stress 0.175356 
-## ... Procrustes: rmse 1.857745e-05  max resid 6.529549e-05 
-## ... Similar to previous best
-## Run 20 stress 0.1754593 
-## ... Procrustes: rmse 0.02196004  max resid 0.07911064 
+## Run 3 stress 0.1754593 
+## ... Procrustes: rmse 0.02191505  max resid 0.07906864 
+## Run 4 stress 0.1754604 
+## ... Procrustes: rmse 0.02239939  max resid 0.0807043 
+## Run 5 stress 0.2050859 
+## Run 6 stress 0.2856552 
+## Run 7 stress 0.1788132 
+## Run 8 stress 0.1788118 
+## Run 9 stress 0.2050859 
+## Run 10 stress 0.17546 
+## ... Procrustes: rmse 0.02236373  max resid 0.08050568 
+## Run 11 stress 0.1950849 
+## Run 12 stress 0.3882253 
+## Run 13 stress 0.1783896 
+## Run 14 stress 0.2045531 
+## Run 15 stress 0.1783895 
+## Run 16 stress 0.2819848 
+## Run 17 stress 0.1754597 
+## ... Procrustes: rmse 0.0222582  max resid 0.07995142 
+## Run 18 stress 0.2032167 
+## Run 19 stress 0.214071 
+## Run 20 stress 0.2028353 
 ## *** Solution reached</code></pre>
 <h2 id="nmds-plot">Nmds plot</h2>
 <pre><code>plot(mds)
@@ -196,6 +186,55 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 ## species scores not available</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/nmds_plot-1.png" /></p>
 <p>The biplot is hard (but we can help you if you want to do it)</p>
+<h2 id="parallel-co-ordinates">Parallel co-ordinates</h2>
+<pre><code>library(GGally)
+
+## Registered S3 method overwritten by &#39;GGally&#39;:
+##   method from   
+##   +.gg   ggplot2
+
+## 
+## Attaching package: &#39;GGally&#39;
+
+## The following object is masked from &#39;package:dplyr&#39;:
+## 
+##     nasa</code></pre>
+<hr />
+<pre><code>ggparcoord(dec_frame)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/parcor-1.png" /></p>
+<h2 id="dual-view">Dual view</h2>
+<pre><code>library(directlabels)
+ath_frame &lt;- (
+    as.data.frame(t(as.matrix(dec_frame)))
+    %&gt;% mutate(event=names(dec_frame))
+)
+ggparcoord(ath_frame)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/parcorath-1.png" /></p>
+<hr />
+<pre><code>ggparcoord(ath_frame, groupColumn=&quot;event&quot;)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/parcorgroup-1.png" /></p>
+<h2 id="andrews-plots">Andrews plots</h2>
+<pre><code>library(andrews)
+## andrews::numarray() **does not like tibbles**
+andrews(as.data.frame(dec_frame))</code></pre>
+<h2 id="section"><img src="dim.lect_files/figure-markdown_strict/andrews-1.png" /></h2>
+<pre><code>andrews(ath_frame)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/andrews_ath-1.png" /></p>
+<h2 id="radar-charts">Radar charts</h2>
+<p>Not implemented; may suffer similar problems</p>
+<h2 id="ordering">Ordering</h2>
+<p>Many of these charts might work if the variables were in a suitable order:</p>
+<ul>
+<li><p>heatmap provides an order</p>
+<ul>
+<li>hierarchical</li>
+</ul></li>
+<li><p>other ordering methods take a more holistic view</p></li>
+<li><p>PCA and other decompositions could also provide an order!</p>
+<ul>
+<li>Should we combine PCA with Andrews or parcoord?</li>
+</ul></li>
+</ul>
 <div id="footer">
 	<div style="text-align:center">
 		<a href="index.html">Course home page</a>
