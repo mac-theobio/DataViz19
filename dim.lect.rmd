@@ -193,7 +193,7 @@ ath_frame <- (
 
 ----------------------
 
-```{r parcorath}
+```{r parcorathpic}
 ggparcoord(ath_frame)
 ```
 
