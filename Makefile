@@ -63,8 +63,6 @@ nmds.Rout: nmds.R
 loadings.Rout: loadings.R
 
 ## Push a page from outside the paradigm
-## actually, pagepush might be better for this?
-
 random.html.pagepush:
 
 ######################################################################
