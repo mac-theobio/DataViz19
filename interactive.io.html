@@ -3190,17 +3190,31 @@ img {
 <ul>
 <li>Conceptually exciting (reworking of ggplot); dormant ☹</li>
 </ul></li>
-<li>ggplotly
-
-<ul>
-<li>Straightforward and popular</li>
-</ul></li>
 <li>googleVis
 
 <ul>
-<li>R interface to google charts</li>
+<li>R interface to google charts: also fairly dormant</li>
 </ul></li>
-<li>leaflet</li>
+<li>plotly
+
+<ul>
+<li>Straightforward and popular (esp. via <code>ggplotly</code>)</li>
+</ul></li>
+<li>gganimate
+
+<ul>
+<li>very &ldquo;gg&rdquo; (grammar of graphics)-ish; not so interactive</li>
+</ul></li>
+<li>crosstalk
+
+<ul>
+<li>for letting different html widgets talk to each other (linking)</li>
+</ul></li>
+<li>leaflet
+
+<ul>
+<li>maps (more next week)</li>
+</ul></li>
 </ul>
 
 </article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>More philosophy</h2></hgroup><article  id="more-philosophy">
@@ -3211,6 +3225,28 @@ img {
 <li><p>Why don’t people do this more?</p></li>
 <li><p>In what contexts can you reach an audience with interactive graphics?</p></li>
 <li><p>How can interactive graphics help you with your research?</p></li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>More</h2></hgroup><article  id="more">
+
+<ul>
+<li><a href='https://towardsdatascience.com/animating-your-data-visualizations-like-a-boss-using-r-f94ae20843e3' title=''>overview of animation</a> (<code>animate</code>, <code>gganimate</code>, <code>plotly</code>, <code>googleVis</code>)</li>
+<li>gapminder examples (especially <a href='https://github.com/keithmcnulty/hans_rosling_bubble/blob/master/rosling.R' title=''>this version</a>, somewhat modified by us <a href='gapminder.R' title=''>here</a></li>
+<li>wealth/tax/hovering example: <span class="cite">@leonhardt_rich_2019</span>, <a href='https://gist.github.com/dill/508532714cd58398aaf90a0723efd2fd' title=''>code from David L. Miller</a>, <a href='hover_tax.R' title=''>our modifications</a></li>
+</ul>
+
+</article></slide><slide class="segue dark nobackground level1"><hgroup class = 'auto-fadein'><h2>Software support</h2></hgroup><article  id="software-support">
+
+<ul>
+<li>different formats:
+
+<ul>
+<li>JavaScript (underlies plotly, D3, Vega, highchartr, leaflet, …)</li>
+<li>GIF (old but supports animation)</li>
+<li>MP4 (video format)</li>
+<li>Flash (officially deprecated in favour of HTML5)</li>
+</ul></li>
+<li>be aware that you may need to install various extra software to render animations, or to play them</li>
 </ul></article></slide>
 
 

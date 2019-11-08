@@ -4,12 +4,12 @@
   <title>intro material</title>
 
   <meta charset="utf-8">
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="X-UA-Compatible" content="chrome=1">
   <meta name="generator" content="pandoc" />
 
 
 
+  <meta name="date" content="2019-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="apple-mobile-web-app-capable" content="yes">
@@ -258,7 +258,6 @@ background: black;
 }
 
 slides > slide {
-display: none;
 font-family: 'Open Sans', Arial, sans-serif;
 font-size: 26px;
 color: #797979;
@@ -279,17 +278,19 @@ transition: all 0.6s ease-in-out;
 }
 
 slides > slide.far-past {
-display: none;
 }
 
 slides > slide.past {
-display: block;
 opacity: 0;
 }
 
 slides > slide.current {
 display: block;
 opacity: 1;
+z-index: 1;
+}
+slides > slide:not(.current) {
+z-index: 0;
 }
 
 slides > slide.current .auto-fadein {
@@ -304,13 +305,11 @@ background-size: 100% 100%;
 }
 
 slides > slide.next {
-display: block;
 opacity: 0;
 pointer-events: none;
 }
 
 slides > slide.far-next {
-display: none;
 }
 
 slides > slide.dark {
@@ -382,8 +381,6 @@ width: 1100px;
 
 slides.layout-widescreen > slide.far-past,
 slides.layout-faux-widescreen > slide.far-past {
-display: block;
-display: none;
 -webkit-transform: translate(-2260px);
 -moz-transform: translate(-2260px);
 -ms-transform: translate(-2260px);
@@ -417,8 +414,6 @@ pointer-events: none;
 
 slides.layout-widescreen > slide.far-next,
 slides.layout-faux-widescreen > slide.far-next {
-display: block;
-display: none;
 -webkit-transform: translate(2260px);
 -moz-transform: translate(2260px);
 -ms-transform: translate(2260px);
@@ -1349,6 +1344,13 @@ opacity: 1;
 
 .overview .slide-area {
 display: none;
+}
+slides > slide {
+background: linear-gradient(#ffffff, #ffffff 85%, #e6e6e6);
+background-color: white;
+}
+slides > slide {
+opacity: 0;
 }
 @media print {
 
@@ -3094,6 +3096,10 @@ if (document.readyState !== "loading" &&
       transition: opacity 0.6s ease-in 0.4s;
       opacity: 0;
     }
+/* https://github.com/ropensci/plotly/pull/524#issuecomment-468142578 */
+slide:not(.current) .plotly.html-widget{
+  display: block;
+}
 
   </style>
 
@@ -3110,42 +3116,9 @@ if (document.readyState !== "loading" &&
       <h1 data-config-title><!-- populated from slide_config.json --></h1>
       <h2 data-config-subtitle><!-- populated from slide_config.json --></h2>
       <p data-config-presenter><!-- populated from slide_config.json --></p>
-            <p style="margin-top: 6px; margin-left: -2px;"><code>r format(Sys.time(), &#39;%d %b %Y&#39;)</code></p>
+            <p style="margin-top: 6px; margin-left: -2px;">06 Nov 2019</p>
           </hgroup>
   </slide>
-
-<!-- 
-apa.csl is a slightly hacked version of APA 
-  (modified for "et al" after 2 authors in text)
--->
-
-<!-- .refs is style for reference page (small text) -->
-
-<style>
-.refs {
-   font-size: 16px;
-}
-h2 { 
- color: #3399ff;        
-}
-h3 { 
- color: #3399ff;        
-}
-.title-slide {
-   background-color: #55bbff;
-}
-</style>
-
-<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
->
-<!-- Limit image width and height -->
-
-<style type="text/css">
-img {     
-  max-height: 560px;     
-  max-width: 800px; 
-}
-</style>
 
 <!-- 
 apa.csl is a slightly hacked version of APA 
@@ -3260,7 +3233,7 @@ img {
 </article></slide><slide class=""><hgroup><h2>tidyverse</h2></hgroup><article  id="tidyverse">
 
 <ul>
-<li>set of R packages: <a href="https://www.tidyverse.org/" class="uri">https://www.tidyverse.org/</a></li>
+<li>set of R packages: <a href='https://www.tidyverse.org/' title=''>https://www.tidyverse.org/</a></li>
 <li>advantages
 
 <ul>
@@ -3306,18 +3279,14 @@ img {
 <li>e.g.</li>
 </ul>
 
-<!-- -->
-
-<pre >x &lt;- group_by(x,course)
+<pre class = 'prettyprint lang-r'>x &lt;- group_by(x,course)
 summarise(x,mean_score=mean(score),sd_score=sd(score))</pre>
 
 <ul>
 <li>equivalent to</li>
 </ul>
 
-<!-- -->
-
-<pre >d_split &lt;- split(d,d$var)       ## split
+<pre class = 'prettyprint lang-r'>d_split &lt;- split(d,d$var)       ## split
 d_proc &lt;- lapply(d_split, ...)  ## apply
 d_res &lt;- do.call(rbind,d_proc)  ## combine</pre>
 
@@ -3329,9 +3298,7 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</pre>
 <li>e.g.</li>
 </ul>
 
-<!-- -->
-
-<pre >(d_input
+<pre class = 'prettyprint lang-r'>(d_input
     %&gt;% select(row1,row2)
     %&gt;% filter(cond1,cond2)
     %&gt;% mutate(...)
@@ -3384,11 +3351,7 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</pre>
 <li>find patterns in data, explore hypotheses</li>
 <li>emphasize <strong>robust</strong> approaches</li>
 <li>minimize (parametric) assumptions</li>
-<li><a href='https://en.wikipedia.org/wiki/John_Tukey' title=''>John Tukey</a>, <a href='https://en.wikipedia.org/wiki/William_S._Cleveland' title=''>William Cleveland</a>
-
-<ol>
-<li></li>
-</ol></li>
+<li><a href='https://en.wikipedia.org/wiki/John_Tukey' title=''>John Tukey</a>, <a href='https://en.wikipedia.org/wiki/William_S._Cleveland' title=''>William Cleveland</a> <span class="cite">(1993)</span></li>
 </ul>
 
 </article></slide><slide class=""><hgroup><h2>diagnostic</h2></hgroup><article  id="diagnostic">
@@ -3409,8 +3372,8 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</pre>
 
 <ul>
 <li>coefficient plots (e.g. <code>dotwhisker</code> package)</li>
-<li>replacement for tables (Gelman et al. 2002)</li>
-<li>also: tests of inference (Wickham et al. 2010)</li>
+<li>replacement for tables <span class="cite">(Gelman et al. 2002)</span></li>
+<li>also: tests of inference <span class="cite">(Wickham et al. 2010)</span></li>
 <li><a href='https://en.wikipedia.org/wiki/Andrew_Gelman' title=''>Andrew Gelman</a></li>
 </ul>
 
@@ -3448,13 +3411,17 @@ d_res &lt;- do.call(rbind,d_proc)  ## combine</pre>
 
 <!-- http://stackoverflow.com/questions/30990262/applying-css-to-make-code-smaller-in-ioslides-style -->
 
-</article></slide><slide class=""><hgroup><h2>References</h2></hgroup><article  id="references">
+</article></slide><slide class=""><hgroup><h2>References</h2></hgroup><article  id="references" class="unnumbered refs">
 
-<p>Cleveland, W. 1993. <em>Visualizing Data</em>. Summit, NJ: Hobart Press.</p>
+<div id="refs" class="references">
+<div id="ref-cleveland_visualizing_1993">
+<p>Cleveland, W. 1993. <em>Visualizing Data</em>. Summit, NJ: Hobart Press.</p></div>
 
-<p>Gelman, A et al. 2002.. <em>The American Statistician</em> 56 (2): 121–130. <a href='http://www.tandfonline.com/doi/abs/10.1198/000313002317572790' title=''>http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p>
+<div id="ref-gelman_lets_2002">
+<p>Gelman, A et al. 2002.. <em>The American Statistician</em> 56 (2): 121–130. <a href='http://www.tandfonline.com/doi/abs/10.1198/000313002317572790' title=''>http://www.tandfonline.com/doi/abs/10.1198/000313002317572790</a>.</p></div>
 
-<p>Wickham, H et al. 2010.. <em>IEEE Transactions on Visualization and Computer Graphics</em> 16 (6) (November): 973–979. <a href='doi:%5B10.1109/TVCG.2010.161' title=''>doi:[10.1109/TVCG.2010.161</a>](<a href='https://doi.org/10.1109/TVCG.2010.161' title=''>https://doi.org/10.1109/TVCG.2010.161</a>).</p></article></slide>
+<div id="ref-wickham_graphical_2010">
+<p>Wickham, H et al. 2010.. <em>IEEE Transactions on Visualization and Computer Graphics</em> 16 (6) (November): 973–979. doi:<a href='https://doi.org/10.1109/TVCG.2010.161' title=''>10.1109/TVCG.2010.161</a>.</p></div></div></article></slide>
 
 
   <slide class="backdrop"></slide>
