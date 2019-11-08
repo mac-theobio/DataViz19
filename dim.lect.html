@@ -4,7 +4,7 @@
   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
   <meta http-equiv="Content-Style-Type" content="text/css" />
   <meta name="generator" content="pandoc" />
-  <title>high-dimensional data</title>
+  <title>high-dimensional examples</title>
   <style type="text/css">
       code{white-space: pre-wrap;}
       span.smallcaps{font-variant: small-caps;}
@@ -25,10 +25,9 @@
 </div>
 </header>
 <div id="header">
-<h1 class="title">high-dimensional data</h1>
+<h1 class="title">high-dimensional examples</h1>
 </div>
-<pre><code>library(tourr)
-library(factoextra)
+<pre><code>library(factoextra)
 library(pheatmap)
 library(tidyverse)</code></pre>
 <h2 id="data">Data</h2>
@@ -72,115 +71,163 @@ library(tidyverse)</code></pre>
 <li>e.g. species diversity</li>
 </ul></li>
 </ul>
-<hr />
-<h2 id="buja-cook-and-swayne-1996">Buja, Cook, and Swayne (1996)</h2>
-<ul>
-<li>traces (functions: parallel coordinates, <a href="https://en.wikipedia.org/wiki/Andrews_plot">Andrews plots</a>)</li>
-<li>glyphs (stars/radar charts/faces/etc.)</li>
-</ul>
-<h2 id="radar-chart">radar chart</h2>
-<p><img src="pix/531px-Star_Plot_of_16_cars.jpg" /></p>
-<h2 id="tours">tours</h2>
-<p>three components:</p>
-<ul>
-<li>data matrix (<em>n</em> × <em>p</em>)</li>
-<li><strong>tour path</strong> that produces a smooth sequence of projection matrices (<em>p</em> × <em>d</em>)</li>
-<li><strong>display method</strong> that renders the projected data.</li>
-</ul>
-<p>Goal: allow automated, systematic search through <strong>entire</strong> space of projections</p>
-<hr />
-<pre><code>animate_xy(laser)</code></pre>
-<h2 id="available-display-methods">available display methods</h2>
-<pre><code>apropos(&quot;animate_&quot;)
+<h2 id="decathlon-events">Decathlon events</h2>
+<pre><code>print(names(decathlon2))
 
-##  [1] &quot;animate_andrews&quot;   &quot;animate_density2d&quot; &quot;animate_depth&quot;    
-##  [4] &quot;animate_dist&quot;      &quot;animate_faces&quot;     &quot;animate_groupxy&quot;  
-##  [7] &quot;animate_image&quot;     &quot;animate_pcp&quot;       &quot;animate_scatmat&quot;  
-## [10] &quot;animate_stars&quot;     &quot;animate_stereo&quot;    &quot;animate_trails&quot;   
-## [13] &quot;animate_xy&quot;</code></pre>
-<h2 id="projections">projections</h2>
-<p>Alternative: try to find some machinery</p>
-<pre><code>dec_mat &lt;- as.matrix(scale(decathlon2[1:10]))
+##  [1] &quot;X100m&quot;        &quot;Long.jump&quot;    &quot;Shot.put&quot;     &quot;High.jump&quot;   
+##  [5] &quot;X400m&quot;        &quot;X110m.hurdle&quot; &quot;Discus&quot;       &quot;Pole.vault&quot;  
+##  [9] &quot;Javeline&quot;     &quot;X1500m&quot;       &quot;Rank&quot;         &quot;Points&quot;      
+## [13] &quot;Competition&quot;</code></pre>
+<h2 id="decathlon-frame">Decathlon frame</h2>
+<pre><code>dec_frame &lt;- (decathlon2[1:10]
+    %&gt;% rename_all(sub, pattern=&quot;^X&quot;, replacement=&quot;Run_&quot;)
+    %&gt;% mutate_at(vars(contains(&#39;Run_&#39;)), funs(-.))
+    %&gt;% rename_all(sub, pattern=&quot;110m.&quot;, replacement=&quot;&quot;)
+    %&gt;% mutate_all(scale)
+)
+
+## Warning: funs() is soft deprecated as of dplyr 0.8.0
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once per session.</code></pre>
+<h2 id="pairs-plot">Pairs plot</h2>
+<p><img src="iris.Rout.png" alt="Iris pairs plot (iris.R)" /> * Slow, and not very good for more than 5 or 6 variables * Base R may be faster for quick viz</p>
+<h2 id="heatmap">Heatmap</h2>
+<pre><code>dec_mat &lt;- as.matrix(dec_frame)
 heatmap(dec_mat)</code></pre>
-<p><img src="dim.lect_files/figure-markdown_strict/heatmap-1.png" /></p>
-<hr />
+<p><img src="dim.lect_files/figure-markdown_strict/dec_heatmap-1.png" /></p>
+<h2 id="heatmap-again">Heatmap again</h2>
+<pre><code>heatmap(t(dec_mat))</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/dec_t_heatmap-1.png" /></p>
+<h2 id="correlation-heatmap">Correlation heatmap</h2>
 <pre><code>pheatmap(cor(dec_mat), cell.width = 10, cell.height = 10)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/corr_heatmap-1.png" /></p>
-<p>(see also the <code>corrplot</code> package)</p>
+<p>Better for visualizing groups of events</p>
+<h2 id="athelete-correlations">Athelete correlations</h2>
+<pre><code>pheatmap(cor(t(dec_mat)), cell.width = 4, cell.height = 4)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/corr_athlete-1.png" /></p>
+<p>Better for visualizing groups of events</p>
 <h2 id="pca">PCA</h2>
-<p>Examples/data from Holmes and Huber (2019)</p>
+<p>A beautiful decomposition based on the idea that data points are points in a Euclidean space</p>
 <ul>
-<li><code>prcomp</code> (SVD): preferred (also <code>princomp</code> ??)</li>
-<li>same data; projects in a way that (hopefully) focuses on interesting angles in the data</li>
-<li>assumes linear features</li>
-<li>normality not necessary, but better-behaved with normal data</li>
+<li>Need to think about scaling</li>
 </ul>
-<hr />
+<p>We can think about the PCA as a decomposition (making observed points from idealized points)</p>
+<ul>
+<li>And relax it by requiring <em>non-negative</em> combinations of <em>non-negative</em> components (NMF)</li>
+</ul>
+<p>Or we can think about it as minimizing distances:</p>
+<ul>
+<li>And relax it with non-Euclidean distances (PCoA)</li>
+<li>… or a rank-based approach (NMDS)</li>
+</ul>
+<h2 id="pca-decomposition">PCA decomposition</h2>
 <p>View loadings:</p>
 <pre><code>pca_ath &lt;- prcomp(dec_mat, scale=TRUE)
-fviz_pca_var(pca_ath, col.circle = &quot;black&quot;) + ggtitle(&quot;&quot;)</code></pre>
+fviz_screeplot(pca_ath)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/pca-1.png" /></p>
+<h2 id="individuals">Individuals</h2>
+<pre><code>fviz_pca_ind(pca_ath)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_ind-1.png" /></p>
+<h2 id="components">Components</h2>
+<pre><code>fviz_pca_var(pca_ath)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/fviz_loadings-1.png" /></p>
 <hr />
+<pre><code>fviz_pca_var(pca_ath, axes=c(2, 3))</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_altloadings-1.png" /></p>
+<h2 id="biplot">Biplot</h2>
 <p>View scores and loadings:</p>
 <pre><code>fviz_pca_biplot(pca_ath)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/fviz_biplot-1.png" /></p>
-<h2 id="wine-example">wine example</h2>
-<pre><code>load(&quot;data/wine.RData&quot;)
-load(&quot;data/wineClass.RData&quot;)
+<h2 id="non-metric-scaling">Non-metric scaling</h2>
+<pre><code>library(vegan)
 
-winePCAd = prcomp(wine,scale=TRUE) ## compute PCA
-f0 &lt;- fviz_pca_biplot(winePCAd, geom = &quot;point&quot;, habillage = wine.class,
-                      col.var = &quot;violet&quot;, addEllipses = TRUE, ellipse.level = 0.69) +
-  ggtitle(&quot;&quot;) + coord_fixed() +
-  scale_colour_brewer(palette=&quot;Dark2&quot;) +
-  scale_fill_brewer(palette=&quot;Dark2&quot;)
-## make augmented data we can use
-aug_data &lt;- (get_pca_ind(winePCAd)$coord
-  %&gt;% as_tibble()
-  %&gt;% mutate(class=wine.class)
-)</code></pre>
-<h2 id="plot">plot</h2>
-<pre><code>print(f0)</code></pre>
-<p><img src="dim.lect_files/figure-markdown_strict/plot_wine1-1.png" /></p>
-<h2 id="improved-plot">improved plot</h2>
-<pre><code>f1 &lt;- fviz_pca_biplot(winePCAd, geom = &quot;point&quot;, habillage = wine.class,
-   col.var = &quot;violet&quot;) + ggtitle(&quot;&quot;) + coord_fixed() +
-  scale_colour_brewer(palette=&quot;Dark2&quot;) +
-  scale_fill_brewer(palette=&quot;Dark2&quot;)
-names(ggplot_build(f1)$data[[1]])
+## Loading required package: permute
 
-##  [1] &quot;colour&quot; &quot;shape&quot;  &quot;x&quot;      &quot;y&quot;      &quot;PANEL&quot;  &quot;group&quot;  &quot;size&quot;  
-##  [8] &quot;fill&quot;   &quot;alpha&quot;  &quot;stroke&quot;
+## Loading required package: lattice
 
-f2 &lt;- f1 + ggalt::geom_encircle(data=aug_data,
-                          aes(x=Dim.1,y=Dim.2,group=class,
-                              colour=class,
-                              fill=class),alpha=0.2,
-                          show.legend=FALSE)</code></pre>
-<hr />
-<pre><code>print(f2)</code></pre>
-<p><img src="dim.lect_files/figure-markdown_strict/print_wineplot2-1.png" /></p>
-<h2 id="different-projection-methods">different projection methods</h2>
-<ul>
-<li>Principal coordinates (PCoA: start from a <em>distance matrix</em>)
-<ul>
-<li>e.g. species diversity</li>
-<li>text samples</li>
-<li>PCoA + Euclidean distance = PCA</li>
-</ul></li>
-<li>non-metric multidimensional scaling (NMDS)</li>
-<li>non-negative matrix factorization</li>
-<li>… ???</li>
-<li>PCA <a href="http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/118-principal-component-analysis-in-r-prcomp-vs-princomp/">example</a></li>
-</ul>
-<h2 id="challenges">challenges</h2>
-<ul>
-<li>categorical/compositional data</li>
-<li>random forest viz?</li>
-</ul>
-<h2 id="references">references</h2>
-<p>Buja, Andreas, Dianne Cook, and Deborah F. Swayne. 1996. “Interactive High-Dimensional Data Visualization.” <em>Journal of Computational and Graphical Statistics</em> 5 (1): 78–99. <a href="https://doi.org/10.2307/1390754" class="uri">https://doi.org/10.2307/1390754</a>.</p>
-<p>Holmes, Susan, and Wolfgang Huber. 2019. <em>Modern Statistics for Modern Biology</em>. 1 edition. Cambridge: Cambridge University Press.</p>
+## This is vegan 2.5-6
+
+mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
+
+## &#39;comm&#39; has negative data: &#39;autotransform&#39;, &#39;noshare&#39; and &#39;wascores&#39; set to FALSE
+
+## Run 0 stress 0.175356 
+## Run 1 stress 0.1788136 
+## Run 2 stress 0.175356 
+## ... Procrustes: rmse 4.199628e-05  max resid 0.0001393724 
+## ... Similar to previous best
+## Run 3 stress 0.1754593 
+## ... Procrustes: rmse 0.02195756  max resid 0.07909403 
+## Run 4 stress 0.1757427 
+## ... Procrustes: rmse 0.00834928  max resid 0.03170723 
+## Run 5 stress 0.2939862 
+## Run 6 stress 0.1757427 
+## ... Procrustes: rmse 0.008357441  max resid 0.03174303 
+## Run 7 stress 0.2032167 
+## Run 8 stress 0.2751468 
+## Run 9 stress 0.175356 
+## ... Procrustes: rmse 5.939411e-05  max resid 0.0001985773 
+## ... Similar to previous best
+## Run 10 stress 0.2028367 
+## Run 11 stress 0.2045572 
+## Run 12 stress 0.2008871 
+## Run 13 stress 0.2829533 
+## Run 14 stress 0.2050859 
+## Run 15 stress 0.2050859 
+## Run 16 stress 0.1783896 
+## Run 17 stress 0.1754595 
+## ... Procrustes: rmse 0.02223175  max resid 0.07980905 
+## Run 18 stress 0.2146018 
+## Run 19 stress 0.1787376 
+## Run 20 stress 0.175356 
+## ... Procrustes: rmse 3.008194e-06  max resid 6.454376e-06 
+## ... Similar to previous best
+## *** Solution reached
+
+plot(mds)
+
+## species scores not available</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/nmds-1.png" /></p>
+<pre><code>print(scores(mds))
+
+##         NMDS1       NMDS2
+## 1  -0.5216793 -0.62341748
+## 2  -1.1789596 -2.64143567
+## 3   1.5244483 -1.27562651
+## 4   0.9351417  2.34291516
+## 5   0.2298949  1.25947043
+## 6  -0.7348909  0.94626213
+## 7   2.6611695  2.21451458
+## 8   2.3583813 -0.28715276
+## 9   1.4849254  0.28560888
+## 10  3.3259036  0.78088407
+## 11  4.6251675 -0.57956959
+## 12 -3.9805059  0.05178841
+## 13 -3.6958724 -0.67114345
+## 14 -4.3497728  1.12145580
+## 15 -1.8142574  2.05225829
+## 16 -1.4429019 -0.93301201
+## 17 -0.4707048  1.74131060
+## 18 -0.1431211  0.61501051
+## 19 -1.4332552  0.85977533
+## 20  0.6779905 -0.69777531
+## 21 -0.2215424 -0.32220831
+## 22  0.5627001 -0.43100980
+## 23  0.6839564  1.34459164
+## 24 -1.5274034 -1.90609679
+## 25  0.3721861 -0.85945466
+## 26  0.7588504 -2.13184500
+## 27  1.3141512 -2.25609851</code></pre>
+<p>library(vegan)</p>
 <div id="footer">
 	<div style="text-align:center">
 		<a href="index.html">Course home page</a>
