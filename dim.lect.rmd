@@ -161,7 +161,7 @@ mds <- metaMDS(dec_mat, distance="euclidean")
 
 ## Nmds plot
 
-```{r nmds}
+```{r nmds_plot}
 plot(mds)
 ```
 
