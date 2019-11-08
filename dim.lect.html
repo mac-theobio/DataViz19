@@ -147,7 +147,7 @@ fviz_screeplot(pca_ath)</code></pre>
 <p>View scores and loadings:</p>
 <pre><code>fviz_pca_biplot(pca_ath)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/fviz_biplot-1.png" /></p>
-<h2 id="non-metric-scaling">Non-metric scaling</h2>
+<h2 id="non-metric-dimensional-scaling">Non-metric dimensional scaling</h2>
 <pre><code>library(vegan)
 
 ## Loading required package: permute
@@ -161,73 +161,41 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 ## &#39;comm&#39; has negative data: &#39;autotransform&#39;, &#39;noshare&#39; and &#39;wascores&#39; set to FALSE
 
 ## Run 0 stress 0.175356 
-## Run 1 stress 0.1788136 
-## Run 2 stress 0.175356 
-## ... Procrustes: rmse 4.199628e-05  max resid 0.0001393724 
+## Run 1 stress 0.2014758 
+## Run 2 stress 0.1788115 
+## Run 3 stress 0.1754596 
+## ... Procrustes: rmse 0.0222536  max resid 0.07992613 
+## Run 4 stress 0.17546 
+## ... Procrustes: rmse 0.02233978  max resid 0.08038077 
+## Run 5 stress 0.2028354 
+## Run 6 stress 0.2045589 
+## Run 7 stress 0.1783895 
+## Run 8 stress 0.2011002 
+## Run 9 stress 0.1788124 
+## Run 10 stress 0.2014766 
+## Run 11 stress 0.1783896 
+## Run 12 stress 0.175356 
+## ... Procrustes: rmse 1.832385e-05  max resid 5.118146e-05 
 ## ... Similar to previous best
-## Run 3 stress 0.1754593 
-## ... Procrustes: rmse 0.02195756  max resid 0.07909403 
-## Run 4 stress 0.1757427 
-## ... Procrustes: rmse 0.00834928  max resid 0.03170723 
-## Run 5 stress 0.2939862 
-## Run 6 stress 0.1757427 
-## ... Procrustes: rmse 0.008357441  max resid 0.03174303 
-## Run 7 stress 0.2032167 
-## Run 8 stress 0.2751468 
-## Run 9 stress 0.175356 
-## ... Procrustes: rmse 5.939411e-05  max resid 0.0001985773 
+## Run 13 stress 0.1783895 
+## Run 14 stress 0.1950851 
+## Run 15 stress 0.1788121 
+## Run 16 stress 0.2043002 
+## Run 17 stress 0.1754599 
+## ... Procrustes: rmse 0.02233506  max resid 0.08035612 
+## Run 18 stress 0.2043722 
+## Run 19 stress 0.175356 
+## ... Procrustes: rmse 1.857745e-05  max resid 6.529549e-05 
 ## ... Similar to previous best
-## Run 10 stress 0.2028367 
-## Run 11 stress 0.2045572 
-## Run 12 stress 0.2008871 
-## Run 13 stress 0.2829533 
-## Run 14 stress 0.2050859 
-## Run 15 stress 0.2050859 
-## Run 16 stress 0.1783896 
-## Run 17 stress 0.1754595 
-## ... Procrustes: rmse 0.02223175  max resid 0.07980905 
-## Run 18 stress 0.2146018 
-## Run 19 stress 0.1787376 
-## Run 20 stress 0.175356 
-## ... Procrustes: rmse 3.008194e-06  max resid 6.454376e-06 
-## ... Similar to previous best
-## *** Solution reached
-
-plot(mds)
+## Run 20 stress 0.1754593 
+## ... Procrustes: rmse 0.02196004  max resid 0.07911064 
+## *** Solution reached</code></pre>
+<h2 id="nmds-plot">Nmds plot</h2>
+<pre><code>plot(mds)
 
 ## species scores not available</code></pre>
-<p><img src="dim.lect_files/figure-markdown_strict/nmds-1.png" /></p>
-<pre><code>print(scores(mds))
-
-##         NMDS1       NMDS2
-## 1  -0.5216793 -0.62341748
-## 2  -1.1789596 -2.64143567
-## 3   1.5244483 -1.27562651
-## 4   0.9351417  2.34291516
-## 5   0.2298949  1.25947043
-## 6  -0.7348909  0.94626213
-## 7   2.6611695  2.21451458
-## 8   2.3583813 -0.28715276
-## 9   1.4849254  0.28560888
-## 10  3.3259036  0.78088407
-## 11  4.6251675 -0.57956959
-## 12 -3.9805059  0.05178841
-## 13 -3.6958724 -0.67114345
-## 14 -4.3497728  1.12145580
-## 15 -1.8142574  2.05225829
-## 16 -1.4429019 -0.93301201
-## 17 -0.4707048  1.74131060
-## 18 -0.1431211  0.61501051
-## 19 -1.4332552  0.85977533
-## 20  0.6779905 -0.69777531
-## 21 -0.2215424 -0.32220831
-## 22  0.5627001 -0.43100980
-## 23  0.6839564  1.34459164
-## 24 -1.5274034 -1.90609679
-## 25  0.3721861 -0.85945466
-## 26  0.7588504 -2.13184500
-## 27  1.3141512 -2.25609851</code></pre>
-<p>library(vegan)</p>
+<p><img src="dim.lect_files/figure-markdown_strict/nmds_plot-1.png" /></p>
+<p>The biplot is hard (but we can help you if you want to do it)</p>
 <div id="footer">
 	<div style="text-align:center">
 		<a href="index.html">Course home page</a>
