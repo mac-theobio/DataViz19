@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>high-dimensional examples</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">high-dimensional examples</h1>
+</div>
+<pre><code>library(factoextra)
+library(pheatmap)
+library(tidyverse)</code></pre>
+<h2 id="data">Data</h2>
+<p>We usually think of high-dimensional data as consisting of multiple <em>measures</em> on a group of samples:</p>
+<ul>
+<li>Number of “reads” of different bacterial proteins from a set of soil samples</li>
+<li>Decathlon scores from different competitors</li>
+<li>Health measures from different children</li>
+</ul>
+<h2 id="types-of-measures">Types of measures</h2>
+<p>Many scientists traditionally think of high-dimensional data as having parallel, continuous measures:</p>
+<ul>
+<li>read matrices from soil samples</li>
+</ul>
+<p>These may be complemented by a smaller number of “metadata” variables, which may be more diverse in type (count, categorical, etc.):</p>
+<ul>
+<li>environmental variables associated with soil samples</li>
+</ul>
+<p>More and more datasets don’t follow this:</p>
+<ul>
+<li>Canadian longitudinal study on aging has a huge number of variables per person with a wide mixture of types</li>
+</ul>
+<h2 id="duality">Duality</h2>
+<p>We study the rows (samples) using the columns (measures)</p>
+<ul>
+<li>What do the observed proteins tell us about the functional relationships between different soil samples?</li>
+<li>What does differential success in decathlon events tell us about the athletes?</li>
+</ul>
+<p>But we can also do the opposite!</p>
+<ul>
+<li>What do measurements across soil samples tell us about the functional relationships between proteins?</li>
+<li><p>What does differential success of athletes tell us about the relationship between events?</p></li>
+<li>easiest: matrix of numeric values/Euclidean distances OK/MVN</li>
+<li>categorical
+<ul>
+<li>few values: can colour/split</li>
+<li>many values: convert to dummy variables? (random forest viz?)</li>
+</ul></li>
+<li>non-Euclidean distances
+<ul>
+<li>e.g. species diversity</li>
+</ul></li>
+</ul>
+<h2 id="decathlon-events">Decathlon events</h2>
+<pre><code>print(names(decathlon2))
+
+##  [1] &quot;X100m&quot;        &quot;Long.jump&quot;    &quot;Shot.put&quot;     &quot;High.jump&quot;   
+##  [5] &quot;X400m&quot;        &quot;X110m.hurdle&quot; &quot;Discus&quot;       &quot;Pole.vault&quot;  
+##  [9] &quot;Javeline&quot;     &quot;X1500m&quot;       &quot;Rank&quot;         &quot;Points&quot;      
+## [13] &quot;Competition&quot;</code></pre>
+<h2 id="decathlon-frame">Decathlon frame</h2>
+<pre><code>dec_frame &lt;- (decathlon2[1:10]
+    %&gt;% rename_all(sub, pattern=&quot;^X&quot;, replacement=&quot;Run_&quot;)
+    %&gt;% mutate_at(vars(contains(&#39;Run_&#39;)), funs(-.))
+    %&gt;% rename_all(sub, pattern=&quot;110m.&quot;, replacement=&quot;&quot;)
+    %&gt;% mutate_all(scale)
+)
+
+## Warning: funs() is soft deprecated as of dplyr 0.8.0
+## Please use a list of either functions or lambdas: 
+## 
+##   # Simple named list: 
+##   list(mean = mean, median = median)
+## 
+##   # Auto named with `tibble::lst()`: 
+##   tibble::lst(mean, median)
+## 
+##   # Using lambdas
+##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
+## This warning is displayed once per session.</code></pre>
+<h2 id="pairs-plot">Pairs plot</h2>
+<p><img src="iris.Rout.png" alt="Iris pairs plot (iris.R)" /> * Slow, and not very good for more than 5 or 6 variables * Base R may be faster for quick viz</p>
+<h2 id="heatmap">Heatmap</h2>
+<pre><code>dec_mat &lt;- as.matrix(dec_frame)
+heatmap(dec_mat)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/dec_heatmap-1.png" /></p>
+<h2 id="heatmap-again">Heatmap again</h2>
+<pre><code>heatmap(t(dec_mat))</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/dec_t_heatmap-1.png" /></p>
+<h2 id="correlation-heatmap">Correlation heatmap</h2>
+<pre><code>pheatmap(cor(dec_mat), cell.width = 10, cell.height = 10)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/corr_heatmap-1.png" /></p>
+<p>Better for visualizing groups of events</p>
+<h2 id="athelete-correlations">Athelete correlations</h2>
+<pre><code>pheatmap(cor(t(dec_mat)), cell.width = 4, cell.height = 4)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/corr_athlete-1.png" /></p>
+<p>Better for visualizing groups of events</p>
+<h2 id="pca">PCA</h2>
+<p>A beautiful decomposition based on the idea that data points are points in a Euclidean space</p>
+<ul>
+<li>Need to think about scaling</li>
+</ul>
+<p>We can think about the PCA as a decomposition (making observed points from idealized points)</p>
+<ul>
+<li>And relax it by requiring <em>non-negative</em> combinations of <em>non-negative</em> components (NMF)</li>
+</ul>
+<p>Or we can think about it as minimizing distances:</p>
+<ul>
+<li>And relax it with non-Euclidean distances (PCoA)</li>
+<li>… or a rank-based approach (NMDS)</li>
+</ul>
+<h2 id="pca-decomposition">PCA decomposition</h2>
+<p>View loadings:</p>
+<pre><code>pca_ath &lt;- prcomp(dec_mat, scale=TRUE)
+fviz_screeplot(pca_ath)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/pca-1.png" /></p>
+<h2 id="individuals">Individuals</h2>
+<pre><code>fviz_pca_ind(pca_ath)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_ind-1.png" /></p>
+<h2 id="components">Components</h2>
+<pre><code>fviz_pca_var(pca_ath)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_loadings-1.png" /></p>
+<hr />
+<pre><code>fviz_pca_var(pca_ath, axes=c(2, 3))</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_altloadings-1.png" /></p>
+<h2 id="biplot">Biplot</h2>
+<p>View scores and loadings:</p>
+<pre><code>fviz_pca_biplot(pca_ath)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_biplot-1.png" /></p>
+<h2 id="non-metric-dimensional-scaling">Non-metric dimensional scaling</h2>
+<pre><code>library(vegan)
+
+## Loading required package: permute
+
+## Loading required package: lattice
+
+## This is vegan 2.5-6
+
+mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
+
+## &#39;comm&#39; has negative data: &#39;autotransform&#39;, &#39;noshare&#39; and &#39;wascores&#39; set to FALSE
+
+## Run 0 stress 0.175356 
+## Run 1 stress 0.2014758 
+## Run 2 stress 0.1788115 
+## Run 3 stress 0.1754596 
+## ... Procrustes: rmse 0.0222536  max resid 0.07992613 
+## Run 4 stress 0.17546 
+## ... Procrustes: rmse 0.02233978  max resid 0.08038077 
+## Run 5 stress 0.2028354 
+## Run 6 stress 0.2045589 
+## Run 7 stress 0.1783895 
+## Run 8 stress 0.2011002 
+## Run 9 stress 0.1788124 
+## Run 10 stress 0.2014766 
+## Run 11 stress 0.1783896 
+## Run 12 stress 0.175356 
+## ... Procrustes: rmse 1.832385e-05  max resid 5.118146e-05 
+## ... Similar to previous best
+## Run 13 stress 0.1783895 
+## Run 14 stress 0.1950851 
+## Run 15 stress 0.1788121 
+## Run 16 stress 0.2043002 
+## Run 17 stress 0.1754599 
+## ... Procrustes: rmse 0.02233506  max resid 0.08035612 
+## Run 18 stress 0.2043722 
+## Run 19 stress 0.175356 
+## ... Procrustes: rmse 1.857745e-05  max resid 6.529549e-05 
+## ... Similar to previous best
+## Run 20 stress 0.1754593 
+## ... Procrustes: rmse 0.02196004  max resid 0.07911064 
+## *** Solution reached</code></pre>
+<h2 id="nmds-plot">Nmds plot</h2>
+<pre><code>plot(mds)
+
+## species scores not available</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/nmds_plot-1.png" /></p>
+<p>The biplot is hard (but we can help you if you want to do it)</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
