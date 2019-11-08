@@ -27,6 +27,7 @@
 <div id="header">
 <h1 class="title">high-dimensional examples</h1>
 </div>
+<h2 id="packages">Packages</h2>
 <pre><code>library(factoextra)
 library(pheatmap)
 library(tidyverse)
@@ -60,20 +61,10 @@ theme_set(theme_bw())</code></pre>
 <p>But we can also do the opposite!</p>
 <ul>
 <li>What do measurements across soil samples tell us about the functional relationships between proteins?</li>
-<li><p>What does differential success of athletes tell us about the relationship between events?</p></li>
-<li>easiest: matrix of numeric values/Euclidean distances OK/MVN</li>
-<li>categorical
-<ul>
-<li>few values: can colour/split</li>
-<li>many values: convert to dummy variables? (random forest viz?)</li>
-</ul></li>
-<li>non-Euclidean distances
-<ul>
-<li>e.g. species diversity</li>
-</ul></li>
+<li>What does differential success of athletes tell us about the relationship between events?</li>
 </ul>
 <h2 id="decathlon-events">Decathlon events</h2>
-<pre><code>print(names(decathlon2))
+<pre><code>print(names(decathlon2))  ## from factoextra pkg
 
 ##  [1] &quot;X100m&quot;        &quot;Long.jump&quot;    &quot;Shot.put&quot;     &quot;High.jump&quot;   
 ##  [5] &quot;X400m&quot;        &quot;X110m.hurdle&quot; &quot;Discus&quot;       &quot;Pole.vault&quot;  
@@ -81,26 +72,22 @@ theme_set(theme_bw())</code></pre>
 ## [13] &quot;Competition&quot;</code></pre>
 <h2 id="decathlon-frame">Decathlon frame</h2>
 <pre><code>dec_frame &lt;- (decathlon2[1:10]
+        %&gt;% as_tibble()
     %&gt;% rename_all(sub, pattern=&quot;^X&quot;, replacement=&quot;Run_&quot;)
-    %&gt;% mutate_at(vars(contains(&#39;Run_&#39;)), funs(-.))
+    %&gt;% mutate_at(vars(contains(&#39;Run_&#39;)), ~(-1*.))
     %&gt;% rename_all(sub, pattern=&quot;110m.&quot;, replacement=&quot;&quot;)
-    %&gt;% mutate_all(scale)
-)
-
-## Warning: funs() is soft deprecated as of dplyr 0.8.0
-## Please use a list of either functions or lambdas: 
-## 
-##   # Simple named list: 
-##   list(mean = mean, median = median)
-## 
-##   # Auto named with `tibble::lst()`: 
-##   tibble::lst(mean, median)
-## 
-##   # Using lambdas
-##   list(~ mean(., trim = .2), ~ median(., na.rm = TRUE))
-## This warning is displayed once per session.</code></pre>
+    %&gt;% mutate_all(~c(drop(scale(.))))
+)</code></pre>
 <h2 id="pairs-plot">Pairs plot</h2>
-<p><img src="iris.Rout.png" alt="Iris pairs plot (iris.R)" /> * Slow, and not very good for more than 5 or 6 variables * Base R may be faster for quick viz</p>
+<div class="figure">
+<img src="iris.Rout.png" alt="" />
+<p class="caption">Iris pairs plot (iris.R)</p>
+</div>
+<hr />
+<ul>
+<li>Slow, and not very good for more than 5 or 6 variables</li>
+<li>Base R may be faster for quick viz</li>
+</ul>
 <h2 id="heatmap">Heatmap</h2>
 <pre><code>dec_mat &lt;- as.matrix(dec_frame)
 heatmap(dec_mat)</code></pre>
@@ -166,6 +153,7 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 ## &#39;comm&#39; has negative data: &#39;autotransform&#39;, &#39;noshare&#39; and &#39;wascores&#39; set to FALSE
 
 ## Run 0 stress 0.175356 
+<<<<<<< HEAD
 ## Run 1 stress 0.1754596 
 ## ... Procrustes: rmse 0.02210455  max resid 0.07935155 
 ## Run 2 stress 0.1975368 
@@ -190,6 +178,34 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 ## Run 18 stress 0.2957943 
 ## Run 19 stress 0.1783901 
 ## Run 20 stress 0.2043724 
+=======
+## Run 1 stress 0.1783895 
+## Run 2 stress 0.175356 
+## ... Procrustes: rmse 1.893988e-05  max resid 6.399532e-05 
+## ... Similar to previous best
+## Run 3 stress 0.1754593 
+## ... Procrustes: rmse 0.02191505  max resid 0.07906864 
+## Run 4 stress 0.1754604 
+## ... Procrustes: rmse 0.02239939  max resid 0.0807043 
+## Run 5 stress 0.2050859 
+## Run 6 stress 0.2856552 
+## Run 7 stress 0.1788132 
+## Run 8 stress 0.1788118 
+## Run 9 stress 0.2050859 
+## Run 10 stress 0.17546 
+## ... Procrustes: rmse 0.02236373  max resid 0.08050568 
+## Run 11 stress 0.1950849 
+## Run 12 stress 0.3882253 
+## Run 13 stress 0.1783896 
+## Run 14 stress 0.2045531 
+## Run 15 stress 0.1783895 
+## Run 16 stress 0.2819848 
+## Run 17 stress 0.1754597 
+## ... Procrustes: rmse 0.0222582  max resid 0.07995142 
+## Run 18 stress 0.2032167 
+## Run 19 stress 0.214071 
+## Run 20 stress 0.2028353 
+>>>>>>> refs/remotes/origin/gh-pages
 ## *** Solution reached</code></pre>
 <h2 id="nmds-plot">Nmds plot</h2>
 <pre><code>plot(mds)
@@ -209,9 +225,15 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 
 ## The following object is masked from &#39;package:dplyr&#39;:
 ## 
+<<<<<<< HEAD
 ##     nasa
 
 ggparcoord(dec_frame)</code></pre>
+=======
+##     nasa</code></pre>
+<hr />
+<pre><code>ggparcoord(dec_frame)</code></pre>
+>>>>>>> refs/remotes/origin/gh-pages
 <p><img src="dim.lect_files/figure-markdown_strict/parcor-1.png" /></p>
 <h2 id="dual-view">Dual view</h2>
 <pre><code>library(directlabels)
@@ -226,9 +248,15 @@ ggparcoord(ath_frame)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/parcorgroup-1.png" /></p>
 <h2 id="andrews-plots">Andrews plots</h2>
 <pre><code>library(andrews)
+<<<<<<< HEAD
 andrews(dec_frame)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/andrews-1.png" /></p>
 <hr />
+=======
+## andrews::numarray() **does not like tibbles**
+andrews(as.data.frame(dec_frame))</code></pre>
+<h2 id="section"><img src="dim.lect_files/figure-markdown_strict/andrews-1.png" /></h2>
+>>>>>>> refs/remotes/origin/gh-pages
 <pre><code>andrews(ath_frame)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/andrews_ath-1.png" /></p>
 <h2 id="radar-charts">Radar charts</h2>
@@ -236,12 +264,20 @@ andrews(dec_frame)</code></pre>
 <h2 id="ordering">Ordering</h2>
 <p>Many of these charts might work if the variables were in a suitable order:</p>
 <ul>
+<<<<<<< HEAD
 <li>heatmap provides an order
+=======
+<li><p>heatmap provides an order</p>
+>>>>>>> refs/remotes/origin/gh-pages
 <ul>
 <li>hierarchical</li>
 </ul></li>
 <li><p>other ordering methods take a more holistic view</p></li>
+<<<<<<< HEAD
 <li>PCA and other decompositions could also provide an order!
+=======
+<li><p>PCA and other decompositions could also provide an order!</p>
+>>>>>>> refs/remotes/origin/gh-pages
 <ul>
 <li>Should we combine PCA with Andrews or parcoord?</li>
 </ul></li>
