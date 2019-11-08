@@ -27,6 +27,12 @@
 <h2 id="prediction-plots">prediction plots</h2>
 <h2 id="prediction-plots-1">prediction plots</h2>
 <pre><code>library(emmeans)
+
+## Welcome to emmeans.
+## NOTE -- Important change from versions &lt;= 1.41:
+##     Indicator predictors are now treated as 2-level factors by default.
+##     To revert to old behavior, use emm_options(cov.keep = character(0))
+
 library(effects)
 
 ## Loading required package: carData
