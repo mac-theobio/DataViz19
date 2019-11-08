@@ -31,6 +31,8 @@
 <pre><code>library(factoextra)
 library(pheatmap)
 library(tidyverse)
+library(directlabels)
+library(GGally)
 theme_set(theme_bw())</code></pre>
 <h2 id="data">Data</h2>
 <p>We usually think of high-dimensional data as consisting of multiple <em>measures</em> on a group of samples:</p>
@@ -154,41 +156,34 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 ## &#39;comm&#39; has negative data: &#39;autotransform&#39;, &#39;noshare&#39; and &#39;wascores&#39; set to FALSE
 
 ## Run 0 stress 0.175356 
-## Run 1 stress 0.1754592 
-## ... Procrustes: rmse 0.02209117  max resid 0.07930585 
-## Run 2 stress 0.1787376 
-## Run 3 stress 0.1757427 
-## ... Procrustes: rmse 0.008357372  max resid 0.03173896 
-## Run 4 stress 0.195086 
-## Run 5 stress 0.1754613 
-## ... Procrustes: rmse 0.02254786  max resid 0.08148457 
-## Run 6 stress 0.2020938 
-## Run 7 stress 0.2117069 
-## Run 8 stress 0.1788114 
-## Run 9 stress 0.175356 
-## ... Procrustes: rmse 3.428126e-05  max resid 7.392466e-05 
+## Run 1 stress 0.1754603 
+## ... Procrustes: rmse 0.02231628  max resid 0.08023397 
+## Run 2 stress 0.178812 
+## Run 3 stress 0.2028175 
+## Run 4 stress 0.2045573 
+## Run 5 stress 0.2008847 
+## Run 6 stress 0.2622522 
+## Run 7 stress 0.1783896 
+## Run 8 stress 0.1754614 
+## ... Procrustes: rmse 0.02213427  max resid 0.07936417 
+## Run 9 stress 0.1757427 
+## ... Procrustes: rmse 0.008353616  max resid 0.03171971 
+## Run 10 stress 0.175356 
+## ... Procrustes: rmse 2.866385e-05  max resid 9.875323e-05 
 ## ... Similar to previous best
-## Run 10 stress 0.1757427 
-## ... Procrustes: rmse 0.008352447  max resid 0.03171066 
-## Run 11 stress 0.2053398 
-## Run 12 stress 0.1754592 
-## ... Procrustes: rmse 0.02198687  max resid 0.07919376 
-## Run 13 stress 0.2008644 
-## Run 14 stress 0.2028644 
-## Run 15 stress 0.175356 
-## ... Procrustes: rmse 9.766278e-05  max resid 0.0003232537 
-## ... Similar to previous best
-## Run 16 stress 0.1757427 
-## ... Procrustes: rmse 0.008354236  max resid 0.03171869 
-## Run 17 stress 0.1754594 
-## ... Procrustes: rmse 0.0221529  max resid 0.07940786 
-## Run 18 stress 0.175356 
-## ... Procrustes: rmse 4.159483e-06  max resid 1.455716e-05 
-## ... Similar to previous best
-## Run 19 stress 0.175356 
-## ... Procrustes: rmse 1.229561e-05  max resid 2.719895e-05 
-## ... Similar to previous best
-## Run 20 stress 0.1787376 
+## Run 11 stress 0.2008652 
+## Run 12 stress 0.2045575 
+## Run 13 stress 0.2037446 
+## Run 14 stress 0.1754592 
+## ... Procrustes: rmse 0.02208517  max resid 0.07931705 
+## Run 15 stress 0.1754594 
+## ... Procrustes: rmse 0.02219941  max resid 0.07964347 
+## Run 16 stress 0.1754591 
+## ... Procrustes: rmse 0.02204939  max resid 0.07929911 
+## Run 17 stress 0.1783895 
+## Run 18 stress 0.2008648 
+## Run 19 stress 0.2000418 
+## Run 20 stress 0.1788122 
 ## *** Solution reached</code></pre>
 <h2 id="nmds-plot">Nmds plot</h2>
 <pre><code>plot(mds)
@@ -197,30 +192,16 @@ mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 <p><img src="dim.lect_files/figure-markdown_strict/nmds_plot-1.png" /></p>
 <p>The biplot is hard (but we can help you if you want to do it)</p>
 <h2 id="parallel-co-ordinates">Parallel co-ordinates</h2>
-<pre><code>library(GGally)
-
-## Registered S3 method overwritten by &#39;GGally&#39;:
-##   method from   
-##   +.gg   ggplot2
-
-## 
-## Attaching package: &#39;GGally&#39;
-
-## The following object is masked from &#39;package:dplyr&#39;:
-## 
-##     nasa</code></pre>
-<hr />
-<pre><code>ggparcoord(dec_frame)</code></pre>
+<pre><code>GGally::ggparcoord(dec_frame)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/parcor-1.png" /></p>
 <h2 id="dual-view">Dual view</h2>
-<pre><code>library(directlabels)
-ath_frame &lt;- (
+<pre><code>ath_frame &lt;- (
     as.data.frame(t(as.matrix(dec_frame)))
     %&gt;% mutate(event=names(dec_frame))
 )</code></pre>
 <hr />
 <pre><code>ggparcoord(ath_frame)</code></pre>
-<p><img src="dim.lect_files/figure-markdown_strict/parcorath-1.png" /></p>
+<p><img src="dim.lect_files/figure-markdown_strict/parcorathpic-1.png" /></p>
 <hr />
 <pre><code>ggparcoord(ath_frame, groupColumn=&quot;event&quot;)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/parcorgroup-1.png" /></p>
@@ -228,7 +209,7 @@ ath_frame &lt;- (
 <pre><code>library(andrews)
 ## andrews::numarray() **does not like tibbles**
 andrews(as.data.frame(dec_frame))</code></pre>
-<h2 id="section"><img src="dim.lect_files/figure-markdown_strict/andrews-1.png" /></h2>
+<p><img src="dim.lect_files/figure-markdown_strict/andrews-1.png" /> ## dual Andrews plot</p>
 <pre><code>andrews(ath_frame)</code></pre>
 <p><img src="dim.lect_files/figure-markdown_strict/andrews_ath-1.png" /></p>
 <h2 id="radar-charts">Radar charts</h2>
