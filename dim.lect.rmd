@@ -48,17 +48,18 @@ But we can also do the opposite!
 ## Decathlon events
 
 ```{r events}
-print(names(decathlon2))
+print(names(decathlon2))  ## from factoextra pkg
 ```
 
 ## Decathlon frame
 
 ```{r decathlon}
 dec_frame <- (decathlon2[1:10]
+        %>% as_tibble()
 	%>% rename_all(sub, pattern="^X", replacement="Run_")
-	%>% mutate_at(vars(contains('Run_')), funs(-.))
+	%>% mutate_at(vars(contains('Run_')), ~(-1*.))
 	%>% rename_all(sub, pattern="110m.", replacement="")
-	%>% mutate_all(scale)
+	%>% mutate_all(~c(drop(scale(.))))
 )
 ```
 
@@ -205,9 +206,9 @@ ggparcoord(ath_frame, groupColumn="event")
 
 ```{r andrews}
 library(andrews)
-andrews(dec_frame)
+## andrews::numarray() **does not like tibbles**
+andrews(as.data.frame(dec_frame))
 ```
-
 ----------------------
 
 ```{r andrews_ath}
