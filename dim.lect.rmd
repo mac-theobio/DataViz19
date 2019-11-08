@@ -152,11 +152,11 @@ fviz_pca_biplot(pca_ath)
 ## Loadings
 
 ```{r fviz_loadplot}
-load <- pca_ath$sdev * pca_ath$rotation
+load <- with(pca_ath, 
+	sweep(rotation, MARGIN=2, FUN="*", sdev)
+)
 pheatmap(load, cluster_cols=FALSE)
 ```
-
-WRONG!!!!
 
 ## Non-metric dimensional scaling
 
@@ -187,12 +187,17 @@ ggparcoord(dec_frame)
 
 ## Dual view
 
-```{r parcorath}
+```{r athframe}
 library(directlabels)
 ath_frame <- (
 	as.data.frame(t(as.matrix(dec_frame)))
 	%>% mutate(event=names(dec_frame))
 )
+```
+
+----------------------
+
+```{r parcorath}
 ggparcoord(ath_frame)
 ```
 
@@ -230,3 +235,14 @@ Many of these charts might work if the variables were in a suitable order:
 * PCA and other decompositions could also provide an order! 
 	* Should we combine PCA with Andrews or parcoord?
 
+## Experiment
+
+```{r andrews_load}
+andrews(load)
+```
+
+-----------------------
+
+```{r parcoord_load}
+ggparcoord(load)
+```
