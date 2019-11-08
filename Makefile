@@ -21,7 +21,7 @@ Makefile: makestuff/Makefile pages
 Ignore += pages
 
 vim_session:
-	bash -cl "vm README.md notes.md makestuff/rmdweb.mk"
+	bash -cl "vmt README.md notes.md"
 
 ######################################################################
 
