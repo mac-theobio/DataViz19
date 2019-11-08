@@ -2,10 +2,13 @@
 title: "high-dimensional examples"
 ---
 
+## Packages
+
 ```{r pkgs, message=FALSE}
 library(factoextra)
 library(pheatmap)
 library(tidyverse)
+theme_set(theme_bw())
 ```
 
 ## Data
@@ -42,13 +45,6 @@ But we can also do the opposite!
 * What do measurements across soil samples tell us about the functional relationships between proteins?
 * What does differential success of athletes tell us about the relationship between events?
 
-- easiest: matrix of numeric values/Euclidean distances OK/MVN
-- categorical
-    - few values: can colour/split
-	- many values: convert to dummy variables? (random forest viz?)
-- non-Euclidean distances
-    - e.g. species diversity
-
 ## Decathlon events
 
 ```{r events}
@@ -69,6 +65,9 @@ dec_frame <- (decathlon2[1:10]
 ## Pairs plot
 
 ![Iris pairs plot (iris.R)](iris.Rout.png)
+
+---------------------
+
 * Slow, and not very good for more than 5 or 6 variables
 * Base R may be faster for quick viz
 
@@ -118,8 +117,6 @@ Or we can think about it as minimizing distances:
 
 ## PCA decomposition
 
-View loadings:
-
 ```{r pca}
 pca_ath <- prcomp(dec_mat, scale=TRUE)
 fviz_screeplot(pca_ath)
@@ -133,24 +130,32 @@ fviz_pca_ind(pca_ath)
 
 ## Components
 
-```{r fviz_loadings}
+```{r fviz_components}
 fviz_pca_var(pca_ath)
 ```
 
-
 --------------------
 
-```{r fviz_altloadings}
+```{r fviz_altcomponents}
 fviz_pca_var(pca_ath, axes=c(2, 3))
 ```
 
 ## Biplot
 
-View scores and loadings:
+View scores and components:
 
 ```{r fviz_biplot}
 fviz_pca_biplot(pca_ath)
 ```
+
+## Loadings
+
+```{r fviz_loadplot}
+load <- pca_ath$sdev * pca_ath$rotation
+pheatmap(load, cluster_cols=FALSE)
+```
+
+WRONG!!!!
 
 ## Non-metric dimensional scaling
 
@@ -166,3 +171,61 @@ plot(mds)
 ```
 
 The biplot is hard (but we can help you if you want to do it)
+
+
+## Parallel co-ordinates
+```{r GGally}
+library(GGally)
+```
+
+------------
+
+```{r parcor}
+ggparcoord(dec_frame)
+```
+
+## Dual view
+
+```{r parcorath}
+library(directlabels)
+ath_frame <- (
+	as.data.frame(t(as.matrix(dec_frame)))
+	%>% mutate(event=names(dec_frame))
+)
+ggparcoord(ath_frame)
+```
+
+----------------------
+
+```{r parcorgroup}
+ggparcoord(ath_frame, groupColumn="event")
+```
+
+## Andrews plots
+
+```{r andrews}
+library(andrews)
+andrews(dec_frame)
+```
+
+----------------------
+
+```{r andrews_ath}
+andrews(ath_frame)
+```
+
+## Radar charts
+
+Not implemented; may suffer similar problems
+
+## Ordering
+
+Many of these charts might work if the variables were in a suitable order:
+
+* heatmap provides an order
+	* hierarchical
+* other ordering methods take a more holistic view
+
+* PCA and other decompositions could also provide an order! 
+	* Should we combine PCA with Andrews or parcoord?
+
