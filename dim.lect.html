@@ -1,0 +1,190 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>high-dimensional data</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">high-dimensional data</h1>
+</div>
+<pre><code>library(tourr)
+library(factoextra)
+library(pheatmap)
+library(tidyverse)</code></pre>
+<h2 id="data">Data</h2>
+<p>We usually think of high-dimensional data as consisting of multiple <em>measures</em> on a group of samples:</p>
+<ul>
+<li>Number of “reads” of different bacterial proteins from a set of soil samples</li>
+<li>Decathlon scores from different competitors</li>
+<li>Health measures from different children</li>
+</ul>
+<h2 id="types-of-measures">Types of measures</h2>
+<p>Many scientists traditionally think of high-dimensional data as having parallel, continuous measures:</p>
+<ul>
+<li>read matrices from soil samples</li>
+</ul>
+<p>These may be complemented by a smaller number of “metadata” variables, which may be more diverse in type (count, categorical, etc.):</p>
+<ul>
+<li>environmental variables associated with soil samples</li>
+</ul>
+<p>More and more datasets don’t follow this:</p>
+<ul>
+<li>Canadian longitudinal study on aging has a huge number of variables per person with a wide mixture of types</li>
+</ul>
+<h2 id="duality">Duality</h2>
+<p>We study the rows (samples) using the columns (measures)</p>
+<ul>
+<li>What do the observed proteins tell us about the functional relationships between different soil samples?</li>
+<li>What does differential success in decathlon events tell us about the athletes?</li>
+</ul>
+<p>But we can also do the opposite!</p>
+<ul>
+<li>What do measurements across soil samples tell us about the functional relationships between proteins?</li>
+<li><p>What does differential success of athletes tell us about the relationship between events?</p></li>
+<li>easiest: matrix of numeric values/Euclidean distances OK/MVN</li>
+<li>categorical
+<ul>
+<li>few values: can colour/split</li>
+<li>many values: convert to dummy variables? (random forest viz?)</li>
+</ul></li>
+<li>non-Euclidean distances
+<ul>
+<li>e.g. species diversity</li>
+</ul></li>
+</ul>
+<hr />
+<h2 id="buja-cook-and-swayne-1996">Buja, Cook, and Swayne (1996)</h2>
+<ul>
+<li>traces (functions: parallel coordinates, <a href="https://en.wikipedia.org/wiki/Andrews_plot">Andrews plots</a>)</li>
+<li>glyphs (stars/radar charts/faces/etc.)</li>
+</ul>
+<h2 id="radar-chart">radar chart</h2>
+<p><img src="pix/531px-Star_Plot_of_16_cars.jpg" /></p>
+<h2 id="tours">tours</h2>
+<p>three components:</p>
+<ul>
+<li>data matrix (<em>n</em> × <em>p</em>)</li>
+<li><strong>tour path</strong> that produces a smooth sequence of projection matrices (<em>p</em> × <em>d</em>)</li>
+<li><strong>display method</strong> that renders the projected data.</li>
+</ul>
+<p>Goal: allow automated, systematic search through <strong>entire</strong> space of projections</p>
+<hr />
+<pre><code>animate_xy(laser)</code></pre>
+<h2 id="available-display-methods">available display methods</h2>
+<pre><code>apropos(&quot;animate_&quot;)
+
+##  [1] &quot;animate_andrews&quot;   &quot;animate_density2d&quot; &quot;animate_depth&quot;    
+##  [4] &quot;animate_dist&quot;      &quot;animate_faces&quot;     &quot;animate_groupxy&quot;  
+##  [7] &quot;animate_image&quot;     &quot;animate_pcp&quot;       &quot;animate_scatmat&quot;  
+## [10] &quot;animate_stars&quot;     &quot;animate_stereo&quot;    &quot;animate_trails&quot;   
+## [13] &quot;animate_xy&quot;</code></pre>
+<h2 id="projections">projections</h2>
+<p>Alternative: try to find some machinery</p>
+<pre><code>dec_mat &lt;- as.matrix(scale(decathlon2[1:10]))
+heatmap(dec_mat)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/heatmap-1.png" /></p>
+<hr />
+<pre><code>pheatmap(cor(dec_mat), cell.width = 10, cell.height = 10)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/corr_heatmap-1.png" /></p>
+<p>(see also the <code>corrplot</code> package)</p>
+<h2 id="pca">PCA</h2>
+<p>Examples/data from Holmes and Huber (2019)</p>
+<ul>
+<li><code>prcomp</code> (SVD): preferred (also <code>princomp</code> ??)</li>
+<li>same data; projects in a way that (hopefully) focuses on interesting angles in the data</li>
+<li>assumes linear features</li>
+<li>normality not necessary, but better-behaved with normal data</li>
+</ul>
+<hr />
+<p>View loadings:</p>
+<pre><code>pca_ath &lt;- prcomp(dec_mat, scale=TRUE)
+fviz_pca_var(pca_ath, col.circle = &quot;black&quot;) + ggtitle(&quot;&quot;)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_loadings-1.png" /></p>
+<hr />
+<p>View scores and loadings:</p>
+<pre><code>fviz_pca_biplot(pca_ath)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/fviz_biplot-1.png" /></p>
+<h2 id="wine-example">wine example</h2>
+<pre><code>load(&quot;data/wine.RData&quot;)
+load(&quot;data/wineClass.RData&quot;)
+
+winePCAd = prcomp(wine,scale=TRUE) ## compute PCA
+f0 &lt;- fviz_pca_biplot(winePCAd, geom = &quot;point&quot;, habillage = wine.class,
+                      col.var = &quot;violet&quot;, addEllipses = TRUE, ellipse.level = 0.69) +
+  ggtitle(&quot;&quot;) + coord_fixed() +
+  scale_colour_brewer(palette=&quot;Dark2&quot;) +
+  scale_fill_brewer(palette=&quot;Dark2&quot;)
+## make augmented data we can use
+aug_data &lt;- (get_pca_ind(winePCAd)$coord
+  %&gt;% as_tibble()
+  %&gt;% mutate(class=wine.class)
+)</code></pre>
+<h2 id="plot">plot</h2>
+<pre><code>print(f0)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/plot_wine1-1.png" /></p>
+<h2 id="improved-plot">improved plot</h2>
+<pre><code>f1 &lt;- fviz_pca_biplot(winePCAd, geom = &quot;point&quot;, habillage = wine.class,
+   col.var = &quot;violet&quot;) + ggtitle(&quot;&quot;) + coord_fixed() +
+  scale_colour_brewer(palette=&quot;Dark2&quot;) +
+  scale_fill_brewer(palette=&quot;Dark2&quot;)
+names(ggplot_build(f1)$data[[1]])
+
+##  [1] &quot;colour&quot; &quot;shape&quot;  &quot;x&quot;      &quot;y&quot;      &quot;PANEL&quot;  &quot;group&quot;  &quot;size&quot;  
+##  [8] &quot;fill&quot;   &quot;alpha&quot;  &quot;stroke&quot;
+
+f2 &lt;- f1 + ggalt::geom_encircle(data=aug_data,
+                          aes(x=Dim.1,y=Dim.2,group=class,
+                              colour=class,
+                              fill=class),alpha=0.2,
+                          show.legend=FALSE)</code></pre>
+<hr />
+<pre><code>print(f2)</code></pre>
+<p><img src="dim.lect_files/figure-markdown_strict/print_wineplot2-1.png" /></p>
+<h2 id="different-projection-methods">different projection methods</h2>
+<ul>
+<li>Principal coordinates (PCoA: start from a <em>distance matrix</em>)
+<ul>
+<li>e.g. species diversity</li>
+<li>text samples</li>
+<li>PCoA + Euclidean distance = PCA</li>
+</ul></li>
+<li>non-metric multidimensional scaling (NMDS)</li>
+<li>non-negative matrix factorization</li>
+<li>… ???</li>
+<li>PCA <a href="http://www.sthda.com/english/articles/31-principal-component-methods-in-r-practical-guide/118-principal-component-analysis-in-r-prcomp-vs-princomp/">example</a></li>
+</ul>
+<h2 id="challenges">challenges</h2>
+<ul>
+<li>categorical/compositional data</li>
+<li>random forest viz?</li>
+</ul>
+<h2 id="references">references</h2>
+<p>Buja, Andreas, Dianne Cook, and Deborah F. Swayne. 1996. “Interactive High-Dimensional Data Visualization.” <em>Journal of Computational and Graphical Statistics</em> 5 (1): 78–99. <a href="https://doi.org/10.2307/1390754" class="uri">https://doi.org/10.2307/1390754</a>.</p>
+<p>Holmes, Susan, and Wolfgang Huber. 2019. <em>Modern Statistics for Modern Biology</em>. 1 edition. Cambridge: Cambridge University Press.</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
