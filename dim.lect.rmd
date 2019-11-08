@@ -8,6 +8,8 @@ title: "high-dimensional examples"
 library(factoextra)
 library(pheatmap)
 library(tidyverse)
+library(directlabels)
+library(GGally)
 theme_set(theme_bw())
 ```
 
@@ -175,20 +177,14 @@ The biplot is hard (but we can help you if you want to do it)
 
 
 ## Parallel co-ordinates
-```{r GGally}
-library(GGally)
-```
-
-------------
 
 ```{r parcor}
-ggparcoord(dec_frame)
+GGally::ggparcoord(dec_frame)
 ```
 
 ## Dual view
 
-```{r athframe}
-library(directlabels)
+```{r parcorath}
 ath_frame <- (
 	as.data.frame(t(as.matrix(dec_frame)))
 	%>% mutate(event=names(dec_frame))
@@ -214,7 +210,7 @@ library(andrews)
 ## andrews::numarray() **does not like tibbles**
 andrews(as.data.frame(dec_frame))
 ```
-----------------------
+## dual Andrews plot
 
 ```{r andrews_ath}
 andrews(ath_frame)
