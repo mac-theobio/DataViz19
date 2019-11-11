@@ -9,6 +9,16 @@ Your project should consist roughly of a brief description of the data set, and 
 
 You should have a two-part writeup: the main text will be just the text necessary to support the story that you're trying to tell, and there should be a methods part explaining briefly some of the visualization choices that you made, and if necessary briefly explaining decisions or cleanup things you had to do about the data.
 
+## Week of 11 November
+
+Please submit a brief (0.6-2 pages) prospectus outlining what data you will use and some ideas about the story you wish to tell.
+
+You should post this on a github repo. This can either be a directory in an existing repo, or a new repo to which one of you invites both of us (bbolker, dushoff) and your group members.
+
+If you prefer, you can submit the prospectus on Monday instead of Friday.
+
+Please also read sections 21-25 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
+
 ## week 7
 
 Build on one of your existing plots (or make a new plot) and add an interactive and/or spatial component. Discuss the principles of why the added component is useful, and what you did to make it clear.  Bear [the rubric](rubric.html) in mind.

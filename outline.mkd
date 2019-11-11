@@ -30,6 +30,11 @@ In an attempt to make participation marks more objective, part of this component
 
 You can gain your first participation mark by sending an e-mail to the instructors with the subject line "stat 744: <your_macid> read the outline". For example, my subject line would be "stat 744: bolkerb read the outline".
 
+### homework grades
+
+We mark homeworks informally on a scale of 0-3. 
+
+The grade correspondence is approximately: 1.8-2 = B+, 2-2.2 = A-, 2.2-2.4 = A, 2.4-3 = A+.
 
 ## Course objective and content
 
