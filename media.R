@@ -6,11 +6,4 @@ ltmp <- read.csv("sunbelt/Dataset1-Media-Example-EDGES.csv", header=TRUE, as.is=
 
 medialinks <- graph_from_data_frame(d=ltmp, vertices=ntmp, directed=TRUE) 
 
-plot(medialinks)
-plot(medialinks, edge.arrow.size=.4)
-plot(medialinks, edge.arrow.size=.4, layout=layout_randomly)
-plot(medialinks, edge.arrow.size=.4, layout=layout_with_kk)
-plot(medialinks, edge.arrow.size=.4, layout=layout_with_fr)
-plot(medialinks, edge.arrow.size=.4,vertex.label=NA, layout=layout_with_fr)
-
 ## rdsave(medialinks)
