@@ -1,0 +1,182 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>Network visualization</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">Network visualization</h1>
+</div>
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+<!-- .refs is style for reference page (small text) -->
+<style>
+.refs {
+   font-size: 16px;
+}
+h2 { 
+ color: #3399ff;        
+}
+h3 { 
+ color: #3399ff;        
+}
+.title-slide {
+   background-color: #55bbff;
+}
+</style>
+<!--    content: url(https://i.creativecommons.org/l/by-sa/4.0/88x31.png)
+>
+<!-- Limit image width and height -->
+<style type="text/css">
+img {     
+  max-height: 560px;     
+  max-width: 800px; 
+}
+</style>
+<h1 id="overview">Overview</h1>
+<h2 id="what-is-a-network">What is a network?</h2>
+<p>A visualization centered on pairwise interactions:</p>
+<ul>
+<li>A flight network</li>
+<li>A network of cooperative interactions between dolphins</li>
+<li>A network of aggressive interactions between chimpanzees</li>
+<li>A network of proteins and biochemical pathways</li>
+</ul>
+<p>Interactors are generally indicated by <em>nodes</em>, and interactions by <em>edges</em></p>
+<h2 id="how-are-these-interactions-characterized">How are these interactions characterized?</h2>
+<ul>
+<li><em>Weighted</em> networks have different importance to the edges</li>
+<li>In <em>directional</em> networks, edges have direction</li>
+<li>In <em>multipartite</em> networks, nodes are divided into two types that interact only with each other
+<ul>
+<li>almost always bipartite</li>
+</ul></li>
+<li><em>Multimodal</em> networks show different <em>types</em> of links</li>
+</ul>
+<h2 id="what-are-we-trying-to-show">What are we trying to show?</h2>
+<ul>
+<li>Relationships between particular nodes</li>
+<li>Patterns of clustering</li>
+<li>Paths and distances (six degrees of separation)</li>
+<li>Relationship between network structure and</li>
+</ul>
+<h1 id="aesthetics">Aesthetics</h1>
+<h2 id="position">Position</h2>
+<ul>
+<li>May reflect the network structure
+<ul>
+<li>Usually by using force-directed algorithms</li>
+<li>Balance desired qualities by simulating a physical system</li>
+<li>Good layout is a hard problem</li>
+</ul></li>
+<li>Or something else about the data
+<ul>
+<li>most often physical location</li>
+</ul></li>
+</ul>
+<h2 id="other-node-aesthetics">Other node aesthetics</h2>
+<ul>
+<li>Size can be used for importance (should have a scaleable, physical interpretation)
+<ul>
+<li>Can be good for things about role in the network (e.g. betweenness, centrality)</li>
+</ul></li>
+<li>Color can be used for quantitative or qualitative attributes
+<ul>
+<li>Choose a color scale that reflects this role</li>
+</ul></li>
+<li>Shape can be used for qualitative attributes
+<ul>
+<li>It is possible to be creative about shape; e.g., use png icons</li>
+</ul></li>
+</ul>
+<h2 id="edge-aesthetics">Edge aesthetics</h2>
+<p>Strongly constrained; they’re basically lines, and the nodes are drawn first</p>
+<ul>
+<li><p>Use width to indicate edge “weight” (nothing else)</p></li>
+<li><p>Use color to indicate edge type for a multi-modal graph</p></li>
+<li><p>Use arrows to indicate direction on a directional graph</p></li>
+<li><p>Curvature can be aesthetic (rarely) or can be used to get multi-modal edges out of each others’ way</p></li>
+</ul>
+<h1 id="principles">Principles</h1>
+<h2 id="preserve-information">Preserve information</h2>
+<ul>
+<li>Don’t drop weights without a good reason
+<ul>
+<li>it may be OK to scale weights for aesthetic reasons</li>
+</ul></li>
+<li>Similarly for dropping specific edges</li>
+</ul>
+<h2 id="size-matters">Size matters</h2>
+<ul>
+<li>Level of detail and messages will change a lot depending on how many nodes you have
+<ul>
+<li>Very big networks may show <em>only</em> the pattern of node clustering</li>
+</ul></li>
+<li>If you have many nodes, but only a few important ones, it may be possible to follow the above edge principles
+<ul>
+<li>Rescale node size to improve visualization</li>
+</ul></li>
+<li>Communicate clearly about rescaling</li>
+</ul>
+<h1 id="resources">Resources</h1>
+<h2 id="packages">Packages</h2>
+<ul>
+<li>igraph and ggraph</li>
+<li>graphlayouts</li>
+<li>networks (does not play nicely with others)</li>
+<li>tidygraph</li>
+</ul>
+<h2 id="sites">Sites</h2>
+<ul>
+<li><a href="https://kateto.net/network-visualization" class="uri">https://kateto.net/network-visualization</a></li>
+<li>FlowingData examples: <a href="https://flowingdata.com/category/visualization/network-visualization/" class="uri">https://flowingdata.com/category/visualization/network-visualization/</a></li>
+</ul>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
