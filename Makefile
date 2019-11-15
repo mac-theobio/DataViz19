@@ -82,6 +82,15 @@ dolphins.Rout: dolphins.gml dolphins.R
 Sources += celegansneural.gml celegansneural.txt
 elegans.Rout: celegansneural.gml elegans.R
 
+## Sunbelt examples https://kateto.net/network-visualization
+
+Makefile: sunbelt
+sunbelt: dir = ~/Dropbox
+sunbelt:
+	$(linkdir)
+
+media.Rout: media.R
+
 ######################################################################
 
 ## JD dumb mark-up content
