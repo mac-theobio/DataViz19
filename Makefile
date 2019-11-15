@@ -38,7 +38,7 @@ vim_session:
 ## Appearance
 Sources += main.header.html main.footer.html $(wildcard styles/*.css)
 Ignore += main.css
-main.css: styles/pandoc.css Makefile
+main.css: styles/pandoc.css
 	$(copy)
 
 ## Content
