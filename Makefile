@@ -59,7 +59,7 @@ Sources += $(wildcard *.bib)
 Sources += $(wildcard *.csv)
 
 ## Manual dependencies 
-index.rwm: sched.csv vis.bib
+index.rmk: sched.csv vis.bib
 
 ## pages/dim.io.html: dim.lect.rmd
 nmds.Rout: nmds.R
