@@ -83,13 +83,14 @@ Sources += celegansneural.gml celegansneural.txt
 elegans.Rout: celegansneural.gml elegans.R
 
 ## Sunbelt examples https://kateto.net/network-visualization
-
+Ignore += sunbelt
 Makefile: sunbelt
 sunbelt: dir = ~/Dropbox
 sunbelt:
 	$(linkdir)
 
 media.Rout: media.R
+ggmedia.Rout: media.Rout ggmedia.R
 
 ######################################################################
 
