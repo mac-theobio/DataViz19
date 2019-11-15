@@ -76,6 +76,12 @@ bananas.Rout: bananas.R
 healthcare.Rout: healthcare.R
 pred.Rout: pred.R
 
+Sources += dolphins.gml dolphins.txt
+dolphins.Rout: dolphins.gml dolphins.R
+
+Sources += celegansneural.gml celegansneural.txt
+elegans.Rout: celegansneural.gml elegans.R
+
 ######################################################################
 
 ## JD dumb mark-up content
