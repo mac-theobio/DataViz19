@@ -49,6 +49,9 @@ main.css: styles/pandoc.css
 ## pages/interactive.lect.html: interactive.lect.rmd
 ## pages/interactive.io.html: interactive.lect.rmd
 
+## pages/network.lect.html: network.lect.rmd
+## pages/network.io.html: network.lect.rmd
+
 houston_leaflet.html: pages/spatial_ex.html ;
 pageProductsLocal += houston_leaflet.html
 
