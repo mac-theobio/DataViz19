@@ -90,6 +90,7 @@ sunbelt:
 	$(linkdir)
 
 media.Rout: media.R
+imedia.Rout: media.Rout imedia.R
 ggmedia.Rout: media.Rout ggmedia.R
 
 ######################################################################

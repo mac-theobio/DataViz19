@@ -57,7 +57,7 @@ Interactors are generally indicated by _nodes_, and interactions by _edges_
 * Relationships between particular nodes
 * Patterns of clustering
 * Paths and distances (six degrees of separation)
-* Relationship between network structure and 
+* Relationship between network structure and other variables
 
 # Aesthetics
 
@@ -127,3 +127,8 @@ Strongly constrained; they're basically lines, and the nodes are drawn first
 * https://kateto.net/network-visualization
 * FlowingData examples: https://flowingdata.com/category/visualization/network-visualization/
 
+## Examples
+
+* [Locate and read media data](https://github.com/mac-theobio/DataViz/blob/master/media.R)
+* [Simple plots](https://github.com/mac-theobio/DataViz/blob/master/imedia.R)
+* [ggplots](https://github.com/mac-theobio/DataViz/blob/master/ggmedia.R)
