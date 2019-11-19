@@ -30,7 +30,7 @@ library(cowplot)
 dd <- data.frame(x=1:9)
 ggplot(dd,aes(x=x,y=1,alpha=x))+
   geom_point(size=10,colour="red")+
-  coord_fixed(ratio=5)
+  coord_fixed(ratio=5)+theme_void()
 ```
 
 
@@ -40,7 +40,7 @@ ggplot(dd,aes(x=x,y=1,alpha=x))+
 ggplot(dd,aes(x=x,y=1))+
   geom_point(size=10,aes(colour=x))+
   scale_colour_gradient(low="lightgray",high="red")+
-  coord_fixed(ratio=5)
+  coord_fixed(ratio=5)+theme_void()
 ```
 
 ## saturation
@@ -109,6 +109,7 @@ Why stick to the outside of the colour space?
 
 * most common: [deuteranomaly](https://en.wikipedia.org/wiki/Color_blindness#Protanopia), $\approx$ 5% of males
 * red-green axis is collapsed in various ways
+* trivia: "Daltonism" (after [John Dalton](https://en.wikipedia.org/wiki/John_Dalton))
 
 ## viridis vs. cividis
 
@@ -116,14 +117,46 @@ Why stick to the outside of the colour space?
 gg0 <- ggplot(dd,aes(x=x,y=1,colour=x)) +
   geom_point(size=10)+
   coord_fixed(ratio=5)+
+  theme_void()+
   theme(legend.position="none")
-plot_grid(gg0 +scale_colour_viridis(),
-            gg0 + scale_colour_cividis(),
+plot_grid(gg0 +scale_colour_viridis() +ggtitle("viridis"),
+            gg0 + scale_colour_cividis() + ggtitle("cividis"),
           align="h",
           ncol=1)
 ```
 
 ## illustrate dichromat package
+
+<!-- https://stackoverflow.com/questions/28011258/graphics-on-next-slide-with-ioslides-using-rstudios-rmd -->
+
+```{r dichrom, eval=FALSE}
+par(mfrow=c(2,2))
+p <- brewer.pal("Set1",n=6)
+pie(rep(1,6), col=p)
+pie(rep(1,6), col = dichromat(p))
+p2 <- brewer.pal("Dark2",n=6)
+pie(rep(1,6), col=p2)
+pie(rep(1,6), col = dichromat(p2))
+```
+
+---
+
+```{r dichrom2, echo=FALSE}
+par(mfrow=c(2,2))
+p <- brewer.pal("Set1",n=6)
+pie(rep(1,6), col=p)
+pie(rep(1,6), col = dichromat(p))
+p2 <- brewer.pal("Dark2",n=6)
+pie(rep(1,6), col=p2)
+pie(rep(1,6), col = dichromat(p2))
+```
+
+## online
+
+upload an image or point to a URL
+
+* https://www.toptal.com/designers/colorfilter/
+* http://www.color-blindness.com/coblis-color-blindness-simulator/
 
 ## contrast illusions
 
@@ -138,5 +171,20 @@ Colour appearance depends on neighbours
 ![](pix/library_small.jpg){width=75%}
 
 ## cultural expectations
+
+* red-yellow-green is still used a lot ...
+* political parties
+* "topographic" colours
+
+---
+
+```{r topo}
+ggplot(dd,aes(x=x,y=1,colour=factor(x))) +
+  geom_point(size=10)+
+  coord_fixed(ratio=5)+
+  theme(legend.position="none")+
+  scale_colour_manual(values=topo.colors(9))
+```
+
 
 ## references
