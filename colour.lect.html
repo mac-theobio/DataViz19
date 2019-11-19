@@ -1,0 +1,127 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <meta http-equiv="Content-Style-Type" content="text/css" />
+  <meta name="generator" content="pandoc" />
+  <title>colour</title>
+  <style type="text/css">
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      span.underline{text-decoration: underline;}
+      div.column{display: inline-block; vertical-align: top; width: 50%;}
+  </style>
+  <link rel="stylesheet" href="main.css" type="text/css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-AMS_CHTML-full" type="text/javascript"></script>
+</head>
+<body>
+<header class="site-header">
+<div class="wrapper">
+	<h1 class="title">
+		<a href="index.html">Biology 744, McMaster University</a>
+	</h1>
+	<div style="text-align:center">
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+	</div>
+</div>
+</header>
+<div id="header">
+<h1 class="title">colour</h1>
+</div>
+<h2 id="packages">packages</h2>
+<pre><code>library(ggplot2)
+library(dichromat)
+## palettes etc.
+library(viridis)
+library(cividis)
+library(colorspace)
+library(RColorBrewer)
+library(cowplot)</code></pre>
+<h2 id="use-of-colour">use of colour</h2>
+<ul>
+<li>qualitative (factors): want <em>distinctive</em> colours
+<ul>
+<li>probably can’t get more than about 8 really distinctive colours</li>
+</ul></li>
+<li>qualitative (continuous values)
+<ul>
+<li>sequential or diverging</li>
+<li>sequential scales should begin at the background colour</li>
+</ul></li>
+</ul>
+<h2 id="fade-via-transparency-gradient">fade via transparency gradient</h2>
+<pre><code>dd &lt;- data.frame(x=1:9)
+ggplot(dd,aes(x=x,y=1,alpha=x))+
+  geom_point(size=10,colour=&quot;red&quot;)+
+  coord_fixed(ratio=5)</code></pre>
+<p><img src="colour.lect_files/figure-markdown_strict/unnamed-chunk-1-1.png" /></p>
+<h2 id="fade-via-colour-gradient">fade via colour gradient</h2>
+<pre><code>ggplot(dd,aes(x=x,y=1))+
+  geom_point(size=10,aes(colour=x))+
+  scale_colour_gradient(low=&quot;lightgray&quot;,high=&quot;red&quot;)+
+  coord_fixed(ratio=5)</code></pre>
+<p><img src="colour.lect_files/figure-markdown_strict/unnamed-chunk-2-1.png" /></p>
+<h2 id="saturation">saturation</h2>
+<ul>
+<li>want large blocks of colour to be <em>unsaturated</em>/light</li>
+<li>small areas usually need to be saturated/darker</li>
+</ul>
+<h2 id="display.brewer.all"><code>display.brewer.all()</code></h2>
+<p><img src="colour.lect_files/figure-markdown_strict/brewer_all-1.png" /></p>
+<h2 id="colour-spaces">colour spaces</h2>
+<ul>
+<li>want <em>perceptually uniform</em> spaces (Zeileis, Hornik, and Murrell 2009)</li>
+<li>RGB: additive, pixel-based</li>
+<li>HSV (hue, saturation, value): <em>unbalanced</em></li>
+<li>HCL (hue, chroma, luminance): <em>balanced</em> (Zeileis et al. 2019)</li>
+</ul>
+<h2 id="zeileis-hornik-and-murrell-2009-fig-1">Zeileis, Hornik, and Murrell (2009) Fig 1</h2>
+<p>Old Faithful data (duration vs waiting time)</p>
+<p><img src="pix/escape1.jpg" height="400" /></p>
+<h2 id="zeileis-hornik-and-murrell-2009-fig-3">Zeileis, Hornik, and Murrell (2009) Fig 3</h2>
+<p><img src="pix/escape3.jpg" style="width:100.0%" /></p>
+<h2 id="zeileis-et-al.-2019-fig-7">Zeileis et al. (2019) Fig 7</h2>
+<p><img src="pix/colorspace7.png" style="width:100.0%" /></p>
+<h2 id="zeileis-hornik-and-murrell-2009-fig-4">Zeileis, Hornik, and Murrell (2009) Fig 4</h2>
+<p><img src="pix/escape4.jpg" /></p>
+<h2 id="zeileis-hornik-and-murrell-2009-fig-7">Zeileis, Hornik, and Murrell (2009) Fig 7</h2>
+<p><img src="pix/escape7.jpg" /></p>
+<h2 id="colorspace-demos">colorspace demos</h2>
+<pre><code>png(&quot;pix/colordemo.png&quot;)
+par(mfrow = c(3, 3))
+cl &lt;- sequential_hcl(5, &quot;Heat&quot;)
+for (i in c(&quot;map&quot;, &quot;heatmap&quot;, &quot;scatter&quot;, &quot;spine&quot;, &quot;bar&quot;, &quot;pie&quot;, &quot;perspective&quot;, &quot;mosaic&quot;, &quot;lines&quot;)) {
+  demoplot(cl, type = i)
+}
+dev.off()
+
+## png 
+##   2</code></pre>
+<p><img src="pix/colordemo.png" /></p>
+<h2 id="i-want-hue">I Want Hue</h2>
+<p>Why stick to the outside of the colour space?</p>
+<p><a href="https://medialab.github.io/iwanthue/">demo</a></p>
+<h2 id="colourblind-friendliness">colourblind-friendliness</h2>
+<ul>
+<li>most common: <a href="https://en.wikipedia.org/wiki/Color_blindness#Protanopia">deuteranomaly</a>, ≈ 5% of males</li>
+<li>red-green axis is collapsed in various ways</li>
+</ul>
+<h2 id="viridis-vs.-cividis">viridis vs. cividis</h2>
+<p><img src="colour.lect_files/figure-markdown_strict/viridis-1.png" /></p>
+<h2 id="illustrate-dichromat-package">illustrate dichromat package</h2>
+<h2 id="contrast-illusions">contrast illusions</h2>
+<p>Colour appearance depends on neighbours</p>
+<p><img src="pix/checker_shadow.png" /></p>
+<p>(<a href="https://en.wikipedia.org/wiki/Optical_illusion">Wikipedia</a>)</p>
+<p><img src="library_small.jpg" style="width:75.0%" /></p>
+<h2 id="cultural-expectations">cultural expectations</h2>
+<h2 id="references">references</h2>
+<p>Zeileis, Achim, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, and Claus O. Wilke. 2019. “Colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.” <em>arXiv:1903.06490 <span class="math display">\[Cs, Stat\]</span></em>, March. <a href="http://arxiv.org/abs/1903.06490" class="uri">http://arxiv.org/abs/1903.06490</a>.</p>
+<p>Zeileis, Achim, Kurt Hornik, and Paul Murrell. 2009. “Escaping RGBland: Selecting Colors for Statistical Graphics.” <em>Computational Statistics &amp; Data Analysis</em> 53 (9): 3259–70. <a href="https://doi.org/10.1016/j.csda.2008.11.033" class="uri">https://doi.org/10.1016/j.csda.2008.11.033</a>.</p>
+<div id="footer">
+	<div style="text-align:center">
+		<a href="index.html">Course home page</a>
+	</div>
+</div>
+</body>
+</html>
