@@ -26,7 +26,7 @@ library(cowplot)
 
 ## fade via transparency gradient
 
-```{r}
+```{r fade1}
 dd <- data.frame(x=1:9)
 ggplot(dd,aes(x=x,y=1,alpha=x))+
   geom_point(size=10,colour="red")+
@@ -36,7 +36,7 @@ ggplot(dd,aes(x=x,y=1,alpha=x))+
 
 ## fade via colour gradient
 
-```{r}
+```{r fade2}
 ggplot(dd,aes(x=x,y=1))+
   geom_point(size=10,aes(colour=x))+
   scale_colour_gradient(low="lightgray",high="red")+
@@ -89,7 +89,8 @@ Old Faithful data (duration vs waiting time)
 png("pix/colordemo.png")
 par(mfrow = c(3, 3))
 cl <- sequential_hcl(5, "Heat")
-for (i in c("map", "heatmap", "scatter", "spine", "bar", "pie", "perspective", "mosaic", "lines")) {
+for (i in c("map", "heatmap", "scatter", "spine",
+            "bar", "pie", "perspective", "mosaic", "lines")) {
   demoplot(cl, type = i)
 }
 dev.off()
@@ -134,7 +135,7 @@ Colour appearance depends on neighbours
 
 ##
 
-![](library_small.jpg){width=75%}
+![](pix/library_small.jpg){width=75%}
 
 ## cultural expectations
 
