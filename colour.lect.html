@@ -112,12 +112,13 @@ dev.off()
 <p><img src="colour.lect_files/figure-markdown_strict/viridis-1.png" /></p>
 <h2 id="illustrate-dichromat-package">illustrate dichromat package</h2>
 <!-- https://stackoverflow.com/questions/28011258/graphics-on-next-slide-with-ioslides-using-rstudios-rmd -->
-<pre><code>par(mfrow=c(2,2))
+<!-- hack -->
+<pre><code>par(mfrow=c(2,2),mar=c(1,1,1,1))
 p &lt;- brewer.pal(&quot;Set1&quot;,n=6)
-pie(rep(1,6), col=p)
+pie(rep(1,6), col=p,main=&quot;ColourBrewer Set1&quot;)
 pie(rep(1,6), col = dichromat(p))
 p2 &lt;- brewer.pal(&quot;Dark2&quot;,n=6)
-pie(rep(1,6), col=p2)
+pie(rep(1,6), col=p2, main=&quot;ColourBrewer Dark2&quot;)
 pie(rep(1,6), col = dichromat(p2))</code></pre>
 <hr />
 <p><img src="colour.lect_files/figure-markdown_strict/dichrom2-1.png" /></p>
