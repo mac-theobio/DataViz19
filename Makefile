@@ -84,10 +84,10 @@ elegans.Rout: celegansneural.gml elegans.R
 
 ## Sunbelt examples https://kateto.net/network-visualization
 Ignore += sunbelt
-Makefile: sunbelt
-sunbelt: dir = ~/Dropbox
-sunbelt:
-	$(linkdir)
+## Makefile: sunbelt
+## sunbelt: dir = ~/Dropbox
+## sunbelt:
+## 	$(linkdir)
 
 media.Rout: media.R
 imedia.Rout: media.Rout imedia.R
