@@ -54,13 +54,13 @@ library(cowplot)</code></pre>
 ggplot(dd,aes(x=x,y=1,alpha=x))+
   geom_point(size=10,colour=&quot;red&quot;)+
   coord_fixed(ratio=5)</code></pre>
-<p><img src="colour.lect_files/figure-markdown_strict/unnamed-chunk-1-1.png" /></p>
+<p><img src="colour.lect_files/figure-markdown_strict/fade1-1.png" /></p>
 <h2 id="fade-via-colour-gradient">fade via colour gradient</h2>
 <pre><code>ggplot(dd,aes(x=x,y=1))+
   geom_point(size=10,aes(colour=x))+
   scale_colour_gradient(low=&quot;lightgray&quot;,high=&quot;red&quot;)+
   coord_fixed(ratio=5)</code></pre>
-<p><img src="colour.lect_files/figure-markdown_strict/unnamed-chunk-2-1.png" /></p>
+<p><img src="colour.lect_files/figure-markdown_strict/fade2-1.png" /></p>
 <h2 id="saturation">saturation</h2>
 <ul>
 <li>want large blocks of colour to be <em>unsaturated</em>/light</li>
