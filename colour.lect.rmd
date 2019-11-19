@@ -197,6 +197,7 @@ Colour appearance depends on neighbours
   + theme(legend.position="none")
   +   scale_colour_manual(values=topo.colors(9))
   + theme_void()
+  + theme(legend.position="none")
 )
 ```
 
