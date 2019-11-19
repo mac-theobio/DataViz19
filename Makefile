@@ -43,8 +43,8 @@ main.css: styles/pandoc.css
 
 ## Content
 
-## pages/intro.lect.html: intro.lect.rmd
-## pages/intro.io.html: intro.lect.rmd
+## pages/colour.lect.html: colour.lect.rmd
+## pages/colour.io.html: colour.lect.rmd
 
 ## pages/interactive.lect.html: interactive.lect.rmd
 ## pages/interactive.io.html: interactive.lect.rmd
