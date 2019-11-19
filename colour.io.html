@@ -3202,7 +3202,8 @@ ggplot(dd,aes(x=x,y=1,alpha=x))+
 <pre class = 'prettyprint lang-r'>png(&quot;pix/colordemo.png&quot;)
 par(mfrow = c(3, 3))
 cl &lt;- sequential_hcl(5, &quot;Heat&quot;)
-for (i in c(&quot;map&quot;, &quot;heatmap&quot;, &quot;scatter&quot;, &quot;spine&quot;, &quot;bar&quot;, &quot;pie&quot;, &quot;perspective&quot;, &quot;mosaic&quot;, &quot;lines&quot;)) {
+for (i in c(&quot;map&quot;, &quot;heatmap&quot;, &quot;scatter&quot;, &quot;spine&quot;,
+            &quot;bar&quot;, &quot;pie&quot;, &quot;perspective&quot;, &quot;mosaic&quot;, &quot;lines&quot;)) {
   demoplot(cl, type = i)
 }
 dev.off()</pre>
@@ -3247,9 +3248,9 @@ dev.off()</pre>
 
 </article></slide><slide class=""><hgroup><h2>cultural expectations</h2></hgroup><article  id="cultural-expectations">
 
-</article></slide><slide class=""><hgroup><h2>references</h2></hgroup><article  id="references" class="unnumbered">
+</article></slide><slide class=""><hgroup><h2>references</h2></hgroup><article  class="unnumbered" id="references">
 
-<div id="refs" class="references">
+<div class="references" id="refs">
 <div id="ref-zeileis_colorspace_2019">
 <p>Zeileis, Achim, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, and Claus O. Wilke. 2019. “Colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.” <em>arXiv:1903.06490 [Cs, Stat]</em>, March. <a href='http://arxiv.org/abs/1903.06490' title=''>http://arxiv.org/abs/1903.06490</a>.</p></div>
 

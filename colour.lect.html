@@ -90,7 +90,8 @@ ggplot(dd,aes(x=x,y=1,alpha=x))+
 <pre><code>png(&quot;pix/colordemo.png&quot;)
 par(mfrow = c(3, 3))
 cl &lt;- sequential_hcl(5, &quot;Heat&quot;)
-for (i in c(&quot;map&quot;, &quot;heatmap&quot;, &quot;scatter&quot;, &quot;spine&quot;, &quot;bar&quot;, &quot;pie&quot;, &quot;perspective&quot;, &quot;mosaic&quot;, &quot;lines&quot;)) {
+for (i in c(&quot;map&quot;, &quot;heatmap&quot;, &quot;scatter&quot;, &quot;spine&quot;,
+            &quot;bar&quot;, &quot;pie&quot;, &quot;perspective&quot;, &quot;mosaic&quot;, &quot;lines&quot;)) {
   demoplot(cl, type = i)
 }
 dev.off()
