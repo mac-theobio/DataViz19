@@ -82,7 +82,7 @@ ggplot(dd,aes(x=x,y=1,alpha=x))+
 <p><img src="pix/escape3.jpg" style="width:100.0%" /></p>
 <h2 id="zeileis-et-al.-2019-fig-7">Zeileis et al. (2019) Fig 7</h2>
 <p><img src="pix/colorspace7.png" style="width:100.0%" /></p>
-<h2 id="cielab-space">CIELAB space )</h2>
+<h2 id="cielab-space">CIELAB space</h2>
 <p><img src="pix/CIELAB_color_space_top_view.png" style="height:80.0%" /></p>
 <p>By Holger kkk Everding - Own work, CC BY-SA 4.0, <a href="https://commons.wikimedia.org/w/index.php?curid=38366968" class="uri">https://commons.wikimedia.org/w/index.php?curid=38366968</a></p>
 <h2 id="zeileis-hornik-and-murrell-2009-fig-4">Zeileis, Hornik, and Murrell (2009) Fig 4</h2>
@@ -135,6 +135,10 @@ pie(rep(1,6), col = dichromat(p2))</code></pre>
 <p>Colour appearance depends on neighbours</p>
 <p><img src="pix/checker_shadow.png" /></p>
 <p>(<a href="https://en.wikipedia.org/wiki/Optical_illusion">Wikipedia</a>)</p>
+<ul>
+<li>think about backgrounds!</li>
+<li>another reason to distrust heatmaps</li>
+</ul>
 <p><img src="pix/library_small.jpg" style="width:75.0%" /></p>
 <h2 id="cultural-expectations">cultural expectations</h2>
 <ul>
@@ -143,11 +147,13 @@ pie(rep(1,6), col = dichromat(p2))</code></pre>
 <li>“topographic” colours</li>
 </ul>
 <hr />
-<pre><code>ggplot(dd,aes(x=x,y=1,colour=factor(x))) +
-  geom_point(size=10)+
-  coord_fixed(ratio=5)+
-  theme(legend.position=&quot;none&quot;)+
-  scale_colour_manual(values=topo.colors(9))</code></pre>
+<pre><code>(ggplot(dd,aes(x=x,y=1,colour=factor(x)))
+  + geom_point(size=10)
+  +  coord_fixed(ratio=5)
+  + theme(legend.position=&quot;none&quot;)
+  +   scale_colour_manual(values=topo.colors(9))
+  + theme_void()
+)</code></pre>
 <p><img src="colour.lect_files/figure-markdown_strict/topo-1.png" /></p>
 <h2 id="references">references</h2>
 <p>Zeileis, Achim, Jason C. Fisher, Kurt Hornik, Ross Ihaka, Claire D. McWhite, Paul Murrell, Reto Stauffer, and Claus O. Wilke. 2019. “Colorspace: A Toolbox for Manipulating and Assessing Colors and Palettes.” <em>arXiv:1903.06490 <span class="math display">\[Cs, Stat\]</span></em>, March. <a href="http://arxiv.org/abs/1903.06490" class="uri">http://arxiv.org/abs/1903.06490</a>.</p>
