@@ -177,10 +177,14 @@ Sources += bike_weather.csv
 
 bike_plots.Rout: bikes.Rout bike_plots.R
 
-## Smoking data from http://biostat.mc.vanderbilt.edu/wiki/Main/DataSets
+## Smoking data from http://biostat.mc.vanderbilt.edu/
 ## fev is in L/s, apparently
-fev.csv: 
+Sources += $(wildcard archive/*.*)
+archive/fev.csv: 
 	wget -O $@ "http://biostat.mc.vanderbilt.edu/wiki/pub/Main/DataSets/FEV.csv"
+
+fev.csv: archive/fev.csv
+	$(link)
 
 smoke.Rout: fev.csv smoke.R
 
