@@ -43,8 +43,8 @@ main.css: styles/pandoc.css
 
 ## Content
 
-## pages/intro.lect.html: intro.lect.rmd
-## pages/intro.io.html: intro.lect.rmd
+## pages/colour.lect.html: colour.lect.rmd
+## pages/colour.io.html: colour.lect.rmd
 
 ## pages/interactive.lect.html: interactive.lect.rmd
 ## pages/interactive.io.html: interactive.lect.rmd
@@ -84,10 +84,10 @@ elegans.Rout: celegansneural.gml elegans.R
 
 ## Sunbelt examples https://kateto.net/network-visualization
 Ignore += sunbelt
-Makefile: sunbelt
-sunbelt: dir = ~/Dropbox
-sunbelt:
-	$(linkdir)
+## Makefile: sunbelt
+## sunbelt: dir = ~/Dropbox
+## sunbelt:
+## 	$(linkdir)
 
 media.Rout: media.R
 imedia.Rout: media.Rout imedia.R
