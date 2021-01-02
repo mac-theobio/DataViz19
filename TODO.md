@@ -4,3 +4,4 @@
 https://www.williamrchase.com/slides/assets/player/KeynoteDHTMLPlayer.html#0
 
 https://github.com/zumbov2/votemapswitzerland
+https://eos.org/features/visualizing-science-how-color-determines-what-we-see
