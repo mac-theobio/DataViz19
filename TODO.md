@@ -5,3 +5,6 @@ https://www.williamrchase.com/slides/assets/player/KeynoteDHTMLPlayer.html#0
 
 https://github.com/zumbov2/votemapswitzerland
 https://eos.org/features/visualizing-science-how-color-determines-what-we-see
+
+
+Padilla, Lace M. K., Maia Powell, Matthew Kay, and Jessica Hullman. “Uncertain About Uncertainty: How Qualitative Expressions of Forecaster Confidence Impact Decision-Making With Uncertainty Visualizations.” Frontiers in Psychology 11 (2021). https://doi.org/10.3389/fpsyg.2020.579267.
