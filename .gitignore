@@ -1,0 +1,4 @@
+*.mk
+makestuff/
+pages/
+gh-pages/
