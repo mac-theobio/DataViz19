@@ -1,5 +1,7 @@
 (This should be in the private repo, but I'm lazy)
 
+'hues' packages (R implementation of IWantHue) now exists on CRAN
+
 https://micahallen.org/2018/03/15/introducing-raincloud-plots/
 
 * Some fun slides here (not sure where they should be included: under GG intro? Just "extras"?  
