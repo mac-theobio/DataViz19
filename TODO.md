@@ -1,5 +1,7 @@
 (This should be in the private repo, but I'm lazy)
 
+letter value boxplots: https://cran.r-project.org/web/packages/lvplot/lvplot.pdf
+
 'hues' packages (R implementation of IWantHue) now exists on CRAN
 
 https://micahallen.org/2018/03/15/introducing-raincloud-plots/
