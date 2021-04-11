@@ -1,5 +1,11 @@
 (This should be in the private repo, but I'm lazy)
 
+
+ggpattern
+
+history: WEB Dubois (Mansky, Jackie. “W.E.B. Du Bois’ Visionary Infographics Come Together for the First Time in Full Color.” Smithsonian Magazine, November 15, 2018. https://www.smithsonianmag.com/history/first-time-together-and-color-book-displays-web-du-bois-visionary-infographics-180970826/.)
+
+
 letter value boxplots: https://cran.r-project.org/web/packages/lvplot/lvplot.pdf
 
 'hues' packages (R implementation of IWantHue) now exists on CRAN
