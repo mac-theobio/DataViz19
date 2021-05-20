@@ -25,6 +25,10 @@ af <- (ggplot(smoke, aes(x=age, y=fev))
 ggplotly(af)
 ```
 
+<!-- FIXME: there is something about the pipeline here that
+	seems to hang when running via 'make'; OK with a manual
+    rmarkdown::render("interactive_smoke.rmd") -->
+	
 ```{r fever_both}
 ggplotly(af + aes(color=sex))
 ```
