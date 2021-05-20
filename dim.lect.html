@@ -6,10 +6,12 @@
   <meta name="generator" content="pandoc" />
   <title>high-dimensional examples</title>
   <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
@@ -17,13 +19,14 @@
 <header class="site-header">
 <div class="wrapper">
 	<h1 class="title">
-		<a href="index.html">Biology 744, McMaster University</a>
+		<a href="index.html">Statistics 744, McMaster University</a>
 	</h1>
 	<div style="text-align:center">
 		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
 	</div>
 </div>
 </header>
+
 <div id="header">
 <h1 class="title">high-dimensional examples</h1>
 </div>
@@ -68,10 +71,9 @@ theme_set(theme_bw())</code></pre>
 <h2 id="decathlon-events">Decathlon events</h2>
 <pre><code>print(names(decathlon2))  ## from factoextra pkg
 
-##  [1] &quot;X100m&quot;        &quot;Long.jump&quot;    &quot;Shot.put&quot;     &quot;High.jump&quot;   
-##  [5] &quot;X400m&quot;        &quot;X110m.hurdle&quot; &quot;Discus&quot;       &quot;Pole.vault&quot;  
-##  [9] &quot;Javeline&quot;     &quot;X1500m&quot;       &quot;Rank&quot;         &quot;Points&quot;      
-## [13] &quot;Competition&quot;</code></pre>
+##  [1] &quot;X100m&quot;        &quot;Long.jump&quot;    &quot;Shot.put&quot;     &quot;High.jump&quot;    &quot;X400m&quot;       
+##  [6] &quot;X110m.hurdle&quot; &quot;Discus&quot;       &quot;Pole.vault&quot;   &quot;Javeline&quot;     &quot;X1500m&quot;      
+## [11] &quot;Rank&quot;         &quot;Points&quot;       &quot;Competition&quot;</code></pre>
 <h2 id="decathlon-frame">Decathlon frame</h2>
 <pre><code>dec_frame &lt;- (decathlon2[1:10]
         %&gt;% as_tibble()
@@ -82,7 +84,7 @@ theme_set(theme_bw())</code></pre>
 )</code></pre>
 <h2 id="pairs-plot">Pairs plot</h2>
 <div class="figure">
-<img src="iris.Rout.png" alt="Iris pairs plot (iris.R)" />
+<img src="iris.Rout.png" alt="" />
 <p class="caption">Iris pairs plot (iris.R)</p>
 </div>
 <hr />
@@ -149,41 +151,44 @@ pheatmap(load, cluster_cols=FALSE)</code></pre>
 
 ## Loading required package: lattice
 
-## This is vegan 2.5-6
+## This is vegan 2.5-7
 
 mds &lt;- metaMDS(dec_mat, distance=&quot;euclidean&quot;)
 
 ## &#39;comm&#39; has negative data: &#39;autotransform&#39;, &#39;noshare&#39; and &#39;wascores&#39; set to FALSE
 
 ## Run 0 stress 0.175356 
-## Run 1 stress 0.1754603 
-## ... Procrustes: rmse 0.02231628  max resid 0.08023397 
-## Run 2 stress 0.178812 
-## Run 3 stress 0.2028175 
-## Run 4 stress 0.2045573 
-## Run 5 stress 0.2008847 
-## Run 6 stress 0.2622522 
-## Run 7 stress 0.1783896 
-## Run 8 stress 0.1754614 
-## ... Procrustes: rmse 0.02213427  max resid 0.07936417 
-## Run 9 stress 0.1757427 
-## ... Procrustes: rmse 0.008353616  max resid 0.03171971 
-## Run 10 stress 0.175356 
-## ... Procrustes: rmse 2.866385e-05  max resid 9.875323e-05 
+## Run 1 stress 0.175356 
+## ... Procrustes: rmse 1.35259e-05  max resid 4.740321e-05 
 ## ... Similar to previous best
-## Run 11 stress 0.2008652 
-## Run 12 stress 0.2045575 
-## Run 13 stress 0.2037446 
-## Run 14 stress 0.1754592 
-## ... Procrustes: rmse 0.02208517  max resid 0.07931705 
-## Run 15 stress 0.1754594 
-## ... Procrustes: rmse 0.02219941  max resid 0.07964347 
-## Run 16 stress 0.1754591 
-## ... Procrustes: rmse 0.02204939  max resid 0.07929911 
-## Run 17 stress 0.1783895 
-## Run 18 stress 0.2008648 
-## Run 19 stress 0.2000418 
-## Run 20 stress 0.1788122 
+## Run 2 stress 0.2014753 
+## Run 3 stress 0.2032167 
+## Run 4 stress 0.1788117 
+## Run 5 stress 0.1975348 
+## Run 6 stress 0.2027728 
+## Run 7 stress 0.1788116 
+## Run 8 stress 0.1754592 
+## ... Procrustes: rmse 0.02206757  max resid 0.07929346 
+## Run 9 stress 0.1788117 
+## Run 10 stress 0.2032167 
+## Run 11 stress 0.2623804 
+## Run 12 stress 0.1976901 
+## Run 13 stress 0.2028353 
+## Run 14 stress 0.2043722 
+## Run 15 stress 0.2593244 
+## Run 16 stress 0.1783895 
+## Run 17 stress 0.1754591 
+## ... Procrustes: rmse 0.02205241  max resid 0.0792706 
+## Run 18 stress 0.1754591 
+## ... Procrustes: rmse 0.02202276  max resid 0.0792327 
+## Run 19 stress 0.2008093 
+## Run 20 stress 0.202835 
+## Run 21 stress 0.1783895 
+## Run 22 stress 0.2109092 
+## Run 23 stress 0.175356 
+## ... Procrustes: rmse 7.735638e-06  max resid 2.571467e-05 
+## ... Similar to previous best
+## Run 24 stress 0.1783895 
 ## *** Solution reached</code></pre>
 <h2 id="nmds-plot">Nmds plot</h2>
 <pre><code>plot(mds)
@@ -217,12 +222,12 @@ andrews(as.data.frame(dec_frame))</code></pre>
 <h2 id="ordering">Ordering</h2>
 <p>Many of these charts might work if the variables were in a suitable order:</p>
 <ul>
-<li>heatmap provides an order
+<li><p>heatmap provides an order</p>
 <ul>
 <li>hierarchical</li>
 </ul></li>
 <li><p>other ordering methods take a more holistic view</p></li>
-<li>PCA and other decompositions could also provide an order!
+<li><p>PCA and other decompositions could also provide an order!</p>
 <ul>
 <li>Should we combine PCA with Andrews or parcoord?</li>
 </ul></li>

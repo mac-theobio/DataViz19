@@ -6,10 +6,12 @@
   <meta name="generator" content="pandoc" />
   <title>inference</title>
   <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
@@ -17,13 +19,14 @@
 <header class="site-header">
 <div class="wrapper">
 	<h1 class="title">
-		<a href="index.html">Biology 744, McMaster University</a>
+		<a href="index.html">Statistics 744, McMaster University</a>
 	</h1>
 	<div style="text-align:center">
 		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
 	</div>
 </div>
 </header>
+
 <div id="header">
 <h1 class="title">inference</h1>
 </div>
@@ -343,7 +346,7 @@ print(cc,digits=3)
 ##   &lt;chr&gt;  &lt;chr&gt;          &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt;    &lt;dbl&gt;
 ## 1 fixed  (Intercept)   -1.34     0.222      -6.04 1.56e- 9
 ## 2 fixed  sc_age        -0.416    0.198      -2.10 3.57e- 2
-## 3 fixed  chY            1.21     0.210       5.79 7.17e- 9
+## 3 fixed  chY            1.21     0.210       5.79 7.18e- 9
 ## 4 fixed  I(sc_age^2)   -0.457    0.0690     -6.62 3.51e-11
 ## 5 fixed  urbanY         0.787    0.172       4.57 4.88e- 6
 ## 6 fixed  sc_age:chY     0.599    0.231       2.59 9.57e- 3</code></pre>
@@ -437,8 +440,8 @@ head(dd)
 ## 4 sim1     0.1  sd      0.0116   0.0412  0.0895  0.215         0.0392
 ## 5 sim1     0.2  est     0.0674   0.752   0.231   0.562         0.311 
 ## 6 sim1     0.2  sd      0.0335   0.108   0.0604  0.105         0.0552
-## # … with 3 more variables: `MI/MGHD.ARI` &lt;dbl&gt;, `MI/MST.ERR` &lt;dbl&gt;,
-## #   `MI/MST.ARI` &lt;dbl&gt;</code></pre>
+## # … with 3 more variables: MI/MGHD.ARI &lt;dbl&gt;, MI/MST.ERR &lt;dbl&gt;,
+## #   MI/MST.ARI &lt;dbl&gt;</code></pre>
 <h2 id="rearrange">rearrange</h2>
 <pre><code>dd2 &lt;- (dd
     %&gt;% gather(key=model,value=val,-c(dataset,r,type))

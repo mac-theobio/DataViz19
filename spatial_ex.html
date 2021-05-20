@@ -7,10 +7,12 @@
   <meta name="author" content="Alex Bushby, Aleks Jovic, Ben Bolker" />
   <title>spatial examples</title>
   <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
@@ -18,13 +20,14 @@
 <header class="site-header">
 <div class="wrapper">
 	<h1 class="title">
-		<a href="index.html">Biology 744, McMaster University</a>
+		<a href="index.html">Statistics 744, McMaster University</a>
 	</h1>
 	<div style="text-align:center">
 		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
 	</div>
 </div>
 </header>
+
 <div id="header">
 <h1 class="title">spatial examples</h1>
 <h2 class="author">Alex Bushby, Aleks Jovic, Ben Bolker</h2>
@@ -48,22 +51,21 @@ load(&quot;data/googlemaps.rda&quot;)</code></pre>
 <p>The <code>crime</code> dataset contains crime reports for Houston from January-August 2010, geocoded with Google Maps.</p>
 <pre><code>tibble(crime)
 
-## # A tibble: 86,314 x 1
-##    crime$time          $date $hour $premise $offense $beat $block $street
-##    &lt;dttm&gt;              &lt;chr&gt; &lt;int&gt; &lt;chr&gt;    &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  
-##  1 2010-01-01 01:00:00 1/1/…     0 18A      murder   15E30 9600-… marlive
-##  2 2010-01-01 01:00:00 1/1/…     0 13R      robbery  13D10 4700-… teleph…
-##  3 2010-01-01 01:00:00 1/1/…     0 20R      aggrava… 16E20 5000-… wickvi…
-##  4 2010-01-01 01:00:00 1/1/…     0 20R      aggrava… 2A30  1000-… ashland
-##  5 2010-01-01 01:00:00 1/1/…     0 20A      aggrava… 14D20 8300-… canyon 
-##  6 2010-01-01 01:00:00 1/1/…     0 20R      burglary 18F60 9300-… rowan  
-##  7 2010-01-01 01:00:00 1/1/…     0 20A      burglary 10H60 2500-… southm…
-##  8 2010-01-01 01:00:00 1/1/…     0 20R      burglary 13D10 6300-… rupley 
-##  9 2010-01-01 01:00:00 1/1/…     0 20A      burglary 3B10  5000-… georgi 
-## 10 2010-01-01 01:00:00 1/1/…     0 20P      burglary 20G20 10700… briar …
-## # … with 86,304 more rows, and 9 more variables: $type &lt;chr&gt;,
-## #   $suffix &lt;chr&gt;, $number &lt;int&gt;, $month &lt;ord&gt;, $day &lt;ord&gt;,
-## #   $location &lt;chr&gt;, $address &lt;chr&gt;, $lon &lt;dbl&gt;, $lat &lt;dbl&gt;</code></pre>
+## # A tibble: 86,314 x 17
+##    time                date    hour premise offense   beat  block  street  type 
+##    &lt;dttm&gt;              &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;   &lt;fct&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;
+##  1 2010-01-01 01:00:00 1/1/2…     0 18A     murder    15E30 9600-… marlive &quot;ln&quot; 
+##  2 2010-01-01 01:00:00 1/1/2…     0 13R     robbery   13D10 4700-… teleph… &quot;rd&quot; 
+##  3 2010-01-01 01:00:00 1/1/2…     0 20R     aggravat… 16E20 5000-… wickvi… &quot;ln&quot; 
+##  4 2010-01-01 01:00:00 1/1/2…     0 20R     aggravat… 2A30  1000-… ashland &quot;st&quot; 
+##  5 2010-01-01 01:00:00 1/1/2…     0 20A     aggravat… 14D20 8300-… canyon  &quot;&quot;   
+##  6 2010-01-01 01:00:00 1/1/2…     0 20R     burglary  18F60 9300-… rowan   &quot;ln&quot; 
+##  7 2010-01-01 01:00:00 1/1/2…     0 20A     burglary  10H60 2500-… southm… &quot;blv…
+##  8 2010-01-01 01:00:00 1/1/2…     0 20R     burglary  13D10 6300-… rupley  &quot;cir&quot;
+##  9 2010-01-01 01:00:00 1/1/2…     0 20A     burglary  3B10  5000-… georgi  &quot;ln&quot; 
+## 10 2010-01-01 01:00:00 1/1/2…     0 20P     burglary  20G20 10700… briar … &quot;dr&quot; 
+## # … with 86,304 more rows, and 8 more variables: suffix &lt;chr&gt;, number &lt;int&gt;,
+## #   month &lt;ord&gt;, day &lt;ord&gt;, location &lt;chr&gt;, address &lt;chr&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;</code></pre>
 <p>Lots of useful info: dates, types of crimes, locations by type of place, locations by street, locations by longitude/latitude …</p>
 <p>First, let’s get an overview of the crimes on the map. The <code>qmplot</code> is often recommended as a quick way to do mapping (but we will switch to another approach shortly). We put in longitude (<code>lon</code>) and latitude (<code>lat</code>) for the <code>x</code> and <code>y</code> parameters and specify <code>crime</code> as the data set. This plots all of the crimes in the database.</p>
 <p>(Example adapted from <a href="https://github.com/tidyverse/ggplot2/wiki/crime-in-downtown-houston,-texas-:-combining-ggplot2-and-google-maps">here</a>.)</p>
@@ -213,13 +215,124 @@ purrr:::map(ridings_list,st_crs)
 
 ## $geographic
 ## Coordinate Reference System:
-##   No EPSG code
-##   proj4string: &quot;+proj=lcc +lat_1=49 +lat_2=77 +lat_0=63.390675 +lon_0=-91.86666666666666 +x_0=6200000 +y_0=3000000 +datum=NAD83 +units=m +no_defs&quot;
+##   User input: PCS_Lambert_Conformal_Conic 
+##   wkt:
+## PROJCRS[&quot;PCS_Lambert_Conformal_Conic&quot;,
+##     BASEGEOGCRS[&quot;NAD83&quot;,
+##         DATUM[&quot;North American Datum 1983&quot;,
+##             ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                 LENGTHUNIT[&quot;metre&quot;,1]],
+##             ID[&quot;EPSG&quot;,6269]],
+##         PRIMEM[&quot;Greenwich&quot;,0,
+##             ANGLEUNIT[&quot;Degree&quot;,0.0174532925199433]]],
+##     CONVERSION[&quot;unnamed&quot;,
+##         METHOD[&quot;Lambert Conic Conformal (2SP)&quot;,
+##             ID[&quot;EPSG&quot;,9802]],
+##         PARAMETER[&quot;Latitude of false origin&quot;,63.390675,
+##             ANGLEUNIT[&quot;Degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8821]],
+##         PARAMETER[&quot;Longitude of false origin&quot;,-91.8666666666667,
+##             ANGLEUNIT[&quot;Degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8822]],
+##         PARAMETER[&quot;Latitude of 1st standard parallel&quot;,49,
+##             ANGLEUNIT[&quot;Degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8823]],
+##         PARAMETER[&quot;Latitude of 2nd standard parallel&quot;,77,
+##             ANGLEUNIT[&quot;Degree&quot;,0.0174532925199433],
+##             ID[&quot;EPSG&quot;,8824]],
+##         PARAMETER[&quot;Easting at false origin&quot;,6200000,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8826]],
+##         PARAMETER[&quot;Northing at false origin&quot;,3000000,
+##             LENGTHUNIT[&quot;metre&quot;,1],
+##             ID[&quot;EPSG&quot;,8827]]],
+##     CS[Cartesian,2],
+##         AXIS[&quot;(E)&quot;,east,
+##             ORDER[1],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]],
+##         AXIS[&quot;(N)&quot;,north,
+##             ORDER[2],
+##             LENGTHUNIT[&quot;metre&quot;,1,
+##                 ID[&quot;EPSG&quot;,9001]]]]
 ## 
 ## $hex
 ## Coordinate Reference System:
-##   No EPSG code
-##   proj4string: &quot;+proj=lcc +lat_1=49 +lat_2=77 +lat_0=63.390675 +lon_0=-91.86666666666666 +x_0=6200000 +y_0=3000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs&quot;
+##   User input: +proj=lcc +lat_1=49 +lat_2=77 +lat_0=63.390675 +lon_0=-91.86666666666666 +x_0=6200000 +y_0=3000000 +ellps=GRS80 +towgs84=0,0,0,0,0,0,0 +units=m +no_defs 
+##   wkt:
+## BOUNDCRS[
+##     SOURCECRS[
+##         PROJCRS[&quot;unknown&quot;,
+##             BASEGEOGCRS[&quot;unknown&quot;,
+##                 DATUM[&quot;Unknown based on GRS80 ellipsoid&quot;,
+##                     ELLIPSOID[&quot;GRS 1980&quot;,6378137,298.257222101,
+##                         LENGTHUNIT[&quot;metre&quot;,1],
+##                         ID[&quot;EPSG&quot;,7019]]],
+##                 PRIMEM[&quot;Greenwich&quot;,0,
+##                     ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##                     ID[&quot;EPSG&quot;,8901]]],
+##             CONVERSION[&quot;unknown&quot;,
+##                 METHOD[&quot;Lambert Conic Conformal (2SP)&quot;,
+##                     ID[&quot;EPSG&quot;,9802]],
+##                 PARAMETER[&quot;Latitude of false origin&quot;,63.390675,
+##                     ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##                     ID[&quot;EPSG&quot;,8821]],
+##                 PARAMETER[&quot;Longitude of false origin&quot;,-91.8666666666667,
+##                     ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##                     ID[&quot;EPSG&quot;,8822]],
+##                 PARAMETER[&quot;Latitude of 1st standard parallel&quot;,49,
+##                     ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##                     ID[&quot;EPSG&quot;,8823]],
+##                 PARAMETER[&quot;Latitude of 2nd standard parallel&quot;,77,
+##                     ANGLEUNIT[&quot;degree&quot;,0.0174532925199433],
+##                     ID[&quot;EPSG&quot;,8824]],
+##                 PARAMETER[&quot;Easting at false origin&quot;,6200000,
+##                     LENGTHUNIT[&quot;metre&quot;,1],
+##                     ID[&quot;EPSG&quot;,8826]],
+##                 PARAMETER[&quot;Northing at false origin&quot;,3000000,
+##                     LENGTHUNIT[&quot;metre&quot;,1],
+##                     ID[&quot;EPSG&quot;,8827]]],
+##             CS[Cartesian,2],
+##                 AXIS[&quot;(E)&quot;,east,
+##                     ORDER[1],
+##                     LENGTHUNIT[&quot;metre&quot;,1,
+##                         ID[&quot;EPSG&quot;,9001]]],
+##                 AXIS[&quot;(N)&quot;,north,
+##                     ORDER[2],
+##                     LENGTHUNIT[&quot;metre&quot;,1,
+##                         ID[&quot;EPSG&quot;,9001]]]]],
+##     TARGETCRS[
+##         GEOGCRS[&quot;WGS 84&quot;,
+##             DATUM[&quot;World Geodetic System 1984&quot;,
+##                 ELLIPSOID[&quot;WGS 84&quot;,6378137,298.257223563,
+##                     LENGTHUNIT[&quot;metre&quot;,1]]],
+##             PRIMEM[&quot;Greenwich&quot;,0,
+##                 ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##             CS[ellipsoidal,2],
+##                 AXIS[&quot;latitude&quot;,north,
+##                     ORDER[1],
+##                     ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##                 AXIS[&quot;longitude&quot;,east,
+##                     ORDER[2],
+##                     ANGLEUNIT[&quot;degree&quot;,0.0174532925199433]],
+##             ID[&quot;EPSG&quot;,4326]]],
+##     ABRIDGEDTRANSFORMATION[&quot;Transformation from unknown to WGS84&quot;,
+##         METHOD[&quot;Position Vector transformation (geog2D domain)&quot;,
+##             ID[&quot;EPSG&quot;,9606]],
+##         PARAMETER[&quot;X-axis translation&quot;,0,
+##             ID[&quot;EPSG&quot;,8605]],
+##         PARAMETER[&quot;Y-axis translation&quot;,0,
+##             ID[&quot;EPSG&quot;,8606]],
+##         PARAMETER[&quot;Z-axis translation&quot;,0,
+##             ID[&quot;EPSG&quot;,8607]],
+##         PARAMETER[&quot;X-axis rotation&quot;,0,
+##             ID[&quot;EPSG&quot;,8608]],
+##         PARAMETER[&quot;Y-axis rotation&quot;,0,
+##             ID[&quot;EPSG&quot;,8609]],
+##         PARAMETER[&quot;Z-axis rotation&quot;,0,
+##             ID[&quot;EPSG&quot;,8610]],
+##         PARAMETER[&quot;Scale difference&quot;,1,
+##             ID[&quot;EPSG&quot;,8611]]]]
 
 ridings_combined &lt;- purrr::map2(ridings_list, names(ridings_list), fix_fun)
 ## dplyr::bind_rows doesn&#39;t work: https://github.com/tidyverse/dplyr/issues/2457

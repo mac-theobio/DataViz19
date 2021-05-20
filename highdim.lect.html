@@ -6,10 +6,12 @@
   <meta name="generator" content="pandoc" />
   <title>high-dimensional data</title>
   <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
@@ -17,13 +19,14 @@
 <header class="site-header">
 <div class="wrapper">
 	<h1 class="title">
-		<a href="index.html">Biology 744, McMaster University</a>
+		<a href="index.html">Statistics 744, McMaster University</a>
 	</h1>
 	<div style="text-align:center">
 		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
 	</div>
 </div>
 </header>
+
 <div id="header">
 <h1 class="title">high-dimensional data</h1>
 </div>
@@ -96,9 +99,10 @@ library(tidyverse)</code></pre>
 
 ##  [1] &quot;animate_andrews&quot;   &quot;animate_density2d&quot; &quot;animate_depth&quot;    
 ##  [4] &quot;animate_dist&quot;      &quot;animate_faces&quot;     &quot;animate_groupxy&quot;  
-##  [7] &quot;animate_image&quot;     &quot;animate_pcp&quot;       &quot;animate_scatmat&quot;  
-## [10] &quot;animate_stars&quot;     &quot;animate_stereo&quot;    &quot;animate_trails&quot;   
-## [13] &quot;animate_xy&quot;</code></pre>
+##  [7] &quot;animate_image&quot;     &quot;animate_pca&quot;       &quot;animate_pcp&quot;      
+## [10] &quot;animate_sage&quot;      &quot;animate_scatmat&quot;   &quot;animate_slice&quot;    
+## [13] &quot;animate_stars&quot;     &quot;animate_stereo&quot;    &quot;animate_trails&quot;   
+## [16] &quot;animate_xy&quot;</code></pre>
 <h2 id="projections">projections</h2>
 <p>Alternative: try to find some machinery</p>
 <pre><code>dec_mat &lt;- as.matrix(scale(decathlon2[1:10]))
@@ -150,8 +154,8 @@ aug_data &lt;- (get_pca_ind(winePCAd)$coord
   scale_fill_brewer(palette=&quot;Dark2&quot;)
 names(ggplot_build(f1)$data[[1]])
 
-##  [1] &quot;colour&quot; &quot;shape&quot;  &quot;x&quot;      &quot;y&quot;      &quot;PANEL&quot;  &quot;group&quot;  &quot;size&quot;  
-##  [8] &quot;fill&quot;   &quot;alpha&quot;  &quot;stroke&quot;
+##  [1] &quot;colour&quot; &quot;shape&quot;  &quot;x&quot;      &quot;y&quot;      &quot;PANEL&quot;  &quot;group&quot;  &quot;size&quot;   &quot;fill&quot;  
+##  [9] &quot;alpha&quot;  &quot;stroke&quot;
 
 f2 &lt;- f1 + ggalt::geom_encircle(data=aug_data,
                           aes(x=Dim.1,y=Dim.2,group=class,
