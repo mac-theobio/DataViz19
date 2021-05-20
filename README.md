@@ -7,3 +7,4 @@ Website and repo for STAT 744, data visualization ("topics in statistics"), McMa
 * [Current outline](https://bbolker.github.io/stat744/outline.html)
 * [Our biology stats course](https://mac-theobio.github.io/QMEE/index.html)
 
+The incantations for building the site are `make pull_all`, `make local_index`, `make push_all`
