@@ -2,3 +2,6 @@
 makestuff/
 pages/
 gh-pages/
+*_cache/
+*_files/
+*~
