@@ -36,7 +36,7 @@ Comments on compositionality from [here](https://teams.microsoft.com/l/message/1
 
 ## make stuff
 
-Was getting intermittent errors of this sort with `make push_all` (but running it again worked)
+Was getting intermittent errors of this sort with `make push_all` (but running it again worked); these seem to be accompanied by a pile of "Orphan commit!" messages
 
 ```
 make[1]: Entering directory '/home/bolker/Documents/classes/DataViz'
