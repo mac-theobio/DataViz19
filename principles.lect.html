@@ -6,10 +6,12 @@
   <meta name="generator" content="pandoc" />
   <title>further principles of data visualization</title>
   <style type="text/css">
-      code{white-space: pre-wrap;}
-      span.smallcaps{font-variant: small-caps;}
-      span.underline{text-decoration: underline;}
-      div.column{display: inline-block; vertical-align: top; width: 50%;}
+    code{white-space: pre-wrap;}
+    span.smallcaps{font-variant: small-caps;}
+    span.underline{text-decoration: underline;}
+    div.column{display: inline-block; vertical-align: top; width: 50%;}
+    div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+    ul.task-list{list-style: none;}
   </style>
   <link rel="stylesheet" href="main.css" type="text/css" />
 </head>
@@ -17,13 +19,14 @@
 <header class="site-header">
 <div class="wrapper">
 	<h1 class="title">
-		<a href="index.html">Biology 744, McMaster University</a>
+		<a href="index.html">Statistics 744, McMaster University</a>
 	</h1>
 	<div style="text-align:center">
 		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
 	</div>
 </div>
 </header>
+
 <div id="header">
 <h1 class="title">further principles of data visualization</h1>
 </div>
@@ -116,6 +119,10 @@ knitr::include_graphics("pix/John_Tukey.jpg")
 <li>yes (principles)</li>
 <li>data size/complexity and computing power are both increasing</li>
 </ul>
+<!-- -->
+<pre><code>## Warning in scales$y$trans$transform(y_out): NaNs produced
+
+## Warning: Removed 63 row(s) containing missing values (geom_path).</code></pre>
 <p><img src="principles.lect_files/figure-markdown_strict/compute_size-1.png" /></p>
 <h1 id="cleveland-quantifying-viz-efficacy">Cleveland: quantifying viz efficacy</h1>
 <p><img src="pix/william_cleveland.jpg" width="150" /></p>
@@ -230,49 +237,37 @@ print(plot_grid(g1,direct.label(g1)))</code></pre>
 <p>Some examples (from a <a href="http://emdbolker.wikidot.com/blog:dynamite">screed on “dynamite plots”</a>):</p>
 <p><img src="principles.lect_files/figure-markdown_strict/panels-1.png" /></p>
 <h2 id="notes">Notes</h2>
-<ol style="list-style-type: lower-alpha">
-<li>the dreaded “dynamite plot”. Problems:</li>
-</ol>
+<p>a. the dreaded “dynamite plot”. Problems:</p>
 <ul>
 <li>bar plot on logarithmic axis is inappropriate (anchors graph to arbitrary zero point)</li>
 <li>assumes distribution is symmetric (although this applies to b,c as well)</li>
 <li>some forms of this plot show only top whisker (makes comparison even harder)</li>
 </ul>
-<ol start="2" style="list-style-type: lower-alpha">
-<li>inferential (point ± 2 SE) plot</li>
-</ol>
+<p>b. inferential (point ± 2 SE) plot</p>
 <ul>
 <li>same assumptions as dynamite plot</li>
 <li>less strongly anchored to zero</li>
 </ul>
 <h2 id="notes-continued">Notes (continued)</h2>
-<ol start="3" style="list-style-type: lower-alpha">
-<li>points ± 1 and 2 SE</li>
-</ol>
+<p>c. points ± 1 and 2 SE</p>
 <ul>
 <li>de-emphasizes approximate 95% CI</li>
 <li>equivalent for Bayesian posterior intervals would typically show both 50% and 95% credible intervals (based on quantiles or highest posterior density)</li>
 </ul>
-<ol start="4" style="list-style-type: lower-alpha">
-<li>points alone</li>
-</ol>
+<p>d. points alone</p>
 <ul>
 <li>true to the data</li>
 <li>description only; provides no inferential help</li>
 <li>can confound sample size and range (larger samples have more extreme values so look more variable)</li>
 </ul>
 <h2 id="notes-continued-1">Notes (continued)</h2>
-<ol start="5" style="list-style-type: lower-alpha">
-<li>boxplots</li>
-</ol>
+<p>e. boxplots</p>
 <ul>
 <li>well-established</li>
 <li>“outliers” can be misleading (Dawson 2011)</li>
 <li>can add notches to indicate approximate 95% CI on medians (McGill et al. 1978)</li>
 </ul>
-<ol start="6" style="list-style-type: lower-alpha">
-<li>violin plots</li>
-</ol>
+<p>f. violin plots</p>
 <ul>
 <li>mirror-image density plots</li>
 <li>best for large data sets</li>
