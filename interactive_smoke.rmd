@@ -7,8 +7,8 @@ always_allow_html: yes
 library("ggplot2"); theme_set(theme_bw(base_size=18))
 library("plotly")
 library("knitr")
-library(readr)
-library(dplyr)
+library("readr")
+library("dplyr")
 opts_chunk$set(echo=FALSE,fig.width=4,fig.height=4,out.width=400)
 ```
 
