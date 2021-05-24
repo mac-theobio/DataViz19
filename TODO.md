@@ -1,5 +1,6 @@
 ## resources to add (maybe?)
 
+* blog post about data viz dogma (e.g. anti-pie-charts): https://buttondown.email/willchase/archive/dogma/
 * https://www.cedricscherer.com/slides/useR2021.pdf
 * `ggpattern` package
 * history: WEB Dubois (Mansky, Jackie. “W.E.B. Du Bois’ Visionary Infographics Come Together for the First Time in Full Color.” Smithsonian Magazine, November 15, 2018. https://www.smithsonianmag.com/history/first-time-together-and-color-book-displays-web-du-bois-visionary-infographics-180970826/.)
