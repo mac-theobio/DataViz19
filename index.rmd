@@ -34,7 +34,7 @@ TBA
 
 - [Course outline](outline.html)
 - [Assignments](assignments.html)
-    - [Winter 2021 (previous) assignments](assignments_old.html)
+    - [Fall 2019 (previous) assignments](assignments_old.html)
 - [The github back-end for this site](https://github.com/mac-theobio/DataViz/)
 
 ## Faculty
