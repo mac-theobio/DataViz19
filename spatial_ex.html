@@ -23,7 +23,7 @@
 		<a href="index.html">Statistics 744, McMaster University</a>
 	</h1>
 	<div style="text-align:center">
-		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=80%>
+		<img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/29/Minard.png/640px-Minard.png" width=50%>
 	</div>
 </div>
 </header>
@@ -69,7 +69,8 @@ load(&quot;data/googlemaps.rda&quot;)</code></pre>
 <p>Lots of useful info: dates, types of crimes, locations by type of place, locations by street, locations by longitude/latitude …</p>
 <p>First, let’s get an overview of the crimes on the map. The <code>qmplot</code> is often recommended as a quick way to do mapping (but we will switch to another approach shortly). We put in longitude (<code>lon</code>) and latitude (<code>lat</code>) for the <code>x</code> and <code>y</code> parameters and specify <code>crime</code> as the data set. This plots all of the crimes in the database.</p>
 <p>(Example adapted from <a href="https://github.com/tidyverse/ggplot2/wiki/crime-in-downtown-houston,-texas-:-combining-ggplot2-and-google-maps">here</a>.)</p>
-<pre><code>q1 &lt;- qmplot(lon, lat, data = crime,
+<pre><code>## remotes::install_github(&quot;bbolker/ggmap&quot;)
+q1 &lt;- qmplot(lon, lat, data = crime,
              maptype = &quot;toner-lite&quot;,
              ## for q* plots need to use I() for direct specifications
              colour = I(&quot;red&quot;),
