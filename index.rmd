@@ -23,15 +23,18 @@ We are looking forward to seeing you on Friday for an organizational meeting!  S
 
 ## Info
 
+This course will be offered in Fall 2021. The web page is under construction and may contain some material
+left over from the previous offering of the course.
+
 ### Course meetings
 
-- Tues 2:30-3:20 PM (HH 312)
-- Friday 9:30-11:30 AM (HH 207)
+TBA
 
 ### Links
 
 - [Course outline](outline.html)
 - [Assignments](assignments.html)
+    - [Winter 2021 (previous) assignments](assignments_old.html)
 - [The github back-end for this site](https://github.com/mac-theobio/DataViz/)
 
 ## Faculty
@@ -41,9 +44,9 @@ We are looking forward to seeing you on Friday for an organizational meeting!  S
 
 ## Schedule
 
-- everything here is provisional, especially the readings:
+TBA
 
-```{r echo=FALSE,message=FALSE,warning=FALSE, results="asis"}
+```{r echo=FALSE,message=FALSE,warning=FALSE, results="asis", eval=FALSE}
 ## what do we want to include here?
 ## do we need to hack format?
 ##   widths
@@ -80,4 +83,3 @@ pander(dd)
 
 
 ## References
-

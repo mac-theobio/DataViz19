@@ -1,6 +1,8 @@
 ---
-title: "STAT 744: Data visualization (Fall 2019)"
+title: "STAT 744: Data visualization (Fall 2021)"
 ---
+
+**Under construction. Some material below may be out of date/apply to the previous offering of the course**
 
 ## Personnel
 
@@ -9,15 +11,14 @@ title: "STAT 744: Data visualization (Fall 2019)"
 
 ## Class meetings
 
-- Tues 2:30-3:20 PM (HH 312)
-- Friday 9:30-11:30 AM (HH 207)
+TBA
 
-First class (organizational meeting only) will be Sep 6 from 9:30-10 AM.
+The first class will be an organizational meeting.
 
 ## General info
 
 - Schedule: see separate [**link** ](./sched.html)
-- **Textbook:** Tufte, Cleveland?
+- **Textbook:** Claus Wilke, [Fundamentals of Data Visualization](https://clauswilke.com/dataviz/index.html)
 - **Prerequisites:** intermediate proficiency in R
 
 ## Assignments and assessment
@@ -30,9 +31,18 @@ In an attempt to make participation marks more objective, part of this component
 
 You can gain your first participation mark by sending an e-mail to the instructors with the subject line "stat 744: <your_macid> read the outline". For example, my subject line would be "stat 744: bolkerb read the outline".
 
+<!-- move this to the bottom for greater difficulty? -->
+
 ### homework grades
 
-We mark homeworks informally on a scale of 0-3. 
+We mark homework assignments on a scale of 0-3. The rubric is:
+
+- 0: no effort/not submitted
+- 1: poor
+- 2: OK (fulfils the terms of the assignment)
+- 3: excellent
+
+Historically most marks are in the 1.5 - 2.5 range. A mark less than 2 means that your work is deficient; you should work to address those deficiencies in subsequent assignments (if you don't understand the cause of your low mark, please **ask us**). A mark of 2 means you shouldn't worry about your grade in the course.
 
 The grade correspondence is approximately: 1.8-2 = B+, 2-2.2 = A-, 2.2-2.4 = A, 2.4-3 = A+.
 
@@ -73,28 +83,26 @@ platforms (e.g. ggobi, leaflet, D3.js) will also be discussed.
 - smoothing for graphical display
 - alternative platforms
 
-## Legal stuff
+## Policies
 
-### Policies
+### Missed work or lectures
 
-1.  **Policy on missed work or lectures:** You should be aware of the
-    [Policy For Absence from School Due to Illness or Compassionate Reasons](http://academiccalendars.romcmaster.ca/content.php?catoid=7&navoid=559#Requests_for_Relief_for_Missed_Academic_Term_Work)
-    It is important to know your rights and your responsibilities. If
-    you must miss a presentation or cannot submit assigned work on
-    time for a valid reason (e.g., medical reasons, etc.) you may be
-    able to obtain an excused absence by taking appropriate
-    documentation (e.g.  note from physician) to the Faculty/Program
-    office and then discussing this with your instructor. If the
-    Faculty/Program gives its approval, the final examination will
-    then be given the appropriate extra weighting. Otherwise, a grade
-    of zero will be entered for the missed work.
+You should be aware of the [Policy For Absence from School Due to Illness or Compassionate Reasons](http://academiccalendars.romcmaster.ca/content.php?catoid=7&navoid=559#Requests_for_Relief_for_Missed_Academic_Term_Work).  It is important to know your rights and your responsibilities. If
+you must miss a presentation or cannot submit assigned work on
+time for a valid reason (e.g., medical reasons, etc.) you may be
+able to obtain an excused absence by taking appropriate
+documentation (e.g.  note from physician) to the Faculty/Program
+office and then discussing this with your instructor. If the
+Faculty/Program gives its approval, the final examination will
+then be given the appropriate extra weighting. Otherwise, a grade
+of zero will be entered for the missed work.
 
-    If you must miss a lecture or lab, it is your responsibility to find out
-    what was covered. The best way to do this is to borrow a classmate's
-    notes, read them over, and then ask your instructor if there is
-    something that you do not understand.
+If you must miss a lecture or lab, it is your responsibility to find out
+what was covered. The best way to do this is to borrow a classmate's
+notes, read them over, and then ask your instructor if there is
+something that you do not understand.
 
-2.  Students' grades will be returned on Avenue.
+### 
 
 ### Accommodations
 

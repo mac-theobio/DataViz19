@@ -9,83 +9,22 @@ Your project should consist roughly of a brief description of the data set, and 
 
 You should have a two-part writeup: the main text will be just the text necessary to support the story that you're trying to tell, and there should be a methods part explaining briefly some of the visualization choices that you made, and if necessary briefly explaining decisions or cleanup things you had to do about the data.
 
-Please submit your writeup as a pdf or html file by noon on Tue 17 December. Submit by pushing to your repository (ideally with all of the scripts used to construct the visualizations from raw data) and letting us know the name of the primary file.
+Please submit your writeup as a pdf or html file by noon on [TBA]. Submit by pushing to your repository (ideally with all of the scripts used to construct the visualizations from raw data) and letting us know the name of the primary file.
 
-## Week of 11 November
+## Project milestone
 
-Please submit a brief (0.6-2 pages) prospectus outlining what data you will use and some ideas about the story you wish to tell.
+Please submit a brief (0.5-2 pages) prospectus outlining what data you will use and some ideas about the story you wish to tell.
 
 You should post this on a github repo. This can either be a directory in an existing repo, or a new repo to which one of you invites both of us (bbolker, dushoff) and your group members.
 
-If you prefer, you can submit the prospectus on Monday instead of Friday.
-
-Please also read sections 21-25 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
-
-## week 7
-
-Build on one of your existing plots (or make a new plot) and add an interactive and/or spatial component. Discuss the principles of why the added component is useful, and what you did to make it clear.  Bear [the rubric](rubric.html) in mind.
-
-
-## week 6
-
-1. Find some real data and tell a story with one or two graphics. Your story can be observational, inferential, or both. Explain:
-
-* where and how you got the data
-* what story you think your pictures tell
-* what features of [the rubric](rubric.html) you engaged with and some of your decisions
-
-## week 5
-
-1. Fit a model to real data, or find a table of model results, and one or two plots illustrating a statistical inference. Let us know if you need help finding a data set, or a plausible scientific question to attack with a model.
-
-2. Read Sections 17-20 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
-
-## week 4
-
-No written assignment. Please read Sections 12-16 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
-
-## week 3
-
-1. Find a table that you find hard to read and turn it into one, two or three graphs. Explain what features of the data you are trying to draw attention to, and what story you think your figures tell (or fail to tell).
-
-If you have trouble finding a Table you could consider these:
-
-* Table 3 of [McCallum et al. 2017](http://www.sciencedirect.com/science/article/pii/S0166445X16303757)
-* Table 3 of [Dushoff et al. 2005](https://academic.oup.com/aje/article/163/2/181/95820)
-
-2. read Sections 8-11 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
-
-## week 2
-
-* take a look at Jia You's online graphic about vaccine [here](http://www.sciencemag.org/news/2017/04/here-s-visual-proof-why-vaccines-do-more-good-harm)
-* to get the data, you can use
-```{r eval=FALSE}
-readr::read_csv("https://bbolker.github.io/stat744/data/vaccine_data_online.csv")
-```
-or download the data directly from [here](http://sciencestatic.aws.aaas.org.s3.amazonaws.com/article-resources/vaccine-war/vaccine_data_online.csv)
-
-* write a short statement (a few sentences) that explains what question you think the graphic is trying to answer, or what pattern it's trying to display
-* based on these data, create 2 ggplots that display the data in a different way from the original; use the 2 plots to illustrate tradeoffs between different graphical principles. (If you're feeling truly uncreative, one of your plots can replicate the original graphical design.) You do **not** need to worry about the dynamic-graphics aspect or the historical events shown in the original display
-* explain (in a few sentences) why your graph or graphs answer the question better than the original graph
-* Put the code in the main repository directory
-	* use either `hw2.R` (with comments as comments or in `hw2.txt`) or else `hw2.rmd` for the code
-	* put the output graphs (or rmarkdown output) in a directory called `HW2` 
-* *extra credit*: see if you can find information about vaccine coverage over time (i.e., estimates of fraction vaccinated in the US per year) - not just the date of licensing - and incorporate it in your results (we have no idea if this is possible)
-
-- read Sections 4-7 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
-
-* Remember to follow the General instructions (below)
-
 ## week 1
 
-By class on Tuesday:
+By the beginning of the first class period:
 
 - make sure you can run RStudio (and R)
 - set up a GitHub account if necessary
 	* make an (empty except for a `README` file) repository called Stat744, and add `dushoff` and `bbolker` as collaborators
 - watch the Rausher video (see [main page](index.html))
-
-By Friday at 16:30:
 
 - read Sections 1-3 of [Wilke's _Fundamentals of Data Visualization_](https://serialmentor.com/dataviz/)
 - email us to let us know you have finished, and to tell us your github username

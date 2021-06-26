@@ -35,6 +35,7 @@ First, let's get an overview of the crimes on the map. The `qmplot` is often rec
 (Example adapted from [here](https://github.com/tidyverse/ggplot2/wiki/crime-in-downtown-houston,-texas-:-combining-ggplot2-and-google-maps).)
 
 ```{r qmplot,message=FALSE}
+## remotes::install_github("bbolker/ggmap")
 q1 <- qmplot(lon, lat, data = crime,
              maptype = "toner-lite",
              ## for q* plots need to use I() for direct specifications
