@@ -1,5 +1,6 @@
 ## resources to add (maybe?)
 
+* vis/inference: @cook_foundation_2021, @hullman_design_2021
 * [twitter thread on accessibility](https://twitter.com/FrankElavsky/status/1396898372183855105)
 * blog post about data viz dogma (e.g. anti-pie-charts): https://buttondown.email/willchase/archive/dogma/
 * https://www.cedricscherer.com/slides/useR2021.pdf
