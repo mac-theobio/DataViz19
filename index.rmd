@@ -32,7 +32,7 @@ TBA
 
 ### Links
 
-- [Course outline](outline.html)
+- [Course outline](outline.html) (or at [math & stats web site](https://mcmasteru365.sharepoint.com/:w:/s/sci-course-outlines/EQIfPDteOwhApDyncm))
 - [Assignments](assignments.html)
     - [Fall 2019 (previous) assignments](assignments_old.html)
 - [The github back-end for this site](https://github.com/mac-theobio/DataViz/)

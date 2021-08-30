@@ -35,7 +35,7 @@ For the first few weeks of the course, there will be a short assignment every we
 
 If your assignment will be late, please email us by Friday at 16:30 to let us know when you will hand it in. This should be before 16:30 on Monday, unless we give permission for special circumstances.
 
-**Submit your assignment by email** to [bio744DataViz@gmail.com](mailto:bio744DataViz@gmail.com). Your assignment is not done until you do this. 
+**Submit your assignment by email** to [macdataviz@gmail.com](mailto:macdataviz@gmail.com). Your assignment is not done until you do this. 
 
 <!-- Comment
     See QMEE/ assignments for more text that we will want to adapt when we give them R assignments.
