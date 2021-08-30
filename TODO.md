@@ -1,5 +1,6 @@
 ## resources to add (maybe?)
 
+* https://github.com/juba/obsplot/ (another option for dynamical plots: R interface to [Observable](https://observablehq.com/@observablehq/plot) JavaScript library
 * https://emilhvitfeldt.github.io/r-color-palettes/discrete.html
 * https://journal.r-project.org/dev/articles/RJ-2021-050/
 * vis/inference: @cook_foundation_2021, @hullman_design_2021
@@ -26,26 +27,3 @@
 > My solution here does some more processing to get confidence intervals for the proportions of each type (which I always like to include if possible), based on binomial/multinomial sampling.
 
 
-## make stuff
-
-* something about the pipeline is generating piles of "Orphan commit!" messages (possibly PEBKAC?)
-* Was getting intermittent errors of this sort with `make push_all` (but running it again worked); 
-
-```
-make[1]: Entering directory '/home/bolker/Documents/classes/DataViz'
-perl -wf makestuff/ignore.pl > .git/info/exclude || perl -wf ignore.pl > .git/info/exclude
-make[1]: Leaving directory '/home/bolker/Documents/classes/DataViz'
-git add -f interactive_smoke.rmd 
-(head -1 ~/.commitnow > commit.time && echo " ~/.commitnow" >> commit.time) || echo Autocommit > commit.time
-head: cannot open '/home/bolker/.commitnow' for reading: No such file or directory
-echo "## /home/bolker/Documents/classes/DataViz" >> commit.time
-!(git commit --dry-run >> commit.time) || (perl -pi -e 's/^/#/ unless $.==1' commit.time &&  commit.time ||  commit.time ||  commit.time || gvim -f commit.time || vim commit.time || ((echo ERROR: No editor found makestuff/unix.mk && echo set shell MSEDITOR variable && false)))
-/bin/sh: 1: commit.time: not found
-/bin/sh: 1: commit.time: not found
-/bin/sh: 1: commit.time: not found
-/bin/sh: 1: gvim: not found
-/bin/sh: 1: vim: not found
-ERROR: No editor found makestuff/unix.mk
-set shell MSEDITOR variable
-make: *** [makestuff/git.mk:34: commit.time] Error 1
-```
