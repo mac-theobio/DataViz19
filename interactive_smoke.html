@@ -30,16 +30,16 @@
 <div id="header">
 <h1 class="title">Interactive graphics</h1>
 </div>
-<pre><code>## 
-## ── Column specification ─────────────────────────────────────────────────────────────
-## cols(
-##   id = col_double(),
-##   age = col_double(),
-##   fev = col_double(),
-##   height = col_double(),
-##   sex = col_character(),
-##   smoke = col_character()
-## )</code></pre>
+<pre><code>## Rows: 654 Columns: 6
+
+## ── Column specification ──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+## Delimiter: &quot;,&quot;
+## chr (2): sex, smoke
+## dbl (4): id, age, fev, height
+
+## 
+## ℹ Use `spec()` to retrieve the full column specification for this data.
+## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 <!-- FIXME: there is something about the pipeline here that
     seems to hang when running via 'make'; OK with a manual
     rmarkdown::render("interactive_smoke.rmd") 
