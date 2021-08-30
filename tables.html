@@ -80,9 +80,13 @@ library(readr)</code></pre>
 <h2 id="rearranged-data">rearranged data</h2>
 <pre><code>## need read_table2() for &#39;irregular&#39; data
 dd &lt;- read_table2(&quot;data/wei_tab5.5.txt&quot;)
+
+## Warning: `read_table2()` was deprecated in readr 2.0.0.
+## Please use `read_table()` instead.
+
 head(dd)
 
-## # A tibble: 6 x 11
+## # A tibble: 6 × 11
 ##   dataset     r type  MGHD.ERR MGHD.ARI MST.ERR MST.ARI `MI/MGHD.ERR`
 ##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;    &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;         &lt;dbl&gt;
 ## 1 sim1     0.05 est     0.0608   0.774   0.0688  0.771         0.121 
@@ -101,7 +105,7 @@ head(dd)
 )
 head(dd2)
 
-## # A tibble: 6 x 6
+## # A tibble: 6 × 6
 ##   dataset     r model   stat     est     sd
 ##   &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;  &lt;dbl&gt;  &lt;dbl&gt;
 ## 1 sim1     0.05 MGHD    ARI   0.774  0.0925

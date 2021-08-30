@@ -37,6 +37,10 @@ library(tidyverse)
 library(viridis)
 library(sf)
 library(geogrid)
+
+## Warning in fun(libname, pkgname): rgeos: versions of GEOS runtime 3.8.1-CAPI-1.13.3
+## and GEOS at installation 3.6.2-CAPI-1.10.2differ
+
 library(gganimate)
 library(RColorBrewer)
 library(htmlwidgets)
@@ -45,25 +49,29 @@ if (!require(transformr,quietly=TRUE)) {
           &quot;consider running &quot;,
           &quot;&#39;remotes::install_github(\&quot;thomasp85/transformr&#39;\&quot;)&quot;)
 }
+
+## Warning: animation example might not work; consider running
+## &#39;remotes::install_github(&quot;thomasp85/transformr&#39;&quot;)
+
 library(leaflet)
 load(&quot;data/googlemaps.rda&quot;)</code></pre>
 <h1 id="crime">crime</h1>
 <p>The <code>crime</code> dataset contains crime reports for Houston from January-August 2010, geocoded with Google Maps.</p>
 <pre><code>tibble(crime)
 
-## # A tibble: 86,314 x 17
-##    time                date    hour premise offense   beat  block  street  type 
-##    &lt;dttm&gt;              &lt;chr&gt;  &lt;int&gt; &lt;chr&gt;   &lt;fct&gt;     &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;   &lt;chr&gt;
-##  1 2010-01-01 01:00:00 1/1/2…     0 18A     murder    15E30 9600-… marlive &quot;ln&quot; 
-##  2 2010-01-01 01:00:00 1/1/2…     0 13R     robbery   13D10 4700-… teleph… &quot;rd&quot; 
-##  3 2010-01-01 01:00:00 1/1/2…     0 20R     aggravat… 16E20 5000-… wickvi… &quot;ln&quot; 
-##  4 2010-01-01 01:00:00 1/1/2…     0 20R     aggravat… 2A30  1000-… ashland &quot;st&quot; 
-##  5 2010-01-01 01:00:00 1/1/2…     0 20A     aggravat… 14D20 8300-… canyon  &quot;&quot;   
-##  6 2010-01-01 01:00:00 1/1/2…     0 20R     burglary  18F60 9300-… rowan   &quot;ln&quot; 
-##  7 2010-01-01 01:00:00 1/1/2…     0 20A     burglary  10H60 2500-… southm… &quot;blv…
-##  8 2010-01-01 01:00:00 1/1/2…     0 20R     burglary  13D10 6300-… rupley  &quot;cir&quot;
-##  9 2010-01-01 01:00:00 1/1/2…     0 20A     burglary  3B10  5000-… georgi  &quot;ln&quot; 
-## 10 2010-01-01 01:00:00 1/1/2…     0 20P     burglary  20G20 10700… briar … &quot;dr&quot; 
+## # A tibble: 86,314 × 17
+##    time                date      hour premise offense  beat  block  street type 
+##    &lt;dttm&gt;              &lt;chr&gt;    &lt;int&gt; &lt;chr&gt;   &lt;fct&gt;    &lt;chr&gt; &lt;chr&gt;  &lt;chr&gt;  &lt;chr&gt;
+##  1 2010-01-01 01:00:00 1/1/2010     0 18A     murder   15E30 9600-… marli… &quot;ln&quot; 
+##  2 2010-01-01 01:00:00 1/1/2010     0 13R     robbery  13D10 4700-… telep… &quot;rd&quot; 
+##  3 2010-01-01 01:00:00 1/1/2010     0 20R     aggrava… 16E20 5000-… wickv… &quot;ln&quot; 
+##  4 2010-01-01 01:00:00 1/1/2010     0 20R     aggrava… 2A30  1000-… ashla… &quot;st&quot; 
+##  5 2010-01-01 01:00:00 1/1/2010     0 20A     aggrava… 14D20 8300-… canyon &quot;&quot;   
+##  6 2010-01-01 01:00:00 1/1/2010     0 20R     burglary 18F60 9300-… rowan  &quot;ln&quot; 
+##  7 2010-01-01 01:00:00 1/1/2010     0 20A     burglary 10H60 2500-… south… &quot;blv…
+##  8 2010-01-01 01:00:00 1/1/2010     0 20R     burglary 13D10 6300-… rupley &quot;cir&quot;
+##  9 2010-01-01 01:00:00 1/1/2010     0 20A     burglary 3B10  5000-… georgi &quot;ln&quot; 
+## 10 2010-01-01 01:00:00 1/1/2010     0 20P     burglary 20G20 10700… briar… &quot;dr&quot; 
 ## # … with 86,304 more rows, and 8 more variables: suffix &lt;chr&gt;, number &lt;int&gt;,
 ## #   month &lt;ord&gt;, day &lt;ord&gt;, location &lt;chr&gt;, address &lt;chr&gt;, lon &lt;dbl&gt;, lat &lt;dbl&gt;</code></pre>
 <p>Lots of useful info: dates, types of crimes, locations by type of place, locations by street, locations by longitude/latitude …</p>
@@ -214,6 +222,8 @@ fix_fun &lt;- function(x,label) {
 ridings_list &lt;- list(geographic=ridings,hex=ridings_hex)
 purrr:::map(ridings_list,st_crs)
 
+## old-style crs object detected; please recreate object with a recent sf::st_crs()
+
 ## $geographic
 ## Coordinate Reference System:
 ##   User input: PCS_Lambert_Conformal_Conic 
@@ -336,6 +346,9 @@ purrr:::map(ridings_list,st_crs)
 ##             ID[&quot;EPSG&quot;,8611]]]]
 
 ridings_combined &lt;- purrr::map2(ridings_list, names(ridings_list), fix_fun)
+
+## old-style crs object detected; please recreate object with a recent sf::st_crs()
+
 ## dplyr::bind_rows doesn&#39;t work: https://github.com/tidyverse/dplyr/issues/2457
 ridings_combined &lt;- do.call(rbind,ridings_combined)
 
@@ -354,7 +367,9 @@ anim_save(&quot;spatial_ex_files/ridings.gif&quot;)</code></pre>
 <h2 id="dog-licenses">dog licenses</h2>
 <p>NYC zip codes <a href="https://data.cityofnewyork.us/widgets/i8iw-xf4u">here</a></p>
 <pre><code>zc &lt;- read_sf(&quot;data/nyc_zipcodes&quot;)
-dogs &lt;- (read_csv(&quot;data/NYC_dogs.csv&quot;)
+Sys.setenv(&quot;VROOM_CONNECTION_SIZE&quot; = 2^30)
+dogs &lt;- (data.table::fread(&quot;data/NYC_dogs.csv&quot;)
+  %&gt;% as_tibble()
   %&gt;% rename(zipcode=&quot;Owner Zip Code&quot;,name=&quot;Animal Name&quot;,
              gender=&quot;Animal Gender&quot;,breed_1=&quot;Primary Breed&quot;,
              color=&quot;Animal Dominant Color&quot;)
