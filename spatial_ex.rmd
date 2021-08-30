@@ -250,7 +250,9 @@ NYC zip codes [here](https://data.cityofnewyork.us/widgets/i8iw-xf4u)
 
 ```{r get_dogs,message=FALSE}
 zc <- read_sf("data/nyc_zipcodes")
-dogs <- (read_csv("data/NYC_dogs.csv")
+Sys.setenv("VROOM_CONNECTION_SIZE" = 2^30)
+dogs <- (data.table::fread("data/NYC_dogs.csv")
+  %>% as_tibble()
   %>% rename(zipcode="Owner Zip Code",name="Animal Name",
              gender="Animal Gender",breed_1="Primary Breed",
              color="Animal Dominant Color")
