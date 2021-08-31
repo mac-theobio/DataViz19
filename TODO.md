@@ -1,5 +1,6 @@
 ## resources to add (maybe?)
 
+* https://twitter.com/EmmaVitz/status/1432553056558673926
 * https://github.com/juba/obsplot/ (another option for dynamical plots: R interface to [Observable](https://observablehq.com/@observablehq/plot) JavaScript library
 * https://emilhvitfeldt.github.io/r-color-palettes/discrete.html
 * https://journal.r-project.org/dev/articles/RJ-2021-050/
