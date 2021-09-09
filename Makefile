@@ -152,7 +152,7 @@ temppix.Rout: temps.Rout temppix.R
 Sources += circulation.csv
 circulation.Rout: circulation.csv circulation.R
 
-Sources += ClevelandHierarchyR.png steel_production.png
+## git mv ClevelandHierarchyR.png steel_production.png pix ##
 
 ## Much abused; I keep switching between L1 and L2
 orchard.Rout: orchard.R
